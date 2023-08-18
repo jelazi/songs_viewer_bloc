@@ -1,0 +1,49 @@
+name: default_project
+description: A new Flutter project.
+publish_to: none
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.19.2 <3.0.0"
+
+dependencies:
+  path: any
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  equatable: ^2.0.5
+  f_logs: ^2.0.1
+  flutter_bloc: ^8.1.2
+  path_provider: ^2.0.13
+  uuid: ^3.0.7
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  easy_localization: ^3.0.1
+  build_runner: ^2.3.3
+  json_annotation: ^4.8.0
+  json_serializable: ^6.6.1
+  share_plus: ^6.3.1
+  file_picker: ^5.2.5
+  firedart: ^0.9.0+1
+  firebase_core: ^2.15.0
+  cloud_firestore: ^4.8.4
+  firebase_database: ^10.2.4
+  hive_generator: ^2.0.0
+  collection: ^1.17.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+dependency_overrides:
+  intl: any
+
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/lang/cs.json
+    - assets/lang/en.json
