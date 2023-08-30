@@ -4,8 +4,9 @@ import 'dart:io';
 import 'package:default_project/repositories/settings_repository.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+
 import 'package:path_provider/path_provider.dart' as pathProvider;
 
 import 'package:default_project/repositories/playlist_repository.dart';
@@ -19,58 +20,29 @@ import 'providers/firebase_provider.dart';
 import 'providers/hive_provider.dart';
 import 'services/my_logger.dart';
 import 'view/pages/home_page.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart' as path_provider;
+
+part 'main.part.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   MyLogger();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  FirebaseProvider firebaseProvider = FirebaseProvider();
-  HiveProvider hiveProvider = HiveProvider();
-
-  SettingsRepository settingsRepository = SettingsRepository();
-
-  SongsRepository songsRepository = SongsRepository(
-    firebaseProvider: firebaseProvider,
-    hiveProvider: hiveProvider,
-  );
-  await songsRepository.loadSongsFromFirebase();
-  PlaylistRepository playlistRepository = PlaylistRepository(
-    hiveProvider: hiveProvider,
-    firebaseProvider: firebaseProvider,
-  );
-  UsersRepository usersRepository = UsersRepository(
-    hiveProvider: hiveProvider,
-    firebaseProvider: firebaseProvider,
-  );
+  await initProvidersRepositories();
 
   runApp(EasyLocalization(
     startLocale: const Locale('cs'),
     supportedLocales: const [Locale('cs'), Locale('en')],
     path: 'assets/lang',
     fallbackLocale: const Locale('cs'),
-    child: MyApp(
-      songsRepository: songsRepository,
-      playlistRepository: playlistRepository,
-      usersRepository: usersRepository,
-      settingsRepository: settingsRepository,
-    ),
+    child: const MyApp(),
   ));
 }
 
 class MyApp extends StatelessWidget {
-  final SongsRepository songsRepository;
-  final PlaylistRepository playlistRepository;
-  final UsersRepository usersRepository;
-  final SettingsRepository settingsRepository;
   const MyApp({
     Key? key,
-    required this.songsRepository,
-    required this.playlistRepository,
-    required this.usersRepository,
-    required this.settingsRepository,
   }) : super(key: key);
 
   @override
@@ -88,6 +60,10 @@ class MyApp extends StatelessWidget {
               songsRepository: songsRepository,
             ),
           ),
+          BlocProvider(
+              create: (context) => PreviewChordBloc(
+                    settingsRepository: settingsRepository,
+                  )),
         ],
         child: MaterialApp(
           title: 'Songs viewer',

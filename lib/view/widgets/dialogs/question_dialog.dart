@@ -28,7 +28,7 @@ class QuestionDialog extends StatelessWidget {
       titlePadding: const EdgeInsets.all(0),
       title: Container(
         decoration: const BoxDecoration(
-            color: defaultBackgroundColor,
+            color: AppColor.defaultBackgroundColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(8.0),
               topRight: Radius.circular(8.0),
@@ -42,8 +42,7 @@ class QuestionDialog extends StatelessWidget {
           ),
         ),
       ),
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8.0))),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
       contentPadding: const EdgeInsets.all(5.0),
       content: Container(
         padding: const EdgeInsets.all(8),

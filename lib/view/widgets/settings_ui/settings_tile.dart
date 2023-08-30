@@ -38,7 +38,8 @@ class SettingsTile extends StatefulWidget {
     this.switchValue,
   }) : super(key: key);
 
-  SettingsTile.switched({super.key, 
+  SettingsTile.switched({
+    super.key,
     required this.title,
     required this.onPressed,
     required this.iconData,
@@ -67,12 +68,9 @@ class _SettingsTileState extends State<SettingsTile> {
               color: widget.backgroundColor ?? Colors.white,
               border: Border.all(color: widget.borderColor ?? Colors.grey),
               borderRadius: widget.topRadius
-                  ? const BorderRadius.only(
-                      topLeft: Radius.circular(8), topRight: Radius.circular(8))
+                  ? const BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8))
                   : widget.bottomRadius
-                      ? const BorderRadius.only(
-                          bottomLeft: Radius.circular(8),
-                          bottomRight: Radius.circular(8))
+                      ? const BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8))
                       : BorderRadius.zero),
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.9,
@@ -85,8 +83,7 @@ class _SettingsTileState extends State<SettingsTile> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                          width:
-                              min(MediaQuery.of(context).size.width * 0.1, 20),
+                          width: min(MediaQuery.of(context).size.width * 0.1, 20),
                           child: widget.iconData != null
                               ? Icon(
                                   widget.iconData,
@@ -110,9 +107,7 @@ class _SettingsTileState extends State<SettingsTile> {
                 Container(
                   alignment: Alignment.centerRight,
                   width: MediaQuery.of(context).size.width * 0.3,
-                  child: widget.isSwitch
-                      ? getSwitchValue(context)
-                      : getTextValue(context),
+                  child: widget.isSwitch ? getSwitchValue(context) : getTextValue(context),
                 )
               ],
             ),
@@ -123,7 +118,7 @@ class _SettingsTileState extends State<SettingsTile> {
   Widget getSwitchValue(BuildContext context) {
     return CupertinoSwitch(
       // thumbColor: myBottomTabBackgroundColor,
-      activeColor: defaultBackgroundColor,
+      activeColor: AppColor.defaultBackgroundColor,
       onChanged: (bool value) {
         setState(() {
           //  widget.switchValue = value;

@@ -29,7 +29,7 @@ class EditDialog extends StatelessWidget {
       titlePadding: const EdgeInsets.all(0),
       title: Container(
         decoration: const BoxDecoration(
-            color: defaultBackgroundColor,
+            color: AppColor.defaultBackgroundColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(8.0),
               topRight: Radius.circular(8.0),
@@ -43,8 +43,7 @@ class EditDialog extends StatelessWidget {
           ),
         ),
       ),
-      shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8.0))),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
       contentPadding: const EdgeInsets.all(5.0),
       content: Container(
         padding: const EdgeInsets.all(8),
@@ -63,15 +62,11 @@ class EditDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
-                    style: const ButtonStyle(
-                        backgroundColor:
-                            MaterialStatePropertyAll(defaultBackgroundColor)),
+                    style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColor.defaultBackgroundColor)),
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text(('cancel'.tr()))),
                 ElevatedButton(
-                    style: const ButtonStyle(
-                        backgroundColor:
-                            MaterialStatePropertyAll(defaultBackgroundColor)),
+                    style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColor.defaultBackgroundColor)),
                     onPressed: () {
                       okClick();
                       if (okBack) {
