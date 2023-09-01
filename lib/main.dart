@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:default_project/repositories/settings_repository.dart';
+import 'package:default_project/services/constants.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -68,7 +69,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Songs viewer',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: getMaterialColor(AppColor.primaryColor),
           ),
           debugShowCheckedModeBanner: false,
           supportedLocales: context.supportedLocales,

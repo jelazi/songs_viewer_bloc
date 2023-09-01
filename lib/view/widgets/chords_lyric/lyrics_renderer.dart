@@ -53,19 +53,7 @@ class LyricsRenderer extends StatefulWidget {
 
 class _LyricsRendererState extends State<LyricsRenderer> {
   final ScrollController _scrollControllerHorizontal = ScrollController();
-  List<String> superScripts = [
-    '0',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '#',
-  ];
+  List<String> superScripts = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '#'];
   double _fontScale = 1;
   double _baseFontScale = 1;
 
@@ -110,14 +98,14 @@ class _LyricsRendererState extends State<LyricsRenderer> {
               //    Get.find<ChordLyricsController>().notes[note.index].value = note.noteText;
             }
           }
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (widget.showChord)
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  controller: _scrollControllerHorizontal,
-                  child: Row(
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            controller: _scrollControllerHorizontal,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (widget.showChord)
+                  Row(
                     children: line.chords.map((chord) {
                       if (superScripts.firstWhereOrNull((element) => chord.chordText.contains(element)) != null) {
                         List<String> list = chord.chordText.split('');
@@ -180,65 +168,65 @@ class _LyricsRendererState extends State<LyricsRenderer> {
                       }
                     }).toList(),
                   ),
-                ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                controller: _scrollControllerHorizontal,
-                child: GestureDetector(
-                  onLongPress: () {
-                    FLog.debug(text: 'long press - ${widget.startIndex + index}');
-                    //TODO:
-                    /*    if (Get.find<UserController>().currentUser.value?.typeUser != TypeUser.superuser || !settingsController.editNotes.value) {
-                      return;
-                    }
-
-                    String currentNote = '';
-                    for (Note note in widget.listNotes!) {
-                      if (note.index == index) {
-                        currentNote = note.noteText.value;
-                        break;
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  controller: _scrollControllerHorizontal,
+                  child: GestureDetector(
+                    onLongPress: () {
+                      FLog.debug(text: 'long press - ${widget.startIndex + index}');
+                      //TODO:
+                      /*    if (Get.find<UserController>().currentUser.value?.typeUser != TypeUser.superuser || !settingsController.editNotes.value) {
+                        return;
                       }
-                    }
-                    TextEditingController textEditingController = TextEditingController(text: currentNote);
-
-                    Get.dialog(CustomDialogView(
-                        titleString: 'note'.tr,
-                        contentWidget: TextField(
-                          autofocus: true,
-                          controller: textEditingController,
+          
+                      String currentNote = '';
+                      for (Note note in widget.listNotes!) {
+                        if (note.index == index) {
+                          currentNote = note.noteText.value;
+                          break;
+                        }
+                      }
+                      TextEditingController textEditingController = TextEditingController(text: currentNote);
+          
+                      Get.dialog(CustomDialogView(
+                          titleString: 'note'.tr,
+                          contentWidget: TextField(
+                            autofocus: true,
+                            controller: textEditingController,
+                          ),
+                          actionsWidget: [
+                            ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    Get.find<ChordLyricsController>().addNotes(index + widget.startIndex, textEditingController.text);
+                                  });
+          
+                                  Get.back();
+                                },
+                                child: Text('ok'.tr())),
+                            ElevatedButton(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                child: Text('cancel'.tr())),
+                          ]));*/
+                    },
+                    child: Row(
+                      children: [
+                        RichText(
+                          softWrap: true,
+                          text: TextSpan(
+                            text: line.lyrics,
+                            style: widget.textStyle,
+                          ),
                         ),
-                        actionsWidget: [
-                          ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  Get.find<ChordLyricsController>().addNotes(index + widget.startIndex, textEditingController.text);
-                                });
-
-                                Get.back();
-                              },
-                              child: Text('ok'.tr())),
-                          ElevatedButton(
-                              onPressed: () {
-                                Get.back();
-                              },
-                              child: Text('cancel'.tr())),
-                        ]));*/
-                  },
-                  child: Row(
-                    children: [
-                      RichText(
-                        softWrap: true,
-                        text: TextSpan(
-                          text: line.lyrics,
-                          style: widget.textStyle,
-                        ),
-                      ),
-                      getNote(index),
-                    ],
+                        getNote(index),
+                      ],
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           );
         },
         itemCount: chordLyricsDocument.chordLyricsLines.length,

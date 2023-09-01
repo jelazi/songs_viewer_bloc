@@ -23,14 +23,17 @@ class PreviewChordBloc extends Bloc<PreviewChordEvent, PreviewChordState> {
           scrollSpeed: 20,
           currentColumn: 0,
           maxLines: 20,
+          appBarStatus: true,
         )) {
     on<_Init>(_init);
     on<ChangeCurrentSong>(_changeCurrentSong);
     on<ChangeTextFontSize>(_changeTextFontSize);
     on<ChangeChordFontSize>(_changeChordFontSize);
+    on<ChangeAppBarStatus>(_changeAppBarStatus);
 
     add(const _Init());
   }
+
   void _init(_Init event, Emitter<PreviewChordState> emit) {
     final state = this.state;
     emit(state.copyWith(
@@ -53,5 +56,10 @@ class PreviewChordBloc extends Bloc<PreviewChordEvent, PreviewChordState> {
     final state = this.state;
     settingsRepository.changeSettingsValue('fontChordSize', event.fontSize);
     emit(state.copyWith(textStyle: state.chordStyle.copyWith(fontSize: event.fontSize)));
+  }
+
+  void _changeAppBarStatus(ChangeAppBarStatus event, Emitter<PreviewChordState> emit) {
+    final state = this.state;
+    emit(state.copyWith(appBarStatus: event.status));
   }
 }

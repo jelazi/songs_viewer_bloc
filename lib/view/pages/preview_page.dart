@@ -1,27 +1,63 @@
+import 'package:default_project/services/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/rendering.dart';
 
 import '../../blocs/export_blocs.dart';
 import '../../services/enums.dart';
 import '../widgets/chords_lyric/flutter_chord.dart';
-import '../widgets/chords_lyric/lyrics_renderer.dart';
 
-class PreviewPage extends StatelessWidget {
-  PreviewPage({super.key});
+class PreviewPage extends StatefulWidget {
+  const PreviewPage({super.key});
+
+  @override
+  State<PreviewPage> createState() => _PreviewPageState();
+}
+
+class _PreviewPageState extends State<PreviewPage> {
   ScrollController scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(() {
+      if (scrollController.position.userScrollDirection == ScrollDirection.reverse) {
+        context.read<PreviewChordBloc>().add(const ChangeAppBarStatus(status: false));
+      }
+      if (scrollController.position.userScrollDirection == ScrollDirection.forward) {
+        context.read<PreviewChordBloc>().add(const ChangeAppBarStatus(status: true));
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        body: BlocBuilder<PreviewChordBloc, PreviewChordState>(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(100),
+        child: BlocBuilder<PreviewChordBloc, PreviewChordState>(
           builder: (context, state) {
-            return Container(
-                child: Column(
-              children: [Text(state.data.song?.title ?? ''), Expanded(child: _getLyricsRenderer(state, scrollController))],
-            ));
+            return AnimatedContainer(
+                height: state.appBarStatus ? 90.0 : 0.0,
+                duration: const Duration(milliseconds: 200),
+                child: AppBar(
+                  backgroundColor: AppColor.primaryColor,
+                  title: Column(
+                    children: [
+                      Text(state.data.song?.title ?? '', style: h4TextStyle.copyWith(color: Colors.white)),
+                      Text(state.data.song?.interpret ?? '', style: pTextStyle.copyWith(color: Colors.white))
+                    ],
+                  ),
+                  actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.menu))],
+                ));
           },
-        ));
+        ),
+      ),
+      body: BlocBuilder<PreviewChordBloc, PreviewChordState>(
+        builder: (context, state) {
+          return _getLyricsRenderer(state, scrollController);
+        },
+      ),
+    );
   }
 
   Widget _getLyricsRenderer(PreviewChordState state, ScrollController scrollController) {

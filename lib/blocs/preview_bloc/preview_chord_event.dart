@@ -34,3 +34,11 @@ class ChangeChordFontSize extends PreviewChordEvent {
   @override
   List<Object> get props => [fontSize];
 }
+
+class ChangeAppBarStatus extends PreviewChordEvent {
+  final bool status;
+  const ChangeAppBarStatus({required this.status});
+
+  @override
+  List<Object> get props => [status];
+}

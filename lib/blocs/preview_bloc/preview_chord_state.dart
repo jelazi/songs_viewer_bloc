@@ -10,7 +10,9 @@ class PreviewChordState extends Equatable {
   final int scrollSpeed;
   final int currentColumn;
   final int maxLines;
+  final bool appBarStatus;
   const PreviewChordState({
+    required this.appBarStatus,
     required this.data,
     required this.textStyle,
     required this.chordStyle,
@@ -22,7 +24,17 @@ class PreviewChordState extends Equatable {
   });
 
   @override
-  List<Object> get props => [data];
+  List<Object> get props => [
+        data,
+        appBarStatus,
+        textStyle,
+        chordStyle,
+        twoColumns,
+        transposeIncrement,
+        scrollSpeed,
+        currentColumn,
+        maxLines,
+      ];
 
   PreviewChordState copyWith({
     CurrentData? data,
@@ -33,6 +45,7 @@ class PreviewChordState extends Equatable {
     int? scrollSpeed,
     int? currentColumn,
     int? maxLines,
+    bool? appBarStatus,
   }) {
     return PreviewChordState(
       data: data ?? this.data,
@@ -43,6 +56,7 @@ class PreviewChordState extends Equatable {
       scrollSpeed: scrollSpeed ?? this.scrollSpeed,
       currentColumn: currentColumn ?? this.currentColumn,
       maxLines: maxLines ?? this.maxLines,
+      appBarStatus: appBarStatus ?? this.appBarStatus,
     );
   }
 
@@ -116,5 +130,6 @@ class PreviewChordInitial extends PreviewChordState {
       required super.transposeIncrement,
       required super.scrollSpeed,
       required super.currentColumn,
-      required super.maxLines});
+      required super.maxLines,
+      required super.appBarStatus});
 }
