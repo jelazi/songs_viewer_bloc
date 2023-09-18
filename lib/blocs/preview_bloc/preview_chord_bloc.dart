@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -24,13 +25,16 @@ class PreviewChordBloc extends Bloc<PreviewChordEvent, PreviewChordState> {
           currentColumn: 0,
           maxLines: 20,
           appBarStatus: true,
+          visibleButtons: false,
         )) {
     on<_Init>(_init);
     on<ChangeCurrentSong>(_changeCurrentSong);
     on<ChangeTextFontSize>(_changeTextFontSize);
     on<ChangeChordFontSize>(_changeChordFontSize);
+    on<ChangeFontSize>(_changeFontSize);
     on<ChangeAppBarStatus>(_changeAppBarStatus);
-
+    on<ChangeVisibleButtons>(_changeVisibleButtons);
+    on<TransposeChord>(_transposeChord);
     add(const _Init());
   }
 
@@ -61,5 +65,31 @@ class PreviewChordBloc extends Bloc<PreviewChordEvent, PreviewChordState> {
   void _changeAppBarStatus(ChangeAppBarStatus event, Emitter<PreviewChordState> emit) {
     final state = this.state;
     emit(state.copyWith(appBarStatus: event.status));
+  }
+
+  void _changeVisibleButtons(ChangeVisibleButtons event, Emitter<PreviewChordState> emit) {
+    final state = this.state;
+    emit(state.copyWith(visibleButtons: event.status));
+  }
+
+  void _changeFontSize(ChangeFontSize event, Emitter<PreviewChordState> emit) {
+    final state = this.state;
+    double fontSize = state.textStyle.fontSize!;
+    double chordSize = state.chordStyle.fontSize!;
+    if (event.isIncrease) {
+      fontSize++;
+      chordSize++;
+    } else {
+      fontSize--;
+      chordSize--;
+    }
+    settingsRepository.changeSettingsValue('fontTextSize', fontSize);
+    emit(state.copyWith(textStyle: state.textStyle.copyWith(fontSize: fontSize), chordStyle: state.chordStyle.copyWith(fontSize: chordSize)));
+  }
+
+  void _transposeChord(TransposeChord event, Emitter<PreviewChordState> emit) {
+    final state = this.state;
+    final newIncrement = state.transposeIncrement + event.increment;
+    emit(state.copyWith(transposeIncrement: newIncrement));
   }
 }

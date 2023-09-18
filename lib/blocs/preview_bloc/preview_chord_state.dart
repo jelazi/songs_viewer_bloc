@@ -11,8 +11,8 @@ class PreviewChordState extends Equatable {
   final int currentColumn;
   final int maxLines;
   final bool appBarStatus;
+  final bool visibleButtons;
   const PreviewChordState({
-    required this.appBarStatus,
     required this.data,
     required this.textStyle,
     required this.chordStyle,
@@ -21,6 +21,8 @@ class PreviewChordState extends Equatable {
     required this.scrollSpeed,
     required this.currentColumn,
     required this.maxLines,
+    required this.appBarStatus,
+    required this.visibleButtons,
   });
 
   @override
@@ -34,6 +36,8 @@ class PreviewChordState extends Equatable {
         scrollSpeed,
         currentColumn,
         maxLines,
+        appBarStatus,
+        visibleButtons,
       ];
 
   PreviewChordState copyWith({
@@ -46,6 +50,7 @@ class PreviewChordState extends Equatable {
     int? currentColumn,
     int? maxLines,
     bool? appBarStatus,
+    bool? visibleButtons,
   }) {
     return PreviewChordState(
       data: data ?? this.data,
@@ -57,6 +62,7 @@ class PreviewChordState extends Equatable {
       currentColumn: currentColumn ?? this.currentColumn,
       maxLines: maxLines ?? this.maxLines,
       appBarStatus: appBarStatus ?? this.appBarStatus,
+      visibleButtons: visibleButtons ?? this.visibleButtons,
     );
   }
 
@@ -131,5 +137,6 @@ class PreviewChordInitial extends PreviewChordState {
       required super.scrollSpeed,
       required super.currentColumn,
       required super.maxLines,
-      required super.appBarStatus});
+      required super.appBarStatus,
+      required super.visibleButtons});
 }

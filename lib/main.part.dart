@@ -18,6 +18,7 @@ Future<void> initProvidersRepositories() async {
 
   FirebaseProvider firebaseProvider = FirebaseProvider();
   HiveProvider hiveProvider = HiveProvider();
+  await hiveProvider.initHiveBox();
 
   settingsRepository = SettingsRepository(
     hiveProvider: hiveProvider,

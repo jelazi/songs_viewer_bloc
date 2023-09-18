@@ -35,10 +35,34 @@ class ChangeChordFontSize extends PreviewChordEvent {
   List<Object> get props => [fontSize];
 }
 
+class ChangeFontSize extends PreviewChordEvent {
+  final bool isIncrease;
+  const ChangeFontSize({required this.isIncrease});
+
+  @override
+  List<Object> get props => [isIncrease];
+}
+
 class ChangeAppBarStatus extends PreviewChordEvent {
   final bool status;
   const ChangeAppBarStatus({required this.status});
 
   @override
   List<Object> get props => [status];
+}
+
+class ChangeVisibleButtons extends PreviewChordEvent {
+  final bool status;
+  const ChangeVisibleButtons({required this.status});
+
+  @override
+  List<Object> get props => [status];
+}
+
+class TransposeChord extends PreviewChordEvent {
+  final int increment;
+  const TransposeChord({required this.increment});
+
+  @override
+  List<Object> get props => [increment];
 }

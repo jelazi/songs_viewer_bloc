@@ -30,6 +30,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   MyLogger();
+  await initHiveFunction();
   await initProvidersRepositories();
 
   runApp(EasyLocalization(
@@ -94,5 +95,7 @@ class MyApp extends StatelessWidget {
 Future<void> initHiveFunction() async {
   Directory directory = await pathProvider.getApplicationDocumentsDirectory();
   Hive.init(directory.path);
+  //Hive.initFlutter(directory.path);
   Hive.registerAdapter(UserAdapter());
+  Hive.registerAdapter(TypeUserAdapter());
 }

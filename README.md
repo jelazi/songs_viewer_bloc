@@ -11,7 +11,7 @@ The application is intended for iOS, Android, MacOS and the web.
 2. Run: 
 ```bash
 flutter pub get
-dart dart run build_runner build --delete-conflicting-outputs
+dart run build_runner build --delete-conflicting-outputs
 ```
 
 3. App needs firebase database
