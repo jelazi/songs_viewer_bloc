@@ -181,5 +181,7 @@
     "wrongIdSong": "Vyber nějakou píseň pro společné přehrávání",
     "timeBeforeScrolling": "Čas před startem skrolování textu",
     "selectTimeBeforeScrolling": "Vyber čas před startem",
+    "filterSong": "Filter song",
+    "songsViewer": "Songs Viewer",
     "timeSong": "Délka písně"
 }

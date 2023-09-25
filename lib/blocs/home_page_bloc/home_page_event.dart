@@ -13,3 +13,14 @@ class _Init extends HomePageEvent {
   @override
   List<Object> get props => [];
 }
+
+class FilterSong extends HomePageEvent {
+  final String filter;
+
+  const FilterSong({
+    required this.filter,
+  });
+
+  @override
+  List<Object> get props => [filter];
+}

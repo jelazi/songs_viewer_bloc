@@ -8,6 +8,7 @@ import '../../../model/note.dart';
 import '../../../services/enums.dart';
 import './flutter_chord.dart';
 
+// ignore: must_be_immutable
 class LyricsRenderer extends StatefulWidget {
   final String lyrics;
   var listNotes = [];
@@ -116,6 +117,7 @@ class _LyricsRendererState extends State<LyricsRenderer> {
                               width: chord.leadingSpace,
                             ),
                             GestureDetector(
+                              behavior: HitTestBehavior.opaque,
                               onTapDown: (TapDownDetails details) {
                                 Offset pos = details.globalPosition;
                                 widget.onTapChord(chord, pos);
@@ -151,6 +153,7 @@ class _LyricsRendererState extends State<LyricsRenderer> {
                               width: chord.leadingSpace,
                             ),
                             GestureDetector(
+                              behavior: HitTestBehavior.opaque,
                               onTapDown: (TapDownDetails details) {
                                 Offset pos = details.globalPosition;
                                 widget.onTapChord(chord, pos);

@@ -66,6 +66,7 @@ class MyApp extends StatelessWidget {
               create: (context) => PreviewChordBloc(
                     settingsRepository: settingsRepository,
                   )),
+          BlocProvider(create: ((context) => SettingsBloc(settingsRepository: settingsRepository))),
         ],
         child: MaterialApp(
           title: 'Songs viewer',

@@ -24,6 +24,8 @@ Future<void> initProvidersRepositories() async {
     hiveProvider: hiveProvider,
   );
 
+  await settingsRepository.loadLocalSettings();
+
   songsRepository = SongsRepository(
     firebaseProvider: firebaseProvider,
     hiveProvider: hiveProvider,

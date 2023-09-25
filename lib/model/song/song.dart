@@ -4,8 +4,8 @@ import 'package:default_project/services/enums.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../note.dart';
-
-
+import 'song_item.dart';
+import 'song_line.dart';
 
 part 'song.g.dart';
 
@@ -82,4 +82,43 @@ class Song {
 
   factory Song.fromJson(Map<String, dynamic> json) => _$SongFromJson(json);
   Map<String, dynamic> toJson() => _$SongToJson(this);
+
+  List<SongLine> listLyrics(bool chords, bool notes, TypeLyric typeLyric) {
+    List<SongLine> listLyrics = [];
+    List<String> listLines = lyrics.split(('\n'));
+    switch (typeLyric) {
+      case TypeLyric.undefined:
+        listLines = lyrics.split(('\n'));
+        listLines += (originalLyrics ?? '').split(('\n'));
+        break;
+      case TypeLyric.original:
+        listLines = (originalLyrics ?? '').split(('\n'));
+        break;
+      case TypeLyric.translate:
+        listLines = lyrics.split(('\n'));
+        break;
+    }
+
+    int index = 0;
+    for (var i = 0; i < listLines.length; i++) {
+      SongLine line = SongLine(i);
+
+      index = line.createItemsFromString(listLines[i], index, chords, notes);
+
+      listLyrics.add(line);
+    }
+    return listLyrics;
+  }
+
+  String get lyricsWithoutChords {
+    String lyrics = '';
+    for (SongLine line in listLyrics(false, true, TypeLyric.translate)) {
+      for (SongItem item in line.listItem) {
+        if (item.type == TypeSongItem.lyric) {
+          lyrics += item.text;
+        }
+      }
+    }
+    return lyrics;
+  }
 }

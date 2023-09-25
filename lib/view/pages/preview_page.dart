@@ -1,10 +1,14 @@
+import 'dart:math';
+
 import 'package:default_project/services/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import '../../blocs/export_blocs.dart';
+import '../../model/chord/chords_positions.dart';
 import '../../services/enums.dart';
 import '../widgets/chords_lyric/flutter_chord.dart';
+import '../widgets/chords_lyric/guitar_tabs.dart';
 import '../widgets/my_floating_button.dart';
 
 class PreviewPage extends StatefulWidget {
@@ -16,6 +20,7 @@ class PreviewPage extends StatefulWidget {
 
 class _PreviewPageState extends State<PreviewPage> {
   ScrollController scrollController = ScrollController();
+  OverlayEntry? overlayChord;
 
   @override
   void initState() {
@@ -28,6 +33,14 @@ class _PreviewPageState extends State<PreviewPage> {
         context.read<PreviewChordBloc>().add(const ChangeAppBarStatus(status: true));
       }
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    scrollController.dispose();
+    disableAllOverlay();
   }
 
   @override
@@ -68,72 +81,77 @@ class _PreviewPageState extends State<PreviewPage> {
       ),
       body: BlocBuilder<PreviewChordBloc, PreviewChordState>(
         builder: (context, state) {
-          return Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 4.0),
-                child: _getLyricsRenderer(state, scrollController),
-              ),
-              Positioned(
-                top: 10,
-                right: 10,
-                child: AnimatedOpacity(
-                    opacity: state.visibleButtons && state.appBarStatus ? 1.0 : 0.0,
-                    duration: const Duration(milliseconds: 500),
-                    child: Column(
-                      children: [
-                        MyFloatingButton(
-                            enabled: state.textStyle.fontSize! < 40,
-                            onPressed: () {
-                              context.read<PreviewChordBloc>().add(const ChangeFontSize(isIncrease: true));
-                            },
-                            icon: const Icon(Icons.zoom_in)),
-                        MyFloatingButton(
-                            enabled: state.textStyle.fontSize! > 10,
-                            onPressed: () {
-                              context.read<PreviewChordBloc>().add(const ChangeFontSize(isIncrease: false));
-                            },
-                            icon: const Icon(Icons.zoom_out)),
-                        MyFloatingButton(
-                            onPressed: () {
-                              context.read<PreviewChordBloc>().add(const TransposeChord(increment: 1));
-                            },
-                            icon: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.add,
-                                  size: 18,
-                                ),
-                                Icon(
-                                  Icons.music_note,
-                                  size: 18,
-                                ),
-                              ],
-                            ),
-                            enabled: true),
-                        MyFloatingButton(
-                            onPressed: () {
-                              context.read<PreviewChordBloc>().add(const TransposeChord(increment: -1));
-                            },
-                            icon: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.remove,
-                                  size: 18,
-                                ),
-                                Icon(
-                                  Icons.music_note,
-                                  size: 18,
-                                ),
-                              ],
-                            ),
-                            enabled: true)
-                      ],
-                    )),
-              )
-            ],
+          return GestureDetector(
+            onTap: () {
+              disableAllOverlay();
+            },
+            child: Stack(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 4.0),
+                  child: _getLyricsRenderer(state, scrollController),
+                ),
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: AnimatedOpacity(
+                      opacity: state.visibleButtons && state.appBarStatus ? 1.0 : 0.0,
+                      duration: const Duration(milliseconds: 500),
+                      child: Column(
+                        children: [
+                          MyFloatingButton(
+                              enabled: state.textStyle.fontSize! < 40,
+                              onPressed: () {
+                                context.read<PreviewChordBloc>().add(const ChangeFontSize(isIncrease: true));
+                              },
+                              icon: const Icon(Icons.zoom_in)),
+                          MyFloatingButton(
+                              enabled: state.textStyle.fontSize! > 10,
+                              onPressed: () {
+                                context.read<PreviewChordBloc>().add(const ChangeFontSize(isIncrease: false));
+                              },
+                              icon: const Icon(Icons.zoom_out)),
+                          MyFloatingButton(
+                              onPressed: () {
+                                context.read<PreviewChordBloc>().add(const TransposeChord(increment: 1));
+                              },
+                              icon: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.add,
+                                    size: 18,
+                                  ),
+                                  Icon(
+                                    Icons.music_note,
+                                    size: 18,
+                                  ),
+                                ],
+                              ),
+                              enabled: true),
+                          MyFloatingButton(
+                              onPressed: () {
+                                context.read<PreviewChordBloc>().add(const TransposeChord(increment: -1));
+                              },
+                              icon: const Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.remove,
+                                    size: 18,
+                                  ),
+                                  Icon(
+                                    Icons.music_note,
+                                    size: 18,
+                                  ),
+                                ],
+                              ),
+                              enabled: true)
+                        ],
+                      )),
+                )
+              ],
+            ),
           );
         },
       ),
@@ -155,7 +173,7 @@ class _PreviewPageState extends State<PreviewPage> {
           textStyle: state.textStyle,
           chordStyle: state.chordStyle,
           onTapChord: (Chord chord, Offset pos) {
-            //TODO:  controller.openChordImage(chord, pos);
+            openChordImage(chord, pos, context);
           },
           transposeIncrement: state.transposeIncrement,
           scrollSpeed: state.scrollSpeed,
@@ -190,7 +208,7 @@ class _PreviewPageState extends State<PreviewPage> {
               textStyle: state.textStyle,
               chordStyle: state.chordStyle,
               onTapChord: (Chord chord, Offset pos) {
-                //TODO:    controller.openChordImage(chord, pos);
+                openChordImage(chord, pos, context);
               },
               transposeIncrement: state.transposeIncrement,
               scrollSpeed: state.scrollSpeed,
@@ -211,7 +229,7 @@ class _PreviewPageState extends State<PreviewPage> {
                     textStyle: state.textStyle,
                     chordStyle: state.chordStyle,
                     onTapChord: (Chord chord, Offset pos) {
-                      //TODO:   controller.openChordImage(chord, pos);
+                      openChordImage(chord, pos, context);
                     },
                     transposeIncrement: state.transposeIncrement,
                     scrollSpeed: state.scrollSpeed,
@@ -231,12 +249,52 @@ class _PreviewPageState extends State<PreviewPage> {
         textStyle: state.textStyle,
         chordStyle: state.chordStyle,
         onTapChord: (Chord chord, Offset pos) {
-          //TODO:   controller.openChordImage(chord, pos);
+          openChordImage(chord, pos, context);
         },
         transposeIncrement: state.transposeIncrement,
         scrollSpeed: state.scrollSpeed,
         baseFontSize: state.textStyle.fontSize ?? 20,
       );
     }
+  }
+
+  void openChordImage(Chord chord, Offset pos, BuildContext context) {
+    if (overlayChord != null) {
+      overlayChord!.remove();
+      overlayChord = null;
+    }
+    if (ChordsPositions.getPositionsChordsByName(chord.chordText).isEmpty) {
+      return;
+    }
+
+    OverlayState? overlayState = Overlay.of(context);
+
+    overlayChord = OverlayEntry(
+      builder: (context) => Positioned(
+        top: max(pos.dy - 130, 0),
+        left: max(pos.dx - 60, 0),
+        child: TabWidget(
+          name: chord.chordText,
+          tabs: ChordsPositions.getPositionsChordsByName(chord.chordText),
+          size: 3,
+        ),
+      ),
+    );
+    overlayState.insert(overlayChord!);
+  }
+
+  void disableAllOverlay() {
+    if (overlayChord != null) {
+      overlayChord!.remove();
+      overlayChord = null;
+    }
+    /*
+    if (listVisibleNotes.isNotEmpty) {
+      for (NoteOverlayEntry noteOverlayEntry in listVisibleNotes) {
+        noteOverlayEntry.overlayEntry.remove();
+      }
+    }
+    listVisibleNotes.clear();
+    return true;*/
   }
 }

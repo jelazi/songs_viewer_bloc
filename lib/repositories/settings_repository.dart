@@ -30,6 +30,13 @@ class SettingsRepository {
     return _colorChord;
   }
 
+  Future<void> loadLocalSettings() async {
+    _fontTextSize = await hiveProvider.getSettingsValue('fontTextSize') ?? 20;
+    _fontChordSize = await hiveProvider.getSettingsValue('fontChordSize') ?? 20;
+    _colorText = await hiveProvider.getSettingsValue('colorText') ?? Colors.black;
+    _colorChord = await hiveProvider.getSettingsValue('colorChord') ?? Colors.red;
+  }
+
   void changeSettingsValue(String typeValue, dynamic value) {
     switch (typeValue) {
       case 'fontTextSize':

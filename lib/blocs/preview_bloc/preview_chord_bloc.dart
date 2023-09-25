@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -84,6 +84,7 @@ class PreviewChordBloc extends Bloc<PreviewChordEvent, PreviewChordState> {
       chordSize--;
     }
     settingsRepository.changeSettingsValue('fontTextSize', fontSize);
+    settingsRepository.changeSettingsValue('fontChordSize', chordSize);
     emit(state.copyWith(textStyle: state.textStyle.copyWith(fontSize: fontSize), chordStyle: state.chordStyle.copyWith(fontSize: chordSize)));
   }
 

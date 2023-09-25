@@ -3,17 +3,17 @@ part of 'home_page_bloc.dart';
 
 class HomePageState extends Equatable {
   final HomePageProperties homePageProperties;
+
   const HomePageState({
     required this.homePageProperties,
   });
 
   @override
-  List<Object> get props => [
-        homePageProperties,
-      ];
+  List<Object> get props => [homePageProperties];
 
   HomePageState copyWith({
     HomePageProperties? homePageProperties,
+    bool? abbBarIsExpanded,
   }) {
     return HomePageState(
       homePageProperties: homePageProperties ?? this.homePageProperties,
@@ -22,7 +22,9 @@ class HomePageState extends Equatable {
 }
 
 class HomePageInitial extends HomePageState {
-  const HomePageInitial({required super.homePageProperties});
+  const HomePageInitial({
+    required super.homePageProperties,
+  });
 }
 
 class HomePageProperties {
