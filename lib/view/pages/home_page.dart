@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                 centerTitle: false,
                 title: Align(alignment: Alignment.centerRight, child: Text('songsViewer'.tr())),
                 bottom: PreferredSize(
-                  preferredSize: Size.fromHeight(50),
+                  preferredSize: const Size.fromHeight(50),
                   child: Column(
                     children: [
                       Container(
@@ -107,7 +107,14 @@ class _HomePageState extends State<HomePage> {
             })),
             SliverList(
               delegate: SliverChildListDelegate(
-                state.homePageProperties.listSong.map((song) => SongCard(song: song)).toList(),
+                state.homePageProperties.listSong
+                    .map((song) => SongCard(
+                          song: song,
+                          index: state.homePageProperties.listSong.indexOf(song),
+                          isSelectedSong: state.homePageProperties.selectedSongId == song.id,
+                          isEditIconVisible: state.homePageProperties.isEditIconVisible,
+                        ))
+                    .toList(),
               ),
             )
           ]),

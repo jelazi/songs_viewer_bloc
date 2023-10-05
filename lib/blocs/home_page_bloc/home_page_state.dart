@@ -13,7 +13,6 @@ class HomePageState extends Equatable {
 
   HomePageState copyWith({
     HomePageProperties? homePageProperties,
-    bool? abbBarIsExpanded,
   }) {
     return HomePageState(
       homePageProperties: homePageProperties ?? this.homePageProperties,
@@ -28,16 +27,21 @@ class HomePageInitial extends HomePageState {
 }
 
 class HomePageProperties {
+  final String? selectedSongId;
   List<Song> listSong;
-  HomePageProperties({
-    required this.listSong,
-  });
+  final bool isEditIconVisible;
+
+  HomePageProperties({this.selectedSongId, required this.listSong, required this.isEditIconVisible});
 
   HomePageProperties copyWith({
+    String? selectedSongId,
     List<Song>? listSong,
+    bool? isEditIconVisible,
   }) {
     return HomePageProperties(
+      selectedSongId: selectedSongId ?? this.selectedSongId,
       listSong: listSong ?? this.listSong,
+      isEditIconVisible: isEditIconVisible ?? this.isEditIconVisible,
     );
   }
 }

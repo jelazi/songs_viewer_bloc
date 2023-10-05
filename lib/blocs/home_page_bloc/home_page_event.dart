@@ -24,3 +24,32 @@ class FilterSong extends HomePageEvent {
   @override
   List<Object> get props => [filter];
 }
+
+class ChangeSelectedSong extends HomePageEvent {
+  final String selectedSongId;
+
+  const ChangeSelectedSong({
+    required this.selectedSongId,
+  });
+
+  @override
+  List<Object> get props => [selectedSongId];
+}
+
+class SelectSong extends HomePageEvent {
+  final String selectedSongId;
+
+  const SelectSong({
+    required this.selectedSongId,
+  });
+
+  @override
+  List<Object> get props => [selectedSongId];
+}
+
+class UpdateSettingsData extends HomePageEvent {
+  const UpdateSettingsData();
+
+  @override
+  List<Object> get props => [];
+}

@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
+
 import '../model/song/song.dart';
 import '../providers/firebase_provider.dart';
 import '../providers/hive_provider.dart';
@@ -8,7 +10,11 @@ class SongsRepository {
   final HiveProvider _hiveProvider;
   final FirebaseProvider _firebaseProvider;
 
+  final selectSongController = StreamController<String>.broadcast();
+  Stream<String> get selectSongData => selectSongController.stream.asBroadcastStream();
+
   final _songs = <Song>[];
+  String selectedSongId = '';
 
   List<Song> get songs {
     return _songs;
@@ -18,7 +24,19 @@ class SongsRepository {
     required HiveProvider hiveProvider,
     required FirebaseProvider firebaseProvider,
   })  : _hiveProvider = hiveProvider,
-        _firebaseProvider = firebaseProvider;
+        _firebaseProvider = firebaseProvider {
+    _init();
+  }
+
+  void _init() {
+    _firebaseProvider.selectedSong.onValue.listen((event) {
+      final data = event.snapshot.value;
+      if (data != null && data is Map && data['song'] != null) {
+        selectSongController.sink.add(data['song']);
+        selectedSongId = data['song'];
+      }
+    });
+  }
 
   Future<void> loadSongsFromFirebase() async {
     final newSongs = await _firebaseProvider.getListSongsFromFirestore();
@@ -29,6 +47,16 @@ class SongsRepository {
         //TODO: update song from firebase;
       }
     }
+  }
+
+  void selectSong(String songId) {
+    if (selectedSongId == songId) {
+      selectedSongId = '';
+      _firebaseProvider.removeSelectedSong();
+      return;
+    }
+    selectedSongId = songId;
+    _firebaseProvider.saveNewSelectedSong(songId);
   }
 
   List<Song> getSongByFilter(String filterSong) {

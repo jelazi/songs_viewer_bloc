@@ -60,6 +60,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => HomePageBloc(
               songsRepository: songsRepository,
+              settingsRepository: settingsRepository,
             ),
           ),
           BlocProvider(

@@ -10,6 +10,8 @@ class SettingsRepository {
   double _fontChordSize = 20;
   Color _colorText = Colors.black;
   Color _colorChord = Colors.red;
+  bool _isEditIconVisible = true;
+
   SettingsRepository({
     required this.hiveProvider,
   });
@@ -30,11 +32,16 @@ class SettingsRepository {
     return _colorChord;
   }
 
+  bool get isEditIconVisible {
+    return _isEditIconVisible;
+  }
+
   Future<void> loadLocalSettings() async {
     _fontTextSize = await hiveProvider.getSettingsValue('fontTextSize') ?? 20;
     _fontChordSize = await hiveProvider.getSettingsValue('fontChordSize') ?? 20;
     _colorText = await hiveProvider.getSettingsValue('colorText') ?? Colors.black;
     _colorChord = await hiveProvider.getSettingsValue('colorChord') ?? Colors.red;
+    _isEditIconVisible = await hiveProvider.getSettingsValue('isEditIconVisible') ?? true;
   }
 
   void changeSettingsValue(String typeValue, dynamic value) {
@@ -62,6 +69,12 @@ class SettingsRepository {
         {
           _colorChord = value;
           hiveProvider.setSettingsValue('colorChord', value);
+          break;
+        }
+      case 'isEditIconVisible':
+        {
+          _isEditIconVisible = value;
+          hiveProvider.setSettingsValue('isEditIconVisible', value);
           break;
         }
     }

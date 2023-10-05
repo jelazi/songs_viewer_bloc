@@ -12,7 +12,7 @@ class FirebaseProvider {
   CollectionReference<Map<String, dynamic>> playlistCollection = FirebaseFirestore.instance.collection('playlists');
   CollectionReference<Map<String, dynamic>> groupCollection = FirebaseFirestore.instance.collection('groups');
   FirebaseFirestore inst = FirebaseFirestore.instance;
-  final DatabaseReference _currentSong = FirebaseDatabase.instance.ref().child('currentSong');
+  final DatabaseReference selectedSong = FirebaseDatabase.instance.ref().child('currentSong');
 
   FirebaseProvider() {
     inst.settings = const Settings(
@@ -23,7 +23,7 @@ class FirebaseProvider {
     userCollection = inst.collection('users');
     playlistCollection = inst.collection('playlists');
     groupCollection = inst.collection('groups');
-    _currentSong.onValue.listen((DatabaseEvent event) {
+    selectedSong.onValue.listen((DatabaseEvent event) {
       final data = event.snapshot.value;
       if (data != null && data is Map) {
         //TODO: listener for current song on database
@@ -44,8 +44,12 @@ class FirebaseProvider {
     }
   }
 
-  void saveNewCurrentSong(String id) {
-    _currentSong.update({'song': id});
+  void saveNewSelectedSong(String id) {
+    selectedSong.update({'song': id});
+  }
+
+  void removeSelectedSong() {
+    selectedSong.update({'song': ''});
   }
 
   void updateUser(User user) async {
