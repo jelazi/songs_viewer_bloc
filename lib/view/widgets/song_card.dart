@@ -1,4 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:default_project/view/pages/edit_page.dart';
+import 'package:default_project/view/pages/presentation_page.dart';
+import 'package:default_project/view/pages/sheet_view_page.dart';
+import 'package:default_project/view/pages/youtube_video_page.dart';
 import 'package:f_logs/f_logs.dart';
 import 'package:flutter/material.dart';
 
@@ -82,7 +86,7 @@ class _SongCardState extends State<SongCard> {
                               context.read<PreviewChordBloc>().add(ChangeCurrentSong(song: widget.song));
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => PreviewPage()),
+                                MaterialPageRoute(builder: (context) => const PreviewPage()),
                               );
                             }),
                         IconButton(
@@ -90,13 +94,26 @@ class _SongCardState extends State<SongCard> {
                               MdiIcons.presentation,
                               color: AppColor.primaryDarkestColor,
                             ),
-                            onPressed: () {}),
+                            onPressed: () {
+                              FLog.debug(text: 'openPresentation');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const PresentationPage()),
+                              );
+                            }),
                         IconButton(
                             icon: Icon(
                               MdiIcons.imageFrame,
                               color: AppColor.primaryColor,
                             ),
-                            onPressed: () {}),
+                            onPressed: () {
+                              FLog.debug(text: 'openSheets');
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const SheetViewPage()),
+                              );
+                            }),
                         Visibility(
                           visible: widget.song.youtubeVideos != null,
                           child: IconButton(
@@ -104,14 +121,26 @@ class _SongCardState extends State<SongCard> {
                                 MdiIcons.videoOutline,
                                 color: AppColor.primaryLightColor,
                               ),
-                              onPressed: () {}),
+                              onPressed: () {
+                                FLog.debug(text: 'openYoutube');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const YoutubeVideoPage()),
+                                );
+                              }),
                         ),
                         IconButton(
                             icon: Icon(
                               MdiIcons.pencil,
                               color: AppColor.primaryLightestColor,
                             ),
-                            onPressed: () {}),
+                            onPressed: () {
+                              FLog.debug(text: 'editSong');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => const EditPage()),
+                              );
+                            }),
                       ],
                     ),
                     IconButton(
