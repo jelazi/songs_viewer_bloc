@@ -136,9 +136,10 @@ class _SongCardState extends State<SongCard> {
                             ),
                             onPressed: () {
                               FLog.debug(text: 'editSong');
+                              context.read<EditSongBloc>().add(ChangeEditSong(song: widget.song));
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const EditPage()),
+                                MaterialPageRoute(builder: (context) => EditPage()),
                               );
                             }),
                       ],

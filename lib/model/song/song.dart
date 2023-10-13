@@ -46,6 +46,22 @@ class Song {
     this.youtubeVideos,
   });
 
+  Song.empty()
+      : id = '',
+        title = '',
+        lyrics = '',
+        originalLyrics = '',
+        indexSongBook = 0,
+        interpret = '',
+        typeTranspose = TypeTranspose.czech,
+        songBar = 0,
+        bmp = 0,
+        sheets = [],
+        groups = [],
+        tags = [],
+        notes = [],
+        youtubeVideos = [];
+
   Song copyWith({
     String? id,
     String? title,
@@ -120,5 +136,49 @@ class Song {
       }
     }
     return lyrics;
+  }
+
+  List<String> checkModifiedSong(Song otherSong) {
+    List<String> listModified = [];
+    if (title != otherSong.title) {
+      listModified.add('title');
+    }
+    if (lyrics != otherSong.lyrics) {
+      listModified.add('lyrics');
+    }
+    if (originalLyrics != otherSong.originalLyrics) {
+      listModified.add('originalLyrics');
+    }
+    if (indexSongBook != otherSong.indexSongBook) {
+      listModified.add('indexSongBook');
+    }
+    if (interpret != otherSong.interpret) {
+      listModified.add('interpret');
+    }
+    if (typeTranspose != otherSong.typeTranspose) {
+      listModified.add('typeTranspose');
+    }
+    if (songBar != otherSong.songBar) {
+      listModified.add('songBar');
+    }
+    if (bmp != otherSong.bmp) {
+      listModified.add('bmp');
+    }
+    if (sheets != otherSong.sheets) {
+      listModified.add('sheets');
+    }
+    if (groups != otherSong.groups) {
+      listModified.add('groups');
+    }
+    if (tags != otherSong.tags) {
+      listModified.add('tags');
+    }
+    if (notes != otherSong.notes) {
+      listModified.add('notes');
+    }
+    if (youtubeVideos != otherSong.youtubeVideos) {
+      listModified.add('youtubeVideos');
+    }
+    return listModified;
   }
 }

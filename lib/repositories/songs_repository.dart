@@ -70,6 +70,10 @@ class SongsRepository {
     return listSong;
   }
 
+  Song? getSongById(String id) {
+    return _songs.firstWhereOrNull((val) => val.id == id);
+  }
+
   bool containsString(String filter, Song song) {
     String stringToLoverCase = removeDiacriticsAndWhitespace(filter.toLowerCase());
     String titleToLoverCase = removeDiacriticsAndWhitespace(song.title.toLowerCase());

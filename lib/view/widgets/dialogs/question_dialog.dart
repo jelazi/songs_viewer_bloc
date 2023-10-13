@@ -8,6 +8,7 @@ class QuestionDialog extends StatelessWidget {
   String title;
 
   Function okClick;
+  Function? cancelClick;
   String question;
   double height = 200;
   double width = 400;
@@ -16,6 +17,7 @@ class QuestionDialog extends StatelessWidget {
     Key? key,
     required this.title,
     required this.okClick,
+    this.cancelClick,
     required this.question,
     this.height = 200,
     this.width = 400,
@@ -61,7 +63,7 @@ class QuestionDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 ElevatedButton(
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: cancelClick != null ? () => cancelClick!() : () => Navigator.of(context).pop(),
                     child: Text(
                       ('no').tr(),
                     )),
