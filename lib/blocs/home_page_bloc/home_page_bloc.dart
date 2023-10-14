@@ -21,6 +21,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
           homePageProperties: HomePageProperties(
             listSong: [],
             isEditIconVisible: true,
+            listExpandedSongs: [],
           ),
         )) {
     on<_Init>(_init);
@@ -28,6 +29,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
     on<ChangeSelectedSong>(_changeSelectedSong);
     on<SelectSong>(_selectSong);
     on<UpdateSettingsData>(_updateSettingsData);
+    on<ChangeExpandedCard>(_changeExpandedCard);
     songsRepository.selectSongData.listen((event) {
       add(ChangeSelectedSong(selectedSongId: event));
     });
@@ -42,6 +44,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
       listSong: songsRepository.songs,
       selectedSongId: songsRepository.selectedSongId,
       isEditIconVisible: settingsRepository.isEditIconVisible,
+      listExpandedSongs: [],
     )));
   }
 
@@ -65,5 +68,16 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
 
   void _selectSong(SelectSong event, Emitter<HomePageState> emit) {
     songsRepository.selectSong(event.selectedSongId);
+  }
+
+  void _changeExpandedCard(ChangeExpandedCard event, Emitter<HomePageState> emit) {
+    final state = this.state;
+    final oldListExpandedSongs = state.homePageProperties.listExpandedSongs;
+    var listExpandedSongs = <String>[];
+    if (oldListExpandedSongs.contains(event.songId)) {
+    } else {
+      listExpandedSongs.add(event.songId);
+    }
+    emit(state.copyWith(homePageProperties: state.homePageProperties.copyWith(listExpandedSongs: listExpandedSongs)));
   }
 }

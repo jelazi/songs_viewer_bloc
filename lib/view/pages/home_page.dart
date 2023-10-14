@@ -113,6 +113,7 @@ class _HomePageState extends State<HomePage> {
                           index: state.homePageProperties.listSong.indexOf(song),
                           isSelectedSong: state.homePageProperties.selectedSongId == song.id,
                           isEditIconVisible: state.homePageProperties.isEditIconVisible,
+                          isExpanded: state.homePageProperties.listExpandedSongs.contains(song.id),
                         ))
                     .toList(),
               ),

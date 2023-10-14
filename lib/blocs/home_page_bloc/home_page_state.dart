@@ -30,18 +30,26 @@ class HomePageProperties {
   final String? selectedSongId;
   List<Song> listSong;
   final bool isEditIconVisible;
+  List<String> listExpandedSongs;
 
-  HomePageProperties({this.selectedSongId, required this.listSong, required this.isEditIconVisible});
+  HomePageProperties({
+    this.selectedSongId,
+    required this.listSong,
+    required this.isEditIconVisible,
+    required this.listExpandedSongs,
+  });
 
   HomePageProperties copyWith({
     String? selectedSongId,
     List<Song>? listSong,
     bool? isEditIconVisible,
+    List<String>? listExpandedSongs,
   }) {
     return HomePageProperties(
       selectedSongId: selectedSongId ?? this.selectedSongId,
       listSong: listSong ?? this.listSong,
       isEditIconVisible: isEditIconVisible ?? this.isEditIconVisible,
+      listExpandedSongs: listExpandedSongs ?? this.listExpandedSongs,
     );
   }
 }

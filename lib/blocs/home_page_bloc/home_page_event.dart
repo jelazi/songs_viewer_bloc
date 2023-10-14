@@ -53,3 +53,14 @@ class UpdateSettingsData extends HomePageEvent {
   @override
   List<Object> get props => [];
 }
+
+class ChangeExpandedCard extends HomePageEvent {
+  final String songId;
+
+  const ChangeExpandedCard({
+    required this.songId,
+  });
+
+  @override
+  List<Object> get props => [songId];
+}
