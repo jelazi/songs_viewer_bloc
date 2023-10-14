@@ -305,27 +305,16 @@ class EditRow extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8.0),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(AppColor.grey2Color),
-                      ),
-                      child: SizedBox(
-                          width: 50,
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(Icons.add),
-                                Text(
-                                  'add'.tr(),
-                                )
-                              ],
-                            ),
-                          )),
-                      onPressed: () => editFunction(),
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                          height: 30,
+                          width: 30,
+                          margin: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(border: Border.all(color: AppColor.primaryColor), borderRadius: BorderRadius.circular(4), color: Colors.white),
+                          child: const Center(child: Icon(Icons.add, color: AppColor.primaryColor))),
                     ),
-                  ),
-                )
+                  ))
               : Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

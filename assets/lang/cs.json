@@ -4,7 +4,6 @@
     "interpret": "Interpret písně",
     "drawer": "Nabídka",
     "sortBy": "Řadit podle: ",
-    "test": "Test",
     "editChords": "Editovat akordy: ",
     "from": " od:",
     "start": "Start",
@@ -183,5 +182,16 @@
     "selectTimeBeforeScrolling": "Vyber čas před startem",
     "filterSong": "Filtruj píseň",
     "songsViewer": "Songs Viewer",
-    "timeSong": "Délka písně"
+    "timeSong": "Délka písně",
+    "presentation": "Prezentace",
+    "general": "Obecné",
+    "fontTextSize": "Velikost fontu textu",
+    "fontChordSize": "Velikost fontu akordů",
+    "colorText": "Barva textu",
+    "colorChord": "Barva akordů",
+    "indexSongBook": "Číslo ve zpěvníku",
+    "text": "Text",
+    "originalText": "Původní text",
+    "add": "Přidat",
+    "test": "Test"
 }

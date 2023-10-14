@@ -29,6 +29,7 @@ class LyricsRenderer extends StatefulWidget {
   final TypeTranspose typeTranspose;
   int startIndex = 0;
   bool isVisibleNote;
+  bool appBarStatus;
   final double baseFontSize;
 
   LyricsRenderer({
@@ -40,6 +41,7 @@ class LyricsRenderer extends StatefulWidget {
     required this.isVisibleNote,
     required this.scrollController,
     required this.baseFontSize,
+    required this.appBarStatus,
     this.startIndex = 0,
     this.listNotes = const [],
     this.showChord = true,
@@ -102,133 +104,141 @@ class _LyricsRendererState extends State<LyricsRenderer> {
           return SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             controller: _scrollControllerHorizontal,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (widget.showChord)
-                  Row(
-                    children: line.chords.map((chord) {
-                      if (superScripts.firstWhereOrNull((element) => chord.chordText.contains(element)) != null) {
-                        List<String> list = chord.chordText.split('');
+            child: Padding(
+              padding: EdgeInsets.only(
+                  top: index == 0
+                      ? !widget.appBarStatus
+                          ? 70.0
+                          : 10.0
+                      : 0.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (widget.showChord)
+                    Row(
+                      children: line.chords.map((chord) {
+                        if (superScripts.firstWhereOrNull((element) => chord.chordText.contains(element)) != null) {
+                          List<String> list = chord.chordText.split('');
 
-                        return Row(
-                          children: [
-                            SizedBox(
-                              width: chord.leadingSpace,
-                            ),
-                            GestureDetector(
-                              behavior: HitTestBehavior.opaque,
-                              onTapDown: (TapDownDetails details) {
-                                Offset pos = details.globalPosition;
-                                widget.onTapChord(chord, pos);
-                              },
-                              child: RichText(
-                                softWrap: true,
-                                text: TextSpan(
-                                  children: list.map((e) {
-                                    if (superScripts.contains(e)) {
-                                      return WidgetSpan(
-                                          child: Transform.translate(
-                                        offset: Offset(0, -(widget.chordStyle.fontSize! * 0.4)),
-                                        child: Text(
-                                          e,
-                                          //superscript is usually smaller in size
-                                          textScaleFactor: 0.6,
-                                          style: widget.chordStyle,
-                                        ),
-                                      ));
-                                    } else {
-                                      return TextSpan(text: e, style: widget.chordStyle);
-                                    }
-                                  }).toList(),
-                                ),
+                          return Row(
+                            children: [
+                              SizedBox(
+                                width: chord.leadingSpace,
                               ),
-                            )
-                          ],
-                        );
-                      } else {
-                        return Row(
-                          children: [
-                            SizedBox(
-                              width: chord.leadingSpace,
-                            ),
-                            GestureDetector(
-                              behavior: HitTestBehavior.opaque,
-                              onTapDown: (TapDownDetails details) {
-                                Offset pos = details.globalPosition;
-                                widget.onTapChord(chord, pos);
-                              },
-                              child: RichText(
-                                softWrap: true,
-                                text: TextSpan(
-                                  text: chord.chordText,
-                                  style: widget.chordStyle,
+                              GestureDetector(
+                                behavior: HitTestBehavior.opaque,
+                                onTapDown: (TapDownDetails details) {
+                                  Offset pos = details.globalPosition;
+                                  widget.onTapChord(chord, pos);
+                                },
+                                child: RichText(
+                                  softWrap: true,
+                                  text: TextSpan(
+                                    children: list.map((e) {
+                                      if (superScripts.contains(e)) {
+                                        return WidgetSpan(
+                                            child: Transform.translate(
+                                          offset: Offset(0, -(widget.chordStyle.fontSize! * 0.4)),
+                                          child: Text(
+                                            e,
+                                            //superscript is usually smaller in size
+                                            textScaleFactor: 0.6,
+                                            style: widget.chordStyle,
+                                          ),
+                                        ));
+                                      } else {
+                                        return TextSpan(text: e, style: widget.chordStyle);
+                                      }
+                                    }).toList(),
+                                  ),
                                 ),
+                              )
+                            ],
+                          );
+                        } else {
+                          return Row(
+                            children: [
+                              SizedBox(
+                                width: chord.leadingSpace,
                               ),
-                            )
-                          ],
-                        );
-                      }
-                    }).toList(),
-                  ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  controller: _scrollControllerHorizontal,
-                  child: GestureDetector(
-                    onLongPress: () {
-                      FLog.debug(text: 'long press - ${widget.startIndex + index}');
-                      //TODO:
-                      /*    if (Get.find<UserController>().currentUser.value?.typeUser != TypeUser.superuser || !settingsController.editNotes.value) {
-                        return;
-                      }
-          
-                      String currentNote = '';
-                      for (Note note in widget.listNotes!) {
-                        if (note.index == index) {
-                          currentNote = note.noteText.value;
-                          break;
+                              GestureDetector(
+                                behavior: HitTestBehavior.opaque,
+                                onTapDown: (TapDownDetails details) {
+                                  Offset pos = details.globalPosition;
+                                  widget.onTapChord(chord, pos);
+                                },
+                                child: RichText(
+                                  softWrap: true,
+                                  text: TextSpan(
+                                    text: chord.chordText,
+                                    style: widget.chordStyle,
+                                  ),
+                                ),
+                              )
+                            ],
+                          );
                         }
-                      }
-                      TextEditingController textEditingController = TextEditingController(text: currentNote);
-          
-                      Get.dialog(CustomDialogView(
-                          titleString: 'note'.tr,
-                          contentWidget: TextField(
-                            autofocus: true,
-                            controller: textEditingController,
-                          ),
-                          actionsWidget: [
-                            ElevatedButton(
-                                onPressed: () {
-                                  setState(() {
-                                    Get.find<ChordLyricsController>().addNotes(index + widget.startIndex, textEditingController.text);
-                                  });
-          
-                                  Get.back();
-                                },
-                                child: Text('ok'.tr())),
-                            ElevatedButton(
-                                onPressed: () {
-                                  Get.back();
-                                },
-                                child: Text('cancel'.tr())),
-                          ]));*/
-                    },
-                    child: Row(
-                      children: [
-                        RichText(
-                          softWrap: true,
-                          text: TextSpan(
-                            text: line.lyrics,
-                            style: widget.textStyle,
-                          ),
-                        ),
-                        getNote(index),
-                      ],
+                      }).toList(),
                     ),
-                  ),
-                )
-              ],
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    controller: _scrollControllerHorizontal,
+                    child: GestureDetector(
+                      onLongPress: () {
+                        FLog.debug(text: 'long press - ${widget.startIndex + index}');
+                        //TODO:
+                        /*    if (Get.find<UserController>().currentUser.value?.typeUser != TypeUser.superuser || !settingsController.editNotes.value) {
+                          return;
+                        }
+                      
+                        String currentNote = '';
+                        for (Note note in widget.listNotes!) {
+                          if (note.index == index) {
+                            currentNote = note.noteText.value;
+                            break;
+                          }
+                        }
+                        TextEditingController textEditingController = TextEditingController(text: currentNote);
+                      
+                        Get.dialog(CustomDialogView(
+                            titleString: 'note'.tr,
+                            contentWidget: TextField(
+                              autofocus: true,
+                              controller: textEditingController,
+                            ),
+                            actionsWidget: [
+                              ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      Get.find<ChordLyricsController>().addNotes(index + widget.startIndex, textEditingController.text);
+                                    });
+                      
+                                    Get.back();
+                                  },
+                                  child: Text('ok'.tr())),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    Get.back();
+                                  },
+                                  child: Text('cancel'.tr())),
+                            ]));*/
+                      },
+                      child: Row(
+                        children: [
+                          RichText(
+                            softWrap: true,
+                            text: TextSpan(
+                              text: line.lyrics,
+                              style: widget.textStyle,
+                            ),
+                          ),
+                          getNote(index),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         },

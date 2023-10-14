@@ -51,7 +51,6 @@ class Song {
         title = '',
         lyrics = '',
         originalLyrics = '',
-        indexSongBook = 0,
         interpret = '',
         typeTranspose = TypeTranspose.czech,
         songBar = 0,

@@ -1,7 +1,10 @@
+import 'package:default_project/blocs/export_blocs.dart';
 import 'package:default_project/services/constants.dart';
+import 'package:default_project/view/pages/edit_page.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
+import '../../model/song/song.dart';
 import '../pages/settings_page.dart';
 
 class HomeDrawer extends StatelessWidget {
@@ -29,6 +32,25 @@ class HomeDrawer extends StatelessWidget {
                   fontSize: 24,
                 ),
               ),
+            ),
+            ListTile(
+              title: Row(children: [
+                const Icon(Icons.add),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text('addNewSong'.tr()),
+              ]),
+              onTap: () {
+                Navigator.pop(context);
+                context.read<EditSongBloc>().add(ChangeEditSong(song: Song.empty()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const EditPage(),
+                  ),
+                );
+              },
             ),
             ListTile(
               title: Row(children: [

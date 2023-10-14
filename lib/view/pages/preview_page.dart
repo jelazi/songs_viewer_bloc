@@ -88,7 +88,7 @@ class _PreviewPageState extends State<PreviewPage> {
             child: Stack(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(left: 4.0),
+                  padding: const EdgeInsets.only(left: 10.0),
                   child: _getLyricsRenderer(state, scrollController),
                 ),
                 Positioned(
@@ -172,6 +172,7 @@ class _PreviewPageState extends State<PreviewPage> {
           lyrics: splittedLyric[0],
           textStyle: state.textStyle,
           chordStyle: state.chordStyle,
+          appBarStatus: state.appBarStatus,
           onTapChord: (Chord chord, Offset pos) {
             openChordImage(chord, pos, context);
           },
@@ -207,6 +208,7 @@ class _PreviewPageState extends State<PreviewPage> {
               lyrics: splittedLyric[state.currentColumn],
               textStyle: state.textStyle,
               chordStyle: state.chordStyle,
+              appBarStatus: state.appBarStatus,
               onTapChord: (Chord chord, Offset pos) {
                 openChordImage(chord, pos, context);
               },
@@ -228,6 +230,7 @@ class _PreviewPageState extends State<PreviewPage> {
                     lyrics: splittedLyric[state.currentColumn + 1],
                     textStyle: state.textStyle,
                     chordStyle: state.chordStyle,
+                    appBarStatus: state.appBarStatus,
                     onTapChord: (Chord chord, Offset pos) {
                       openChordImage(chord, pos, context);
                     },
@@ -248,6 +251,7 @@ class _PreviewPageState extends State<PreviewPage> {
         lyrics: lyric,
         textStyle: state.textStyle,
         chordStyle: state.chordStyle,
+        appBarStatus: state.appBarStatus,
         onTapChord: (Chord chord, Offset pos) {
           openChordImage(chord, pos, context);
         },
