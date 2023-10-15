@@ -6,9 +6,14 @@ import '../../blocs/export_blocs.dart';
 import '../widgets/settings_ui/settings_section.dart';
 import '../widgets/settings_ui/settings_tile.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
+  @override
+  State<SettingsPage> createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,6 +60,14 @@ class SettingsPage extends StatelessWidget {
                       iconData: Icons.color_lens,
                       value: state.settingsProperties.colorChord,
                       iconColor: state.settingsProperties.colorChord,
+                    ),
+                    SettingsTile.switched(
+                      title: 'editIconVisibility'.tr(),
+                      onPressed: (context, value) {
+                        context.read<SettingsBloc>().add(ChangeSettingsValue('isEditIconVisible', value));
+                      },
+                      iconData: Icons.visibility,
+                      switchValue: state.settingsProperties.isEditIconVisible,
                     ),
                   ],
                 ),

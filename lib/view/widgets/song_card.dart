@@ -127,19 +127,22 @@ class _SongCardState extends State<SongCard> with TickerProviderStateMixin {
                                   MaterialPageRoute(builder: (context) => const PresentationPage()),
                                 );
                               }),
-                          IconButton(
-                              icon: Icon(
-                                MdiIcons.imageFrame,
-                                color: AppColor.primaryColor,
-                              ),
-                              onPressed: () {
-                                FLog.debug(text: 'openSheets');
+                          Visibility(
+                            visible: widget.song.sheets != null && widget.song.sheets!.isNotEmpty,
+                            child: IconButton(
+                                icon: Icon(
+                                  MdiIcons.imageFrame,
+                                  color: AppColor.primaryColor,
+                                ),
+                                onPressed: () {
+                                  FLog.debug(text: 'openSheets');
 
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => const SheetViewPage()),
-                                );
-                              }),
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) => const SheetViewPage()),
+                                  );
+                                }),
+                          ),
                           Visibility(
                             visible: widget.song.youtubeVideos != null,
                             child: IconButton(
@@ -155,19 +158,26 @@ class _SongCardState extends State<SongCard> with TickerProviderStateMixin {
                                   );
                                 }),
                           ),
-                          IconButton(
-                              icon: Icon(
-                                MdiIcons.pencil,
-                                color: AppColor.primaryLightestColor,
-                              ),
-                              onPressed: () {
-                                FLog.debug(text: 'editSong');
-                                context.read<EditSongBloc>().add(ChangeEditSong(song: widget.song));
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => EditPage()),
-                                );
-                              }),
+                          BlocBuilder<HomePageBloc, HomePageState>(
+                            builder: (context, state) {
+                              return Visibility(
+                                visible: state.isEditIconVisible,
+                                child: IconButton(
+                                    icon: Icon(
+                                      MdiIcons.pencil,
+                                      color: AppColor.primaryLightestColor,
+                                    ),
+                                    onPressed: () {
+                                      FLog.debug(text: 'editSong');
+                                      context.read<EditSongBloc>().add(ChangeEditSong(song: widget.song));
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context) => const EditPage()),
+                                      );
+                                    }),
+                              );
+                            },
+                          ),
                         ],
                       ),
                       IconButton(

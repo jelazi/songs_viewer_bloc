@@ -23,6 +23,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
             isEditIconVisible: true,
             listExpandedSongs: [],
           ),
+          isEditIconVisible: false,
         )) {
     on<_Init>(_init);
     on<FilterSong>(_filterSong);
@@ -40,12 +41,13 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
     final state = this.state;
 
     emit(state.copyWith(
+        isEditIconVisible: settingsRepository.isEditIconVisible,
         homePageProperties: HomePageProperties(
-      listSong: songsRepository.songs,
-      selectedSongId: songsRepository.selectedSongId,
-      isEditIconVisible: settingsRepository.isEditIconVisible,
-      listExpandedSongs: [],
-    )));
+          listSong: songsRepository.songs,
+          selectedSongId: songsRepository.selectedSongId,
+          isEditIconVisible: settingsRepository.isEditIconVisible,
+          listExpandedSongs: [],
+        )));
   }
 
   void _updateSettingsData(UpdateSettingsData event, Emitter<HomePageState> emit) {

@@ -20,7 +20,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController _filter = TextEditingController();
+  final TextEditingController _filter = TextEditingController();
 
   bool selectLargeScreen(Size size) {
     bool isLargeScreen = false;

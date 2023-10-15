@@ -10,6 +10,6 @@ class SheetViewPage extends StatelessWidget {
         appBar: AppBar(
           title: Text('sheetView'.tr()),
         ),
-        body: Center(child: Text('SheetViewPage')));
+        body: const Center(child: Text('SheetViewPage')));
   }
 }

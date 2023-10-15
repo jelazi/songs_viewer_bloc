@@ -13,7 +13,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsRepository settingsRepository;
   SettingsBloc({
     required this.settingsRepository,
-  }) : super(SettingsInitial(SettingsProperties(fontTextSize: 20, fontChordSize: 20, colorText: Colors.black, colorChord: Colors.red))) {
+  }) : super(SettingsInitial(SettingsProperties(fontTextSize: 20, fontChordSize: 20, colorText: Colors.black, colorChord: Colors.red, isEditIconVisible: false))) {
     on<_SettingsInitial>(_settingsInitial);
     on<ChangeSettingsValue>(_changeSettingsValue);
 
@@ -28,6 +28,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       fontChordSize: settingsRepository.fontChordSize,
       colorText: settingsRepository.colorText,
       colorChord: settingsRepository.colorChord,
+      isEditIconVisible: settingsRepository.isEditIconVisible,
     )));
   }
 
@@ -40,6 +41,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       fontChordSize: settingsRepository.fontChordSize,
       colorText: settingsRepository.colorText,
       colorChord: settingsRepository.colorChord,
+      isEditIconVisible: settingsRepository.isEditIconVisible,
     )));
   }
 }

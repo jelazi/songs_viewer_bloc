@@ -212,7 +212,7 @@ Widget getSheets(BuildContext context, EditSongState state) {
                 ),
                 isNotEmptyOrNull
                     ? Row(
-                        children: state.currentEditSong.sheets!.map((e) => SizedBox(width: 100, height: 150, child: Image.file(File('sheets/${e}')))).toList(),
+                        children: state.currentEditSong.sheets!.map((e) => SizedBox(width: 100, height: 150, child: Image.file(File('sheets/$e')))).toList(),
                       )
                     : Container(),
               ],

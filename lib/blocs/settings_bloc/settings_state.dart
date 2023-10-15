@@ -18,7 +18,7 @@ class SettingsState extends Equatable {
 }
 
 class SettingsInitial extends SettingsState {
-  SettingsInitial(super.settingsProperties);
+  const SettingsInitial(super.settingsProperties);
 }
 
 class SettingsProperties {
@@ -26,11 +26,13 @@ class SettingsProperties {
   final double fontChordSize;
   final Color colorText;
   final Color colorChord;
+  final bool isEditIconVisible;
   SettingsProperties({
     required this.fontTextSize,
     required this.fontChordSize,
     required this.colorText,
     required this.colorChord,
+    required this.isEditIconVisible,
   });
 
   SettingsProperties copyWith({
@@ -38,12 +40,14 @@ class SettingsProperties {
     double? fontChordSize,
     Color? colorText,
     Color? colorChord,
+    bool? isEditIconVisible,
   }) {
     return SettingsProperties(
       fontTextSize: fontTextSize ?? this.fontTextSize,
       fontChordSize: fontChordSize ?? this.fontChordSize,
       colorText: colorText ?? this.colorText,
       colorChord: colorChord ?? this.colorChord,
+      isEditIconVisible: isEditIconVisible ?? this.isEditIconVisible,
     );
   }
 }

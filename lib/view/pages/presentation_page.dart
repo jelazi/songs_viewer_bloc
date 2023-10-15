@@ -10,6 +10,6 @@ class PresentationPage extends StatelessWidget {
         appBar: AppBar(
           title: Text('presentation'.tr()),
         ),
-        body: Center(child: Text('PresentationPage')));
+        body: const Center(child: Text('PresentationPage')));
   }
 }

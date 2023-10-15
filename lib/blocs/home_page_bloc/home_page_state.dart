@@ -3,9 +3,11 @@ part of 'home_page_bloc.dart';
 
 class HomePageState extends Equatable {
   final HomePageProperties homePageProperties;
+  final bool isEditIconVisible;
 
   const HomePageState({
     required this.homePageProperties,
+    required this.isEditIconVisible,
   });
 
   @override
@@ -13,9 +15,11 @@ class HomePageState extends Equatable {
 
   HomePageState copyWith({
     HomePageProperties? homePageProperties,
+    bool? isEditIconVisible,
   }) {
     return HomePageState(
       homePageProperties: homePageProperties ?? this.homePageProperties,
+      isEditIconVisible: isEditIconVisible ?? this.isEditIconVisible,
     );
   }
 }
@@ -23,6 +27,7 @@ class HomePageState extends Equatable {
 class HomePageInitial extends HomePageState {
   const HomePageInitial({
     required super.homePageProperties,
+    required super.isEditIconVisible,
   });
 }
 

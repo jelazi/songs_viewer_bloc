@@ -10,6 +10,6 @@ class YoutubeVideoPage extends StatelessWidget {
         appBar: AppBar(
           title: Text('youtubeVideo'.tr()),
         ),
-        body: Center(child: Text('YoutubeVideoPage')));
+        body: const Center(child: Text('YoutubeVideoPage')));
   }
 }
