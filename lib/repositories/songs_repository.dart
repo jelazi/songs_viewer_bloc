@@ -6,6 +6,8 @@ import '../providers/firebase_provider.dart';
 import '../providers/hive_provider.dart';
 import 'package:collection/collection.dart';
 
+import '../services/auxiliary_functions.dart';
+
 class SongsRepository {
   final HiveProvider _hiveProvider;
   final FirebaseProvider _firebaseProvider;
@@ -17,7 +19,12 @@ class SongsRepository {
   String selectedSongId = '';
 
   List<Song> get songs {
-    return _songs;
+    var songs = List<Song>.from(_songs);
+
+    songs.sort((a, b) {
+      return collStr(a.title).compareTo(collStr(b.title));
+    });
+    return songs;
   }
 
   SongsRepository({
@@ -103,15 +110,9 @@ class SongsRepository {
     return false;
   }
 
-  String removeDiacriticsAndWhitespace(String str) {
-    const withDia = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÝÿýŽžŘřŤťĚěČčŮůŇňĹĺ';
-    const withoutDia = 'AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYYyyZzRrTtEeCcUuNnLl';
-
-    for (int i = 0; i < withDia.length; i++) {
-      str = str.replaceAll(withDia[i], withoutDia[i]);
-    }
-    str = str.replaceAll(' ', '');
-
-    return str;
+  Future<void> updateSong(Song song) async {
+    await _firebaseProvider.updateSong(song);
+    _songs.removeWhere((element) => element.id == song.id);
+    _songs.add(song.copyWith());
   }
 }

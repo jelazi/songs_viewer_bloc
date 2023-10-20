@@ -112,7 +112,7 @@ class FirebaseProvider {
     }
   }
 
-  void updateSong(Song songData) async {
+  Future<void> updateSong(Song songData) async {
     try {
       await songCollection.doc(songData.id).update(songData.toJson());
     } catch (e) {

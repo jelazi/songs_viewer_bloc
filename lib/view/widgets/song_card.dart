@@ -169,7 +169,7 @@ class _SongCardState extends State<SongCard> with TickerProviderStateMixin {
                                     ),
                                     onPressed: () {
                                       FLog.debug(text: 'editSong');
-                                      context.read<EditSongBloc>().add(ChangeEditSong(song: widget.song));
+                                      context.read<EditSongBloc>().add(ChangeEditSong(song: widget.song.copyWith()));
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(builder: (context) => const EditPage()),

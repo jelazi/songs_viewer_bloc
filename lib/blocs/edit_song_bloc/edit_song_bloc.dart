@@ -30,6 +30,10 @@ class EditSongBloc extends Bloc<EditSongEvent, EditSongState> {
               title: event.value,
             ),
           ));
+          final song = songsRepository.getSongById(state.currentEditSong.id);
+          if (song != null) {
+            print(song == state.currentEditSong);
+          }
           break;
         }
       case 'interpret':

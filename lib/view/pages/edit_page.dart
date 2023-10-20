@@ -128,6 +128,7 @@ class _EditPageState extends State<EditPage> {
                   title: 'saveChanges'.tr(),
                   question: listModified.toString() + 'saveChangesQuestion'.tr(),
                   okClick: () {
+                    context.read<HomePageBloc>().add(UpdateSong(song: state.currentEditSong));
                     Navigator.of(context).pop(true);
                   },
                   cancelClick: () {

@@ -64,3 +64,14 @@ class ChangeExpandedCard extends HomePageEvent {
   @override
   List<Object> get props => [songId];
 }
+
+class UpdateSong extends HomePageEvent {
+  final Song song;
+
+  const UpdateSong({
+    required this.song,
+  });
+
+  @override
+  List<Object> get props => [song];
+}

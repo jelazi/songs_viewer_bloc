@@ -107,13 +107,13 @@ class _HomePageState extends State<HomePage> {
             })),
             SliverList(
               delegate: SliverChildListDelegate(
-                state.homePageProperties.listSong
+                state.listSong
                     .map((song) => SongCard(
                           song: song,
-                          index: state.homePageProperties.listSong.indexOf(song),
-                          isSelectedSong: state.homePageProperties.selectedSongId == song.id,
-                          isEditIconVisible: state.homePageProperties.isEditIconVisible,
-                          isExpanded: state.homePageProperties.listExpandedSongs.contains(song.id),
+                          index: state.listSong.indexOf(song),
+                          isSelectedSong: state.selectedSongId == song.id,
+                          isEditIconVisible: state.isEditIconVisible,
+                          isExpanded: state.listExpandedSongs.contains(song.id),
                         ))
                     .toList(),
               ),
