@@ -3,8 +3,12 @@ part of 'edit_song_bloc.dart';
 
 class EditSongState extends Equatable {
   final Song currentEditSong;
+  final TextStyle textStyle;
+  final TextStyle chordStyle;
   const EditSongState({
     required this.currentEditSong,
+    required this.textStyle,
+    required this.chordStyle,
   });
 
   @override
@@ -12,13 +16,17 @@ class EditSongState extends Equatable {
 
   EditSongState copyWith({
     Song? currentEditSong,
+    TextStyle? textStyle,
+    TextStyle? chordStyle,
   }) {
     return EditSongState(
       currentEditSong: currentEditSong ?? this.currentEditSong,
+      textStyle: textStyle ?? this.textStyle,
+      chordStyle: chordStyle ?? this.chordStyle,
     );
   }
 }
 
 class EditSongInitial extends EditSongState {
-  const EditSongInitial({required super.currentEditSong});
+  const EditSongInitial({required super.currentEditSong, required super.textStyle, required super.chordStyle});
 }

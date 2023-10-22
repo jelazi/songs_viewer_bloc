@@ -1,6 +1,6 @@
 import 'package:default_project/blocs/export_blocs.dart';
 import 'package:default_project/services/constants.dart';
-import 'package:default_project/view/pages/edit_page.dart';
+import 'package:default_project/view/pages/edit_pages/edit_page.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -44,12 +44,7 @@ class HomeDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.pop(context);
                 context.read<EditSongBloc>().add(ChangeEditSong(song: Song.empty()));
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const EditPage(),
-                  ),
-                );
+                Navigator.pushNamed(context, '/editPage');
               },
             ),
             ListTile(
@@ -62,12 +57,7 @@ class HomeDrawer extends StatelessWidget {
               ]),
               onTap: () {
                 Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SettingsPage(),
-                  ),
-                );
+                Navigator.pushNamed(context, '/settingsPage');
               },
             ),
           ],

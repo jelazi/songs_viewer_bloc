@@ -8,7 +8,7 @@ class AppChord {
 }
 
 class AppColor {
-  static const defaultBackgroundColor = Color.fromARGB(255, 161, 196, 224);
+  static const defaultBackgroundColor = Color.fromARGB(255, 239, 232, 252);
 
   static const primaryDarkestColor = Color(0xff1D1345);
   static const primaryDarkColor = Color(0xff392485);

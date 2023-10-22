@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:default_project/services/constants.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../../blocs/export_blocs.dart';
+import '../../../blocs/export_blocs.dart';
 
 class EditPage extends StatefulWidget {
   const EditPage({
@@ -96,7 +96,14 @@ class _EditPageState extends State<EditPage> {
                               }));
                         }),
                     EditRow(
-                        typeValue: 'text'.tr(), title: state.currentEditSong.lyrics, titleTextStyle: labelTextStyle, maxLines: 5, editFunction: () {}, chordEditFunction: () {}),
+                        typeValue: 'text'.tr(),
+                        title: state.currentEditSong.lyrics,
+                        titleTextStyle: labelTextStyle,
+                        maxLines: 5,
+                        editFunction: () {
+                          Navigator.of(context).pushNamed('/editLyricPage');
+                        },
+                        chordEditFunction: () {}),
                     getGroups(context, state),
                     getTags(context, state),
                     EditRow(
@@ -104,7 +111,9 @@ class _EditPageState extends State<EditPage> {
                         title: state.currentEditSong.originalLyrics,
                         titleTextStyle: labelTextStyle,
                         maxLines: 5,
-                        editFunction: () {},
+                        editFunction: () {
+                          Navigator.of(context).pushNamed('/editOriginalLyricPage');
+                        },
                         chordEditFunction: () {}),
                     getSheets(context, state),
                   ],
@@ -307,7 +316,9 @@ class EditRow extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        editFunction();
+                      },
                       child: Container(
                           height: 30,
                           width: 30,

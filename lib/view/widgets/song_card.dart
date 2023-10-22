@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:default_project/view/pages/edit_page.dart';
+import 'package:default_project/view/pages/edit_pages/edit_page.dart';
 import 'package:default_project/view/pages/presentation_page.dart';
 import 'package:default_project/view/pages/sheet_view_page.dart';
 import 'package:default_project/view/pages/youtube_video_page.dart';
@@ -110,10 +110,7 @@ class _SongCardState extends State<SongCard> with TickerProviderStateMixin {
                               onPressed: () {
                                 FLog.debug(text: 'openChords');
                                 context.read<PreviewChordBloc>().add(ChangeCurrentSong(song: widget.song));
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => const PreviewPage()),
-                                );
+                                Navigator.pushNamed(context, '/previewPage');
                               }),
                           IconButton(
                               icon: Icon(
@@ -122,10 +119,7 @@ class _SongCardState extends State<SongCard> with TickerProviderStateMixin {
                               ),
                               onPressed: () {
                                 FLog.debug(text: 'openPresentation');
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => const PresentationPage()),
-                                );
+                                Navigator.pushNamed(context, '/presentationPage');
                               }),
                           Visibility(
                             visible: widget.song.sheets != null && widget.song.sheets!.isNotEmpty,
@@ -137,10 +131,7 @@ class _SongCardState extends State<SongCard> with TickerProviderStateMixin {
                                 onPressed: () {
                                   FLog.debug(text: 'openSheets');
 
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => const SheetViewPage()),
-                                  );
+                                  Navigator.pushNamed(context, '/sheetViewPage');
                                 }),
                           ),
                           Visibility(
@@ -152,10 +143,7 @@ class _SongCardState extends State<SongCard> with TickerProviderStateMixin {
                                 ),
                                 onPressed: () {
                                   FLog.debug(text: 'openYoutube');
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => const YoutubeVideoPage()),
-                                  );
+                                  Navigator.pushNamed(context, '/youtubeVideoPage');
                                 }),
                           ),
                           BlocBuilder<HomePageBloc, HomePageState>(
@@ -170,10 +158,7 @@ class _SongCardState extends State<SongCard> with TickerProviderStateMixin {
                                     onPressed: () {
                                       FLog.debug(text: 'editSong');
                                       context.read<EditSongBloc>().add(ChangeEditSong(song: widget.song.copyWith()));
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => const EditPage()),
-                                      );
+                                      Navigator.pushNamed(context, '/editPage');
                                     }),
                               );
                             },

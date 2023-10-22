@@ -24,6 +24,8 @@ import 'view/pages/home_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 
+import 'view/router/app_router.dart';
+
 part 'main.part.dart';
 
 void main() async {
@@ -38,12 +40,13 @@ void main() async {
     supportedLocales: const [Locale('cs'), Locale('en')],
     path: 'assets/lang',
     fallbackLocale: const Locale('cs'),
-    child: const MyApp(),
+    child: MyApp(),
   ));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({
+  final AppRouter _appRouter = AppRouter();
+  MyApp({
     Key? key,
   }) : super(key: key);
 
@@ -71,8 +74,9 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (context) => EditSongBloc(
               songsRepository: songsRepository,
+              settingsRepository: settingsRepository,
             ),
-          )
+          ),
         ],
         child: MaterialApp(
           title: 'Songs viewer',
@@ -83,26 +87,9 @@ class MyApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           localizationsDelegates: context.localizationDelegates,
           locale: context.locale,
-          home: BlocListener<NotificationBloc, NotificationState>(
-            listener: (context, state) {
-              if (state.message.isNotEmpty) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message.last)));
-              }
-            },
-            child: HomePage(
-              settingsRepository: settingsRepository,
-            ),
-          ),
+          onGenerateRoute: _appRouter.onGenerateRoute,
         ),
       ),
     );
   }
-}
-
-Future<void> initHiveFunction() async {
-  Directory directory = await pathProvider.getApplicationDocumentsDirectory();
-  Hive.init(directory.path);
-  //Hive.initFlutter(directory.path);
-  Hive.registerAdapter(UserAdapter());
-  Hive.registerAdapter(TypeUserAdapter());
 }
