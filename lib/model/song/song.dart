@@ -137,7 +137,7 @@ class Song {
     return lyrics;
   }
 
-  List<String> checkModifiedSong(Song otherSong) {
+  List<String> checkModifiedSong(Song otherSong, bool withBmpSongBar) {
     List<String> listModified = [];
     if (title != otherSong.title) {
       listModified.add('title');
@@ -151,16 +151,16 @@ class Song {
     if (indexSongBook != otherSong.indexSongBook) {
       listModified.add('indexSongBook');
     }
-    if (interpret != otherSong.interpret) {
+    if (interpret != otherSong.interpret && (interpret != '' && otherSong.interpret != null) && (interpret != null && otherSong.interpret != '')) {
       listModified.add('interpret');
     }
     if (typeTranspose != otherSong.typeTranspose) {
       listModified.add('typeTranspose');
     }
-    if (songBar != otherSong.songBar) {
+    if (withBmpSongBar && songBar != otherSong.songBar) {
       listModified.add('songBar');
     }
-    if (bmp != otherSong.bmp) {
+    if (withBmpSongBar && bmp != otherSong.bmp) {
       listModified.add('bmp');
     }
     if (sheets != otherSong.sheets) {
@@ -179,5 +179,21 @@ class Song {
       listModified.add('youtubeVideos');
     }
     return listModified;
+  }
+
+  List<String> getAllUniqueChordsFromSong(TypeLyric typeLyric) {
+    List<String> listChords = [];
+    List<SongLine> list = listLyrics(true, true, typeLyric);
+
+    for (SongLine songLine in list) {
+      for (SongItem songItem in songLine.listItem) {
+        if (songItem.type == TypeSongItem.chord) {
+          if (!listChords.contains(songItem.text)) {
+            listChords.add(songItem.text);
+          }
+        }
+      }
+    }
+    return listChords;
   }
 }

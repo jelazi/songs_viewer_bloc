@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
+import 'package:default_project/services/enums.dart';
+import 'package:default_project/view/pages/edit_pages/edit_chords.dart';
 import 'package:default_project/view/widgets/dialogs/dialogs_export.dart';
 import 'package:default_project/view/widgets/dialogs/question_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -103,7 +105,10 @@ class _EditPageState extends State<EditPage> {
                         editFunction: () {
                           Navigator.of(context).pushNamed('/editLyricPage');
                         },
-                        chordEditFunction: () {}),
+                        chordEditFunction: () {
+                          context.read<EditSongBloc>().add(const UpdateListUniqueChords(typeLyric: TypeLyric.translate));
+                          Navigator.of(context).pushNamed('/editChordsPage');
+                        }),
                     getGroups(context, state),
                     getTags(context, state),
                     EditRow(
@@ -114,7 +119,10 @@ class _EditPageState extends State<EditPage> {
                         editFunction: () {
                           Navigator.of(context).pushNamed('/editOriginalLyricPage');
                         },
-                        chordEditFunction: () {}),
+                        chordEditFunction: () {
+                          context.read<EditSongBloc>().add(const UpdateListUniqueChords(typeLyric: TypeLyric.original));
+                          Navigator.of(context).pushNamed('/editOriginalChordsPage');
+                        }),
                     getSheets(context, state),
                   ],
                 ),
@@ -128,7 +136,7 @@ class _EditPageState extends State<EditPage> {
 
   Future<bool> _onWillPop(EditSongState state) async {
     final oldSong = context.read<EditSongBloc>().songsRepository.getSongById(state.currentEditSong.id);
-    final listModified = oldSong?.checkModifiedSong(state.currentEditSong) ?? [];
+    final listModified = oldSong?.checkModifiedSong(state.currentEditSong, false) ?? [];
     if (listModified.isNotEmpty) {
       return (await showDialog(
               context: context,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../blocs/export_blocs.dart';
 import '../../main.dart';
+import '../pages/edit_pages/edit_chords.dart';
 import '../pages/edit_pages/edit_lyrics.dart';
 import '../pages/edit_pages/edit_page.dart';
 import '../pages/home_page.dart';
@@ -40,9 +41,13 @@ class AppRouter {
       case '/youtubeVideoPage':
         return MaterialPageRoute(builder: (_) => const YoutubeVideoPage());
       case '/editLyricPage':
-        return MaterialPageRoute(builder: (_) => EditLyricPage(isOriginalLyrics: false));
+        return MaterialPageRoute(builder: (_) => const EditLyricPage(isOriginalLyrics: false));
       case '/editOriginalLyricPage':
-        return MaterialPageRoute(builder: (_) => EditLyricPage(isOriginalLyrics: true));
+        return MaterialPageRoute(builder: (_) => const EditLyricPage(isOriginalLyrics: true));
+      case '/editChordsPage':
+        return MaterialPageRoute(builder: (_) => const EditChordsPage(isOriginalLyrics: false));
+      case '/editOriginalChordsPage':
+        return MaterialPageRoute(builder: (_) => const EditChordsPage(isOriginalLyrics: true));
       default:
         return MaterialPageRoute(builder: (_) => Container());
     }
