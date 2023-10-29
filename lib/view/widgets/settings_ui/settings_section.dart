@@ -36,24 +36,18 @@ class SettingsSection extends StatelessWidget {
         decoration: BoxDecoration(
           color: sectionBackgroundColor ?? Colors.grey[50],
           border: Border.all(color: sectionBorderColor ?? Colors.grey),
-          borderRadius: const BorderRadius.all(
-              Radius.circular(3.0)), // Set rounded corner radius
+          borderRadius: const BorderRadius.all(Radius.circular(3.0)), // Set rounded corner radius
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-                margin: const EdgeInsets.all(8),
-                alignment: Alignment.centerLeft,
-                child: Text(title ?? '',
-                    style: TextStyle(
-                        color: sectionTextColor ?? Colors.grey, fontSize: 12))),
+                margin: const EdgeInsets.all(8), alignment: Alignment.centerLeft, child: Text(title ?? '', style: TextStyle(color: sectionTextColor ?? Colors.grey, fontSize: 12))),
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(color: Colors.grey),
-                borderRadius: const BorderRadius.all(
-                    Radius.circular(8.0)), // Set rounded corner radius
+                borderRadius: const BorderRadius.all(Radius.circular(8.0)), // Set rounded corner radius
               ),
               child: Column(
                 children: tiles != null
@@ -63,11 +57,11 @@ class SettingsSection extends StatelessWidget {
                             title: tile.title,
                             iconData: tile.iconData,
                             value: tile.value,
-                            iconColor: tileIconColor,
-                            textColor: tileTextColor,
-                            valueColor: tileValueColor,
-                            borderColor: tileBorderColor,
-                            backgroundColor: tileBackgroundColor,
+                            iconColor: tile.iconColor ?? tileIconColor,
+                            textColor: tile.textColor ?? tileTextColor,
+                            valueColor: tile.valueColor ?? tileValueColor,
+                            borderColor: tile.borderColor ?? tileBorderColor,
+                            backgroundColor: tile.backgroundColor ?? tileBackgroundColor,
                             onPressed: tile.onPressed,
                             isSwitch: tile.isSwitch,
                             switchValue: tile.switchValue,
@@ -79,13 +73,13 @@ class SettingsSection extends StatelessWidget {
                             title: tile.title,
                             iconData: tile.iconData,
                             value: tile.value,
-                            valueColor: tileValueColor,
+                            iconColor: tile.iconColor ?? tileIconColor,
+                            textColor: tile.textColor ?? tileTextColor,
+                            valueColor: tile.valueColor ?? tileValueColor,
+                            borderColor: tile.borderColor ?? tileBorderColor,
+                            backgroundColor: tile.backgroundColor ?? tileBackgroundColor,
                             onPressed: tile.onPressed,
                             bottomRadius: true,
-                            iconColor: tileIconColor,
-                            textColor: tileTextColor,
-                            borderColor: tileBorderColor,
-                            backgroundColor: tileBackgroundColor,
                             isSwitch: tile.isSwitch,
                             switchValue: tile.switchValue,
                           );
@@ -95,11 +89,11 @@ class SettingsSection extends StatelessWidget {
                           iconData: tile.iconData,
                           value: tile.value,
                           onPressed: tile.onPressed,
-                          iconColor: tileIconColor,
-                          valueColor: tileValueColor,
-                          textColor: tileTextColor,
-                          borderColor: tileBorderColor,
-                          backgroundColor: tileBackgroundColor,
+                          iconColor: tile.iconColor ?? tileIconColor,
+                          textColor: tile.textColor ?? tileTextColor,
+                          valueColor: tile.valueColor ?? tileValueColor,
+                          borderColor: tile.borderColor ?? tileBorderColor,
+                          backgroundColor: tile.backgroundColor ?? tileBackgroundColor,
                           isSwitch: tile.isSwitch,
                           switchValue: tile.switchValue,
                         );

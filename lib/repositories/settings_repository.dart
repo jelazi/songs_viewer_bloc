@@ -6,30 +6,50 @@ import '../providers/hive_provider.dart';
 class SettingsRepository {
   HiveProvider hiveProvider;
   bool isLargeScreen = false;
-  double _fontTextSize = 20;
-  double _fontChordSize = 20;
-  Color _colorText = Colors.black;
-  Color _colorChord = Colors.red;
+  double _previewFontTextSize = 20;
+  double _previewFontChordSize = 20;
+  double _editFontTextSize = 20;
+  double _editFontChordSize = 20;
+  Color _previewColorText = Colors.black;
+  Color _previewColorChord = Colors.red;
+  Color _editColorText = Colors.black;
+  Color _editColorChord = Colors.red;
   bool _isEditIconVisible = true;
 
   SettingsRepository({
     required this.hiveProvider,
   });
 
-  double get fontTextSize {
-    return _fontTextSize;
+  double get previewFontTextSize {
+    return _previewFontTextSize;
   }
 
-  double get fontChordSize {
-    return _fontChordSize;
+  double get previewFontChordSize {
+    return _previewFontChordSize;
   }
 
-  Color get colorText {
-    return _colorText;
+  double get editFontTextSize {
+    return _editFontTextSize;
   }
 
-  Color get colorChord {
-    return _colorChord;
+  double get editFontChordSize {
+    return _editFontChordSize;
+  }
+
+  Color get previewColorText {
+    return _previewColorText;
+  }
+
+  Color get previewColorChord {
+    return _previewColorChord;
+  }
+
+  Color get editColorText {
+    return _editColorText;
+  }
+
+  Color get editColorChord {
+    return _editColorChord;
   }
 
   bool get isEditIconVisible {
@@ -37,38 +57,67 @@ class SettingsRepository {
   }
 
   Future<void> loadLocalSettings() async {
-    _fontTextSize = await hiveProvider.getSettingsValue('fontTextSize') ?? 20;
-    _fontChordSize = await hiveProvider.getSettingsValue('fontChordSize') ?? 20;
-    _colorText = await hiveProvider.getSettingsValue('colorText') ?? Colors.black;
-    _colorChord = await hiveProvider.getSettingsValue('colorChord') ?? Colors.red;
+    _previewFontTextSize = await hiveProvider.getSettingsValue('previewFontTextSize') ?? 20;
+    _previewFontChordSize = await hiveProvider.getSettingsValue('previewFontChordSize') ?? 20;
+    _editFontTextSize = await hiveProvider.getSettingsValue('editFontTextSize') ?? 20;
+    _editFontChordSize = await hiveProvider.getSettingsValue('editFontChordSize') ?? 20;
+    _previewColorText = await hiveProvider.getSettingsValue('previewColorText') ?? Colors.black;
+    _previewColorChord = await hiveProvider.getSettingsValue('previewColorChord') ?? Colors.red;
+    _editColorText = await hiveProvider.getSettingsValue('editColorText') ?? Colors.black;
+    _editColorChord = await hiveProvider.getSettingsValue('editColorChord') ?? Colors.red;
     _isEditIconVisible = await hiveProvider.getSettingsValue('isEditIconVisible') ?? true;
   }
 
   void changeSettingsValue(String typeValue, dynamic value) {
     switch (typeValue) {
-      case 'fontTextSize':
+      case 'previewFontTextSize':
         {
-          _fontTextSize = value;
-          hiveProvider.setSettingsValue('fontTextSize', value);
+          _previewFontTextSize = value;
+          hiveProvider.setSettingsValue('previewFontTextSize', value);
           break;
         }
 
-      case 'fontChordSize':
+      case 'previewFontChordSize':
         {
-          _fontChordSize = value;
-          hiveProvider.setSettingsValue('fontChordSize', value);
+          _previewFontChordSize = value;
+          hiveProvider.setSettingsValue('previewFontChordSize', value);
           break;
         }
-      case 'colorText':
+      case 'editFontTextSize':
         {
-          _colorText = value;
-          hiveProvider.setSettingsValue('colorText', value);
+          _previewFontTextSize = value;
+          hiveProvider.setSettingsValue('editFontTextSize', value);
           break;
         }
-      case 'colorChord':
+
+      case 'editFontChordSize':
         {
-          _colorChord = value;
-          hiveProvider.setSettingsValue('colorChord', value);
+          _previewFontChordSize = value;
+          hiveProvider.setSettingsValue('editFontChordSize', value);
+          break;
+        }
+      case 'previewColorText':
+        {
+          _previewColorText = value;
+          hiveProvider.setSettingsValue('previewColorText', value);
+          break;
+        }
+      case 'previewColorChord':
+        {
+          _previewColorChord = value;
+          hiveProvider.setSettingsValue('previewColorChord', value);
+          break;
+        }
+      case 'editColorText':
+        {
+          _previewColorText = value;
+          hiveProvider.setSettingsValue('editColorText', value);
+          break;
+        }
+      case 'editColorChord':
+        {
+          _previewColorChord = value;
+          hiveProvider.setSettingsValue('editColorChord', value);
           break;
         }
       case 'isEditIconVisible':

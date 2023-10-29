@@ -21,7 +21,7 @@ class EditSongBloc extends Bloc<EditSongEvent, EditSongState> {
             textStyle: const TextStyle(),
             chordStyle: const TextStyle(),
             selectChord: '',
-            listUniqueChords: [],
+            listUniqueChords: const [],
             transposeIncrement: 0,
             selectChordIndex: -1,
             listUniqueChordsIsVisible: false)) {
@@ -41,8 +41,8 @@ class EditSongBloc extends Bloc<EditSongEvent, EditSongState> {
   void _init(_Init event, Emitter<EditSongState> emit) {
     final state = this.state;
     emit(state.copyWith(
-        textStyle: TextStyle(fontSize: settingsRepository.fontTextSize, color: settingsRepository.colorText),
-        chordStyle: TextStyle(fontSize: settingsRepository.fontChordSize, color: settingsRepository.colorChord)));
+        textStyle: TextStyle(fontSize: settingsRepository.previewFontTextSize, color: settingsRepository.previewColorText),
+        chordStyle: TextStyle(fontSize: settingsRepository.previewFontChordSize, color: settingsRepository.previewColorChord)));
   }
 
   void _changeEditSong(ChangeEditSong event, Emitter<EditSongState> emit) {

@@ -41,8 +41,8 @@ class PreviewChordBloc extends Bloc<PreviewChordEvent, PreviewChordState> {
   void _init(_Init event, Emitter<PreviewChordState> emit) {
     final state = this.state;
     emit(state.copyWith(
-        textStyle: TextStyle(fontSize: settingsRepository.fontTextSize, color: settingsRepository.colorText),
-        chordStyle: TextStyle(fontSize: settingsRepository.fontChordSize, color: settingsRepository.colorChord)));
+        textStyle: TextStyle(fontSize: settingsRepository.previewFontTextSize, color: settingsRepository.previewColorText),
+        chordStyle: TextStyle(fontSize: settingsRepository.previewFontChordSize, color: settingsRepository.previewColorChord)));
   }
 
   void _changeCurrentSong(ChangeCurrentSong event, Emitter<PreviewChordState> emit) {

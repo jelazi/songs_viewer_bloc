@@ -20,7 +20,6 @@ import 'model/user.dart';
 import 'providers/firebase_provider.dart';
 import 'providers/hive_provider.dart';
 import 'services/my_logger.dart';
-import 'view/pages/home_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 

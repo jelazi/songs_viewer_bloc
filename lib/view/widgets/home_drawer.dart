@@ -1,11 +1,9 @@
 import 'package:default_project/blocs/export_blocs.dart';
 import 'package:default_project/services/constants.dart';
-import 'package:default_project/view/pages/edit_pages/edit_page.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/song/song.dart';
-import '../pages/settings_page.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({

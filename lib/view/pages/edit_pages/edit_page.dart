@@ -2,7 +2,6 @@
 import 'dart:io';
 
 import 'package:default_project/services/enums.dart';
-import 'package:default_project/view/pages/edit_pages/edit_chords.dart';
 import 'package:default_project/view/widgets/dialogs/dialogs_export.dart';
 import 'package:default_project/view/widgets/dialogs/question_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';

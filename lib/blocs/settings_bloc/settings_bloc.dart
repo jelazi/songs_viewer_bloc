@@ -13,7 +13,17 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsRepository settingsRepository;
   SettingsBloc({
     required this.settingsRepository,
-  }) : super(SettingsInitial(SettingsProperties(fontTextSize: 20, fontChordSize: 20, colorText: Colors.black, colorChord: Colors.red, isEditIconVisible: false))) {
+  }) : super(const SettingsInitial(
+          previewFontTextSize: 20,
+          previewFontChordSize: 20,
+          editFontTextSize: 20,
+          editFontChordSize: 20,
+          previewColorText: Colors.black,
+          previewColorChord: Colors.red,
+          editColorText: Colors.black,
+          editColorChord: Colors.red,
+          isEditIconVisible: false,
+        )) {
     on<_SettingsInitial>(_settingsInitial);
     on<ChangeSettingsValue>(_changeSettingsValue);
 
@@ -22,26 +32,29 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   void _settingsInitial(_SettingsInitial event, Emitter<SettingsState> emit) {
     final state = this.state;
-    emit(state.copyWith(
-        settingsProperties: SettingsProperties(
-      fontTextSize: settingsRepository.fontTextSize,
-      fontChordSize: settingsRepository.fontChordSize,
-      colorText: settingsRepository.colorText,
-      colorChord: settingsRepository.colorChord,
-      isEditIconVisible: settingsRepository.isEditIconVisible,
-    )));
+    _emitAllValues(state, emit);
   }
 
   void _changeSettingsValue(ChangeSettingsValue event, Emitter<SettingsState> emit) {
     final state = this.state;
     settingsRepository.changeSettingsValue(event.typeValue, event.value);
+    _emitAllValues(state, emit);
+  }
+
+  void _emitAllValues(
+    SettingsState state,
+    Emitter<SettingsState> emit,
+  ) {
     emit(state.copyWith(
-        settingsProperties: state.settingsProperties.copyWith(
-      fontTextSize: settingsRepository.fontTextSize,
-      fontChordSize: settingsRepository.fontChordSize,
-      colorText: settingsRepository.colorText,
-      colorChord: settingsRepository.colorChord,
+      previewFontTextSize: settingsRepository.previewFontTextSize,
+      previewFontChordSize: settingsRepository.previewFontChordSize,
+      previewColorText: settingsRepository.previewColorText,
+      previewColorChord: settingsRepository.previewColorChord,
+      editFontTextSize: settingsRepository.editFontTextSize,
+      editFontChordSize: settingsRepository.editFontChordSize,
+      editColorText: settingsRepository.editColorText,
+      editColorChord: settingsRepository.editColorChord,
       isEditIconVisible: settingsRepository.isEditIconVisible,
-    )));
+    ));
   }
 }
