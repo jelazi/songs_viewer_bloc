@@ -47,7 +47,17 @@ class PreviewChordBloc extends Bloc<PreviewChordEvent, PreviewChordState> {
 
   void _changeCurrentSong(ChangeCurrentSong event, Emitter<PreviewChordState> emit) {
     final state = this.state;
-    emit(state.copyWith(data: state.data.copyWith(song: event.song)));
+    if (state.textStyle.color != settingsRepository.previewColorText ||
+        state.textStyle.fontSize != settingsRepository.previewFontTextSize ||
+        state.chordStyle.color != settingsRepository.previewColorChord ||
+        state.chordStyle.fontSize != settingsRepository.previewFontChordSize) {
+      emit(state.copyWith(
+          data: state.data.copyWith(song: event.song),
+          textStyle: TextStyle(fontSize: settingsRepository.previewFontTextSize, color: settingsRepository.previewColorText),
+          chordStyle: TextStyle(fontSize: settingsRepository.previewFontChordSize, color: settingsRepository.previewColorChord)));
+    } else {
+      emit(state.copyWith(data: state.data.copyWith(song: event.song)));
+    }
   }
 
   void _changeTextFontSize(ChangeTextFontSize event, Emitter<PreviewChordState> emit) {
@@ -64,7 +74,11 @@ class PreviewChordBloc extends Bloc<PreviewChordEvent, PreviewChordState> {
 
   void _changeAppBarStatus(ChangeAppBarStatus event, Emitter<PreviewChordState> emit) {
     final state = this.state;
-    emit(state.copyWith(appBarStatus: event.status));
+    if (settingsRepository.autoHideTopBar) {
+      emit(state.copyWith(appBarStatus: event.status));
+    } else {
+      emit(state.copyWith(appBarStatus: true));
+    }
   }
 
   void _changeVisibleButtons(ChangeVisibleButtons event, Emitter<PreviewChordState> emit) {

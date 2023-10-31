@@ -7,8 +7,11 @@ The application is intended for iOS, Android, MacOS and the web.
 
 ## Getting Started
 
-1. Clone this repository
-2. Run: 
+Clone this repository
+
+For create firebase_options.dart file you use FlutterFire CLI
+
+Run: 
 ```bash
 flutter pub get
 dart run build_runner build --delete-conflicting-outputs

@@ -118,7 +118,7 @@ class _SettingsTileState extends State<SettingsTile> {
   Widget getSwitchValue(BuildContext context) {
     return CupertinoSwitch(
       // thumbColor: myBottomTabBackgroundColor,
-      activeColor: AppColor.defaultBackgroundColor,
+      activeColor: AppColor.primaryColor,
       onChanged: (bool value) {
         setState(() {
           //  widget.switchValue = value;

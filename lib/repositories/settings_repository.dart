@@ -15,6 +15,7 @@ class SettingsRepository {
   Color _editColorText = Colors.black;
   Color _editColorChord = Colors.red;
   bool _isEditIconVisible = true;
+  bool _autoHideTopBar = false;
 
   SettingsRepository({
     required this.hiveProvider,
@@ -56,16 +57,21 @@ class SettingsRepository {
     return _isEditIconVisible;
   }
 
+  bool get autoHideTopBar {
+    return _autoHideTopBar;
+  }
+
   Future<void> loadLocalSettings() async {
     _previewFontTextSize = await hiveProvider.getSettingsValue('previewFontTextSize') ?? 20;
     _previewFontChordSize = await hiveProvider.getSettingsValue('previewFontChordSize') ?? 20;
     _editFontTextSize = await hiveProvider.getSettingsValue('editFontTextSize') ?? 20;
     _editFontChordSize = await hiveProvider.getSettingsValue('editFontChordSize') ?? 20;
-    _previewColorText = await hiveProvider.getSettingsValue('previewColorText') ?? Colors.black;
-    _previewColorChord = await hiveProvider.getSettingsValue('previewColorChord') ?? Colors.red;
-    _editColorText = await hiveProvider.getSettingsValue('editColorText') ?? Colors.black;
-    _editColorChord = await hiveProvider.getSettingsValue('editColorChord') ?? Colors.red;
+    _previewColorText = Color(await hiveProvider.getSettingsValue('previewColorText') ?? Colors.black.value);
+    _previewColorChord = Color(await hiveProvider.getSettingsValue('previewColorChord') ?? Colors.red.value);
+    _editColorText = Color(await hiveProvider.getSettingsValue('editColorText') ?? Colors.black.value);
+    _editColorChord = Color(await hiveProvider.getSettingsValue('editColorChord') ?? Colors.red.value);
     _isEditIconVisible = await hiveProvider.getSettingsValue('isEditIconVisible') ?? true;
+    _autoHideTopBar = await hiveProvider.getSettingsValue('autoHideTopBar') ?? false;
   }
 
   void changeSettingsValue(String typeValue, dynamic value) {
@@ -99,31 +105,37 @@ class SettingsRepository {
       case 'previewColorText':
         {
           _previewColorText = value;
-          hiveProvider.setSettingsValue('previewColorText', value);
+          hiveProvider.setSettingsValue('previewColorText', value.value);
           break;
         }
       case 'previewColorChord':
         {
           _previewColorChord = value;
-          hiveProvider.setSettingsValue('previewColorChord', value);
+          hiveProvider.setSettingsValue('previewColorChord', value.value);
           break;
         }
       case 'editColorText':
         {
           _previewColorText = value;
-          hiveProvider.setSettingsValue('editColorText', value);
+          hiveProvider.setSettingsValue('editColorText', value.value);
           break;
         }
       case 'editColorChord':
         {
           _previewColorChord = value;
-          hiveProvider.setSettingsValue('editColorChord', value);
+          hiveProvider.setSettingsValue('editColorChord', value.value);
           break;
         }
       case 'isEditIconVisible':
         {
           _isEditIconVisible = value;
           hiveProvider.setSettingsValue('isEditIconVisible', value);
+          break;
+        }
+      case 'autoHideTopBar':
+        {
+          _autoHideTopBar = value;
+          hiveProvider.setSettingsValue('autoHideTopBar', value);
           break;
         }
     }

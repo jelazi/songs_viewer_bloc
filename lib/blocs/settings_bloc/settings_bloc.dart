@@ -23,6 +23,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           editColorText: Colors.black,
           editColorChord: Colors.red,
           isEditIconVisible: false,
+          autoHideTopBar: false,
         )) {
     on<_SettingsInitial>(_settingsInitial);
     on<ChangeSettingsValue>(_changeSettingsValue);
@@ -55,6 +56,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       editColorText: settingsRepository.editColorText,
       editColorChord: settingsRepository.editColorChord,
       isEditIconVisible: settingsRepository.isEditIconVisible,
+      autoHideTopBar: settingsRepository.autoHideTopBar,
     ));
   }
 }

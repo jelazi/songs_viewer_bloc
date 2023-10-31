@@ -47,7 +47,21 @@ class EditSongBloc extends Bloc<EditSongEvent, EditSongState> {
 
   void _changeEditSong(ChangeEditSong event, Emitter<EditSongState> emit) {
     final state = this.state;
-    emit(state.copyWith(currentEditSong: event.song, listUniqueChords: event.song.getAllUniqueChordsFromSong(TypeLyric.original)));
+    if (state.textStyle.color != settingsRepository.previewColorText ||
+        state.textStyle.fontSize != settingsRepository.previewFontTextSize ||
+        state.chordStyle.color != settingsRepository.previewColorChord ||
+        state.chordStyle.fontSize != settingsRepository.previewFontChordSize) {
+      emit(state.copyWith(
+          currentEditSong: event.song,
+          listUniqueChords: event.song.getAllUniqueChordsFromSong(TypeLyric.original),
+          textStyle: TextStyle(fontSize: settingsRepository.previewFontTextSize, color: settingsRepository.previewColorText),
+          chordStyle: TextStyle(
+            fontSize: settingsRepository.previewFontChordSize,
+            color: settingsRepository.previewColorChord,
+          )));
+    } else {
+      emit(state.copyWith(currentEditSong: event.song, listUniqueChords: event.song.getAllUniqueChordsFromSong(TypeLyric.original)));
+    }
   }
 
   void _changeSongValue(ChangeSongValue event, Emitter<EditSongState> emit) {

@@ -11,6 +11,7 @@ class SettingsState extends Equatable {
   final Color editColorText;
   final Color editColorChord;
   final bool isEditIconVisible;
+  final bool autoHideTopBar;
   const SettingsState({
     required this.previewFontTextSize,
     required this.previewFontChordSize,
@@ -21,10 +22,12 @@ class SettingsState extends Equatable {
     required this.editColorText,
     required this.editColorChord,
     required this.isEditIconVisible,
+    required this.autoHideTopBar,
   });
 
   @override
   List<Object> get props => [
+        previewFontTextSize,
         previewColorChord,
         previewFontChordSize,
         previewColorText,
@@ -33,6 +36,7 @@ class SettingsState extends Equatable {
         editFontChordSize,
         editColorText,
         isEditIconVisible,
+        autoHideTopBar,
       ];
 
   SettingsState copyWith({
@@ -45,6 +49,7 @@ class SettingsState extends Equatable {
     Color? editColorText,
     Color? editColorChord,
     bool? isEditIconVisible,
+    bool? autoHideTopBar,
   }) {
     return SettingsState(
       previewFontTextSize: previewFontTextSize ?? this.previewFontTextSize,
@@ -56,6 +61,7 @@ class SettingsState extends Equatable {
       editColorText: editColorText ?? this.editColorText,
       editColorChord: editColorChord ?? this.editColorChord,
       isEditIconVisible: isEditIconVisible ?? this.isEditIconVisible,
+      autoHideTopBar: autoHideTopBar ?? this.autoHideTopBar,
     );
   }
 }
@@ -70,5 +76,6 @@ class SettingsInitial extends SettingsState {
       required super.previewColorChord,
       required super.editColorText,
       required super.editColorChord,
-      required super.isEditIconVisible});
+      required super.isEditIconVisible,
+      required super.autoHideTopBar});
 }
