@@ -6,6 +6,7 @@ import '../pages/edit_pages/edit_chords.dart';
 import '../pages/edit_pages/edit_lyrics.dart';
 import '../pages/edit_pages/edit_page.dart';
 import '../pages/home_page.dart';
+import '../pages/login_page.dart';
 import '../pages/presentation_page.dart';
 import '../pages/preview_page.dart';
 import '../pages/settings_page.dart';
@@ -48,6 +49,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const EditChordsPage(isOriginalLyrics: false));
       case '/editOriginalChordsPage':
         return MaterialPageRoute(builder: (_) => const EditChordsPage(isOriginalLyrics: true));
+      case '/loginPage':
+        return MaterialPageRoute(builder: (_) => const LoginPage());
       default:
         return MaterialPageRoute(builder: (_) => Container());
     }

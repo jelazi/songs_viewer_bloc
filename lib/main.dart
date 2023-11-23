@@ -76,6 +76,11 @@ class MyApp extends StatelessWidget {
               settingsRepository: settingsRepository,
             ),
           ),
+          BlocProvider(
+            create: (context) => LoginBloc(
+              usersRepository: usersRepository,
+            ),
+          )
         ],
         child: MaterialApp(
           title: 'Songs viewer',
@@ -87,6 +92,7 @@ class MyApp extends StatelessWidget {
           localizationsDelegates: context.localizationDelegates,
           locale: context.locale,
           onGenerateRoute: _appRouter.onGenerateRoute,
+          initialRoute: "/loginPage",
         ),
       ),
     );

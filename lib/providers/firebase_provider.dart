@@ -76,7 +76,7 @@ class FirebaseProvider {
   Future<List<String>> getListSongGroupFromFirestore() async {
     List<String> listSongGroup = [];
     try {
-      var snapshot = await groupCollection.doc('groups').get();
+      final snapshot = await groupCollection.doc('groups').get();
       if (snapshot.exists) {
         Map<String, dynamic>? map = snapshot.data();
         List<dynamic> groups = map?['groups'];
@@ -90,7 +90,7 @@ class FirebaseProvider {
 
   Future<void> deleteUser(User user) async {
     try {
-      var snapshot = await userCollection.doc(user.name).get();
+      final snapshot = await userCollection.doc(user.name).get();
       if (snapshot.exists) {
         await userCollection.doc(user.name).delete();
       }
@@ -101,7 +101,7 @@ class FirebaseProvider {
 
   Future<void> addSongToFirebase(Song songData) async {
     try {
-      var snapshot = await songCollection.doc(songData.id).get();
+      final snapshot = await songCollection.doc(songData.id).get();
       if (snapshot.exists) {
         updateSong(songData);
       } else {
@@ -123,7 +123,7 @@ class FirebaseProvider {
   Future<List<Song>> getListSongsFromFirestore() async {
     List<Song> listSongs = [];
     try {
-      var querySnapshot = await songCollection.get();
+      final querySnapshot = await songCollection.get();
       for (var doc in querySnapshot.docs) {
         listSongs.add(Song.fromJson(doc.data()));
       }
@@ -146,7 +146,7 @@ class FirebaseProvider {
 
   Future<void> addPlaylistToFirebase(Playlist playlist) async {
     try {
-      var snapshot = await playlistCollection.doc(playlist.id).get();
+      final snapshot = await playlistCollection.doc(playlist.id).get();
       if (snapshot.exists) {
         updatePlaylist(playlist);
       } else {
@@ -168,7 +168,7 @@ class FirebaseProvider {
   void addGroupsToFirebase(List<String> listGroup) async {
     Map<String, Object> map = {'groups': listGroup};
     try {
-      var snapshot = await groupCollection.doc('groups').get();
+      final snapshot = await groupCollection.doc('groups').get();
       if (snapshot.exists) {
         await groupCollection.doc('groups').update(map);
       } else {
@@ -182,7 +182,7 @@ class FirebaseProvider {
   Future<List<Playlist>> getListPlaylistsFromFirestore() async {
     List<Playlist> listPlaylists = [];
     try {
-      var querySnapshot = await playlistCollection.get();
+      final querySnapshot = await playlistCollection.get();
       for (var doc in querySnapshot.docs) {
         listPlaylists.add(Playlist.fromJson(doc.data()));
       }
@@ -194,7 +194,7 @@ class FirebaseProvider {
 
   Future<void> deletePlaylist(Playlist playlist) async {
     try {
-      var snapshot = await playlistCollection.doc(playlist.id).get();
+      final snapshot = await playlistCollection.doc(playlist.id).get();
       if (snapshot.exists) {
         await playlistCollection.doc(playlist.id).delete();
       }
