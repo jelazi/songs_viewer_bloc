@@ -36,6 +36,7 @@ dependencies:
   split_view: ^3.2.1
   numberpicker: ^2.1.2
   flutter_colorpicker: ^1.0.3
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -52,3 +53,4 @@ flutter:
   assets:
     - assets/lang/cs.json
     - assets/lang/en.json
+    - assets/logos/ic_launcher.png

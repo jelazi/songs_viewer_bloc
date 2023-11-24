@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/song/song.dart';
+import '../../model/user.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({
@@ -31,18 +32,25 @@ class HomeDrawer extends StatelessWidget {
                 ),
               ),
             ),
-            ListTile(
-              title: Row(children: [
-                const Icon(Icons.add),
-                const SizedBox(
-                  width: 10,
-                ),
-                Text('addNewSong'.tr()),
-              ]),
-              onTap: () {
-                Navigator.pop(context);
-                context.read<EditSongBloc>().add(ChangeEditSong(song: Song.empty()));
-                Navigator.pushNamed(context, '/editPage');
+            BlocBuilder<HomePageBloc, HomePageState>(
+              builder: (context, state) {
+                return Visibility(
+                  visible: state.typeUser == TypeUser.admin || state.typeUser == TypeUser.superuser,
+                  child: ListTile(
+                    title: Row(children: [
+                      const Icon(Icons.add),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text('addNewSong'.tr()),
+                    ]),
+                    onTap: () {
+                      Navigator.pop(context);
+                      context.read<EditSongBloc>().add(ChangeEditSong(song: Song.empty()));
+                      Navigator.pushNamed(context, '/editPage');
+                    },
+                  ),
+                );
               },
             ),
             ListTile(

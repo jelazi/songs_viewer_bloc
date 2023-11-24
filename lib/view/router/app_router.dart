@@ -50,7 +50,7 @@ class AppRouter {
       case '/editOriginalChordsPage':
         return MaterialPageRoute(builder: (_) => const EditChordsPage(isOriginalLyrics: true));
       case '/loginPage':
-        return MaterialPageRoute(builder: (_) => const LoginPage());
+        return MaterialPageRoute(builder: (_) => LoginPage());
       default:
         return MaterialPageRoute(builder: (_) => Container());
     }

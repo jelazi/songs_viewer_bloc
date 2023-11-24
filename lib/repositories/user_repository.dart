@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 
 import '../model/user.dart';
@@ -7,8 +9,15 @@ import '../providers/hive_provider.dart';
 class UsersRepository {
   final HiveProvider _hiveProvider;
   final FirebaseProvider _firebaseProvider;
+  TypeUser currentTypeUser = TypeUser.none;
 
-  final _users = <User>[User('test', 'test')];
+  final userController = StreamController<TypeUser>.broadcast();
+  Stream<TypeUser> get selectSongData => userController.stream.asBroadcastStream();
+
+  final _users = <User>[
+    User('test', 'test')..typeUser = TypeUser.admin,
+    User('josef', 'jk')..typeUser = TypeUser.viewer,
+  ];
 
   UsersRepository({
     required HiveProvider hiveProvider,
@@ -20,6 +29,8 @@ class UsersRepository {
     final user = _users.firstWhereOrNull((element) => element.name == username);
 
     if (user != null && user.password == password) {
+      currentTypeUser = user.typeUser;
+      userController.sink.add(user.typeUser);
       return true;
     } else {
       return false;

@@ -75,3 +75,12 @@ class UpdateSong extends HomePageEvent {
   @override
   List<Object> get props => [song];
 }
+
+class LoginUser extends HomePageEvent {
+  final TypeUser typeUser;
+  const LoginUser({
+    required this.typeUser,
+  });
+  @override
+  List<Object> get props => [typeUser];
+}
