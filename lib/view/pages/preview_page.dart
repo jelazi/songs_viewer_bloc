@@ -89,7 +89,27 @@ class _PreviewPageState extends State<PreviewPage> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0),
-                  child: _getLyricsRenderer(state, scrollController),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      BlocBuilder<PreviewChordBloc, PreviewChordState>(
+                        builder: (context, state) {
+                          return Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text('cap: ${state.cap}',
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: AppColor.primaryColor,
+                                )),
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height - 120,
+                        child: _getLyricsRenderer(state, scrollController),
+                      ),
+                    ],
+                  ),
                 ),
                 Positioned(
                   top: 10,

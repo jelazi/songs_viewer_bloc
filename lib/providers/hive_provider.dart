@@ -2,8 +2,10 @@ import 'package:hive/hive.dart';
 
 class HiveProvider {
   dynamic settingsBox;
+  dynamic transposeBox;
   Future<void> initHiveBox() async {
     settingsBox = await Hive.openBox('settingsBox');
+    transposeBox = await Hive.openBox('transposeBox');
   }
 
   dynamic getSettingsValue(String name) {
@@ -12,5 +14,13 @@ class HiveProvider {
 
   void setSettingsValue(String key, dynamic value) {
     settingsBox.put(key, value);
+  }
+
+  void setNewTransposeForSong(String songId, int transpose) {
+    transposeBox.put(songId, transpose);
+  }
+
+  int getTransposeForSong(String songId) {
+    return transposeBox.get(songId) ?? 0;
   }
 }

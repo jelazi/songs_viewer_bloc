@@ -261,8 +261,8 @@ void openPicker(GuitarChord chord, TypeSongItem typeSongItem, int positionIndex)
         selecteds: selectedList,
         columnPadding: const EdgeInsets.all(8.0),
         onConfirm: (Picker picker, List value) {
-          //  print(value.toString());
-          //  print(picker.getSelectedValues());
+
+
           List values = picker.getSelectedValues();
           String newValue = values.join();
           newValue = newValue.replaceAll(' ', '');

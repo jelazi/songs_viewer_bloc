@@ -1,3 +1,4 @@
+import 'package:default_project/main.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:equatable/equatable.dart';
@@ -26,6 +27,7 @@ class PreviewChordBloc extends Bloc<PreviewChordEvent, PreviewChordState> {
           maxLines: 20,
           appBarStatus: true,
           visibleButtons: false,
+          cap: 0,
         )) {
     on<_Init>(_init);
     on<ChangeCurrentSong>(_changeCurrentSong);
@@ -47,16 +49,24 @@ class PreviewChordBloc extends Bloc<PreviewChordEvent, PreviewChordState> {
 
   void _changeCurrentSong(ChangeCurrentSong event, Emitter<PreviewChordState> emit) {
     final state = this.state;
+    final transposeIncrement = songsRepository.getTransposeForSong(event.song);
+
     if (state.textStyle.color != settingsRepository.previewColorText ||
         state.textStyle.fontSize != settingsRepository.previewFontTextSize ||
         state.chordStyle.color != settingsRepository.previewColorChord ||
         state.chordStyle.fontSize != settingsRepository.previewFontChordSize) {
       emit(state.copyWith(
-          data: state.data.copyWith(song: event.song),
-          textStyle: TextStyle(fontSize: settingsRepository.previewFontTextSize, color: settingsRepository.previewColorText),
-          chordStyle: TextStyle(fontSize: settingsRepository.previewFontChordSize, color: settingsRepository.previewColorChord)));
+        data: state.data.copyWith(song: event.song),
+        textStyle: TextStyle(fontSize: settingsRepository.previewFontTextSize, color: settingsRepository.previewColorText),
+        chordStyle: TextStyle(
+          fontSize: settingsRepository.previewFontChordSize,
+          color: settingsRepository.previewColorChord,
+        ),
+        transposeIncrement: transposeIncrement,
+        cap: _getCapByIncrement(transposeIncrement),
+      ));
     } else {
-      emit(state.copyWith(data: state.data.copyWith(song: event.song)));
+      emit(state.copyWith(data: state.data.copyWith(song: event.song), transposeIncrement: transposeIncrement, cap: _getCapByIncrement(transposeIncrement)));
     }
   }
 
@@ -104,7 +114,29 @@ class PreviewChordBloc extends Bloc<PreviewChordEvent, PreviewChordState> {
 
   void _transposeChord(TransposeChord event, Emitter<PreviewChordState> emit) {
     final state = this.state;
-    final newIncrement = state.transposeIncrement + event.increment;
-    emit(state.copyWith(transposeIncrement: newIncrement));
+    int newIncrement = state.transposeIncrement + event.increment;
+    if (newIncrement >= 12) {
+      newIncrement = newIncrement - 12;
+    }
+    if (newIncrement <= -12) {
+      newIncrement = newIncrement + 12;
+    }
+
+    songsRepository.changeTransposeChord(state.data.song, newIncrement);
+    emit(state.copyWith(transposeIncrement: newIncrement, cap: _getCapByIncrement(newIncrement)));
+  }
+
+  int _getCapByIncrement(int increment) {
+    int cap = 0;
+    if (increment == 0) {
+      cap = 0;
+    } else {
+      if (increment < 0) {
+        cap = -1 * increment;
+      } else {
+        cap = 12 - increment;
+      }
+    }
+    return cap;
   }
 }

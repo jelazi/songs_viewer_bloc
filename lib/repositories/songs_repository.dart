@@ -115,4 +115,12 @@ class SongsRepository {
     _songs.removeWhere((element) => element.id == song.id);
     _songs.add(song.copyWith());
   }
+
+  void changeTransposeChord(Song song, int transpose) {
+    _hiveProvider.setNewTransposeForSong(song.id, transpose);
+  }
+
+  int getTransposeForSong(Song song) {
+    return _hiveProvider.getTransposeForSong(song.id);
+  }
 }
