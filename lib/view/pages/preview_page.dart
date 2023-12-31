@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:default_project/services/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../blocs/export_blocs.dart';
 import '../../model/chord/chords_positions.dart';
@@ -69,10 +70,18 @@ class _PreviewPageState extends State<PreviewPage> {
                     ),
                     actions: [
                       IconButton(
+                          icon: Icon(
+                            MdiIcons.radioboxMarked,
+                            color: state.isSelectedSong ? Colors.green : AppColor.primaryDarkColor,
+                          ),
+                          onPressed: () {
+                            context.read<PreviewChordBloc>().add(SelectSongInPreview(status: !state.isSelectedSong));
+                          }),
+                      IconButton(
                           onPressed: () {
                             context.read<PreviewChordBloc>().add(ChangeVisibleButtons(status: !state.visibleButtons));
                           },
-                          icon: const Icon(Icons.menu))
+                          icon: const Icon(Icons.menu, color: Colors.white))
                     ],
                   )),
             );

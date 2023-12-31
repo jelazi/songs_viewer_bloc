@@ -28,6 +28,7 @@ class PreviewChordBloc extends Bloc<PreviewChordEvent, PreviewChordState> {
           appBarStatus: true,
           visibleButtons: false,
           cap: 0,
+          isSelectedSong: false,
         )) {
     on<_Init>(_init);
     on<ChangeCurrentSong>(_changeCurrentSong);
@@ -37,6 +38,7 @@ class PreviewChordBloc extends Bloc<PreviewChordEvent, PreviewChordState> {
     on<ChangeAppBarStatus>(_changeAppBarStatus);
     on<ChangeVisibleButtons>(_changeVisibleButtons);
     on<TransposeChord>(_transposeChord);
+    on<SelectSongInPreview>(_selectSong);
     add(const _Init());
   }
 
@@ -44,7 +46,10 @@ class PreviewChordBloc extends Bloc<PreviewChordEvent, PreviewChordState> {
     final state = this.state;
     emit(state.copyWith(
         textStyle: TextStyle(fontSize: settingsRepository.previewFontTextSize, color: settingsRepository.previewColorText),
-        chordStyle: TextStyle(fontSize: settingsRepository.previewFontChordSize, color: settingsRepository.previewColorChord)));
+        chordStyle: TextStyle(
+          fontSize: settingsRepository.previewFontChordSize,
+          color: settingsRepository.previewColorChord,
+        )));
   }
 
   void _changeCurrentSong(ChangeCurrentSong event, Emitter<PreviewChordState> emit) {
@@ -58,6 +63,7 @@ class PreviewChordBloc extends Bloc<PreviewChordEvent, PreviewChordState> {
       emit(state.copyWith(
         data: state.data.copyWith(song: event.song),
         textStyle: TextStyle(fontSize: settingsRepository.previewFontTextSize, color: settingsRepository.previewColorText),
+        isSelectedSong: songsRepository.selectedSongId == event.song?.id,
         chordStyle: TextStyle(
           fontSize: settingsRepository.previewFontChordSize,
           color: settingsRepository.previewColorChord,
@@ -124,6 +130,12 @@ class PreviewChordBloc extends Bloc<PreviewChordEvent, PreviewChordState> {
 
     songsRepository.changeTransposeChord(state.data.song, newIncrement);
     emit(state.copyWith(transposeIncrement: newIncrement, cap: _getCapByIncrement(newIncrement)));
+  }
+
+  void _selectSong(SelectSongInPreview event, Emitter<PreviewChordState> emit) {
+    final state = this.state;
+    songsRepository.selectSong(state.data.song?.id);
+    emit(state.copyWith(isSelectedSong: event.status));
   }
 
   int _getCapByIncrement(int increment) {

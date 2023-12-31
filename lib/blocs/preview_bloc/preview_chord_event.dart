@@ -66,3 +66,11 @@ class TransposeChord extends PreviewChordEvent {
   @override
   List<Object> get props => [increment];
 }
+
+class SelectSongInPreview extends PreviewChordEvent {
+  final bool status;
+  const SelectSongInPreview({required this.status});
+
+  @override
+  List<Object> get props => [status];
+}
