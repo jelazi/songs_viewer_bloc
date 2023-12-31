@@ -13,16 +13,13 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   equatable: ^2.0.5
-  f_logs: ^2.0.1
   flutter_bloc: ^8.1.2
   path_provider: ^2.0.13
   uuid: ^4.2.1
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   easy_localization: ^3.0.1
-  build_runner: ^2.3.3
-  json_annotation: ^4.8.0
-  json_serializable: ^6.6.1
+
   share_plus: ^7.2.1
   file_picker: ^6.1.1
   firedart: ^0.9.0+1
@@ -37,10 +34,15 @@ dependencies:
   numberpicker: ^2.1.2
   flutter_colorpicker: ^1.0.3
   flutter_launcher_icons: ^0.13.1
+  logger_pkg:
+    path: ../../logger
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^2.3.3
+  json_annotation: ^4.8.0
+  json_serializable: ^6.6.1
 
 dependency_overrides:
   intl: any

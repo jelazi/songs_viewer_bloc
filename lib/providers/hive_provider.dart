@@ -1,3 +1,4 @@
+import 'package:default_project/model/user.dart';
 import 'package:hive/hive.dart';
 
 class HiveProvider {
@@ -22,5 +23,9 @@ class HiveProvider {
 
   int getTransposeForSong(String songId) {
     return transposeBox.get(songId) ?? 0;
+  }
+
+  User? getCurrentUser() {
+    return settingsBox.get('currentUser');
   }
 }

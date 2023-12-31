@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import 'package:default_project/services/enums.dart';
-import 'package:f_logs/model/flog/flog.dart';
 import 'package:flutter/material.dart';
+import 'package:logger_pkg/logger_pkg.dart';
 
 import '../../../services/constants.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -94,7 +94,7 @@ class ChordProcessorPDF {
     if (chord.isEmpty || increment == 0) return chord;
     if (chord == 'Bmi/G#') {
       //FIXME: prroblem with transponse chord
-      FLog.debug(text: 'chord');
+      logger.d('chord');
     }
     var cycle = [];
     if (typeTranspose == TypeTranspose.german) {
@@ -117,7 +117,7 @@ class ChordProcessorPDF {
       String apend = newChord.substring(newChord.indexOf('/') + 1);
       final indApp = cycle.indexOf(apend);
       if (indApp == -1) {
-        FLog.error(text: newChord);
+        logger.e(newChord);
         return newChord;
       }
       final newIndApp = (indApp + increment + cycle.length) % cycle.length;

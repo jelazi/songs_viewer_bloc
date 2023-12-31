@@ -1,5 +1,5 @@
-import 'package:f_logs/model/flog/flog.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:logger_pkg/logger_pkg.dart';
 
 import 'package:uuid/uuid.dart';
 
@@ -25,7 +25,7 @@ class Playlist {
 
   String addSong(Song song) {
     if (listSongIds.contains(song.id)) {
-      FLog.warning(text: 'this song is in playlist');
+      logger.w('this song is in playlist');
       return 'isInPlaylist';
     }
     listSongIds.add(song.id);

@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:f_logs/f_logs.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:logger_pkg/logger_pkg.dart';
 
 import '../model/playlist.dart';
 import '../model/song/song.dart';
@@ -40,7 +40,7 @@ class FirebaseProvider {
         await userCollection.doc(user.name).set(user.toJson());
       }
     } catch (e) {
-      FLog.error(text: '$e');
+      logger.d('$e');
     }
   }
 
@@ -56,7 +56,7 @@ class FirebaseProvider {
     try {
       await userCollection.doc(user.name).update(user.toJson());
     } catch (e) {
-      FLog.error(text: '$e');
+      logger.e('$e');
     }
   }
 
@@ -68,7 +68,7 @@ class FirebaseProvider {
         listUsers.add(User.fromJson(doc.data()));
       }
     } catch (e) {
-      FLog.error(text: '$e');
+      logger.e('$e');
     }
     return listUsers;
   }
@@ -83,7 +83,7 @@ class FirebaseProvider {
         listSongGroup = groups.map((e) => e.toString()).toList();
       }
     } catch (e) {
-      FLog.error(text: '$e');
+      logger.e('$e');
     }
     return listSongGroup;
   }
@@ -95,7 +95,7 @@ class FirebaseProvider {
         await userCollection.doc(user.name).delete();
       }
     } catch (e) {
-      FLog.error(text: '$e');
+      logger.e('$e');
     }
   }
 
@@ -108,7 +108,7 @@ class FirebaseProvider {
         await songCollection.doc(songData.id).set(songData.toJson());
       }
     } catch (e) {
-      FLog.error(text: '$e');
+      logger.e('$e');
     }
   }
 
@@ -116,7 +116,7 @@ class FirebaseProvider {
     try {
       await songCollection.doc(songData.id).update(songData.toJson());
     } catch (e) {
-      FLog.error(text: '$e');
+      logger.e('$e');
     }
   }
 
@@ -128,7 +128,7 @@ class FirebaseProvider {
         listSongs.add(Song.fromJson(doc.data()));
       }
     } catch (e) {
-      FLog.error(text: '$e');
+      logger.e('$e');
     }
     return listSongs;
   }
@@ -140,7 +140,7 @@ class FirebaseProvider {
         await songCollection.doc(song.id).delete();
       }
     } catch (e) {
-      FLog.error(text: '$e');
+      logger.e('$e');
     }
   }
 
@@ -153,7 +153,7 @@ class FirebaseProvider {
         await playlistCollection.doc(playlist.id).set(playlist.toJson());
       }
     } catch (e) {
-      FLog.error(text: '$e');
+      logger.e('$e');
     }
   }
 
@@ -161,7 +161,7 @@ class FirebaseProvider {
     try {
       await playlistCollection.doc(playlist.id).update(playlist.toJson());
     } catch (e) {
-      FLog.error(text: '$e');
+      logger.e('$e');
     }
   }
 
@@ -175,7 +175,7 @@ class FirebaseProvider {
         await groupCollection.doc('groups').set(map);
       }
     } catch (e) {
-      FLog.error(text: '$e');
+      logger.e('$e');
     }
   }
 
@@ -187,7 +187,7 @@ class FirebaseProvider {
         listPlaylists.add(Playlist.fromJson(doc.data()));
       }
     } catch (e) {
-      FLog.error(text: '$e');
+      logger.e('$e');
     }
     return listPlaylists;
   }
@@ -199,7 +199,7 @@ class FirebaseProvider {
         await playlistCollection.doc(playlist.id).delete();
       }
     } catch (e) {
-      FLog.error(text: '$e');
+      logger.e('$e');
     }
   }
 }

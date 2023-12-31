@@ -38,7 +38,10 @@ Future<void> initProvidersRepositories() async {
   usersRepository = UsersRepository(
     hiveProvider: hiveProvider,
     firebaseProvider: firebaseProvider,
+    settingsRepository: settingsRepository,
   );
+  await usersRepository.loadUsersFromFirebase();
+  await usersRepository.loadCurrentUser();
 }
 
 Future<void> initHiveFunction() async {

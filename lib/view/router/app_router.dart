@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../blocs/export_blocs.dart';
-import '../../main.dart';
+import '../../repositories/settings_repository.dart';
 import '../pages/edit_pages/edit_chords.dart';
 import '../pages/edit_pages/edit_lyrics.dart';
 import '../pages/edit_pages/edit_page.dart';
@@ -14,7 +14,13 @@ import '../pages/sheet_view_page.dart';
 import '../pages/youtube_video_page.dart';
 
 class AppRouter {
-  Route onGenerateRoute(RouteSettings routeSettings) {
+  SettingsRepository settingsRepository;
+  AppRouter({
+    required this.settingsRepository,
+  });
+  Route onGenerateRoute(
+    RouteSettings routeSettings,
+  ) {
     switch (routeSettings.name) {
       case '/':
         return MaterialPageRoute(
@@ -50,7 +56,22 @@ class AppRouter {
       case '/editOriginalChordsPage':
         return MaterialPageRoute(builder: (_) => const EditChordsPage(isOriginalLyrics: true));
       case '/loginPage':
-        return MaterialPageRoute(builder: (_) => LoginPage());
+        if (settingsRepository.currentUser.name == '') {
+          return MaterialPageRoute(builder: (_) => LoginPage());
+        } else {
+          return MaterialPageRoute(
+            builder: (_) => BlocListener<NotificationBloc, NotificationState>(
+              listener: (context, state) {
+                if (state.message.isNotEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message.last)));
+                }
+              },
+              child: HomePage(
+                settingsRepository: settingsRepository,
+              ),
+            ),
+          );
+        }
       default:
         return MaterialPageRoute(builder: (_) => Container());
     }

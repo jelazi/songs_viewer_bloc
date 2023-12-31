@@ -1,5 +1,5 @@
-import 'package:f_logs/f_logs.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:logger_pkg/logger_pkg.dart';
 
 import 'song_item.dart';
 part 'song_line.g.dart';
@@ -20,7 +20,7 @@ class SongLine {
     for (var element in array) {
       if (element == '[') {
         if (isChord) {
-          FLog.error(text: 'wrong chord $subString missing ]');
+          logger.e('wrong chord $subString missing ]');
         }
         isChord = true;
         if (subString.isNotEmpty) {
@@ -31,7 +31,7 @@ class SongLine {
       }
       if (element == '{') {
         if (isNotes) {
-          FLog.error(text: 'wrong note $subString missing }');
+          logger.e('wrong note $subString missing }');
         }
         isNotes = true;
         if (subString.isNotEmpty) {
@@ -50,7 +50,7 @@ class SongLine {
           }
           subString = '';
         } else {
-          FLog.error(text: 'wrong chord $subString missing [');
+          logger.e('wrong chord $subString missing [');
         }
         isChord = false;
       }
@@ -64,7 +64,7 @@ class SongLine {
           }
           subString = '';
         } else {
-          FLog.error(text: 'wrong note $subString missing {');
+          logger.e('wrong note $subString missing {');
         }
         isNotes = false;
       }
@@ -74,7 +74,7 @@ class SongLine {
     }
     if (subString.isNotEmpty) {
       if (isChord) {
-        FLog.error(text: 'wrong chord $subString missing ]');
+        logger.e('wrong chord $subString missing ]');
         SongItem item = SongItem(subString, TypeSongItem.chord);
         listItem.add(item);
       } else {

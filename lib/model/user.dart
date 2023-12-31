@@ -18,6 +18,10 @@ class User {
 
   User(this.name, this.password);
 
+  User.empty()
+      : name = '',
+        password = '';
+
   String get nameTypeUser {
     switch (typeUser) {
       case TypeUser.none:

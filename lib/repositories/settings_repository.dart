@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:default_project/model/user.dart';
 import 'package:flutter/material.dart';
 
 import '../providers/hive_provider.dart';
@@ -16,6 +17,7 @@ class SettingsRepository {
   Color _editColorChord = Colors.red;
   bool _isEditIconVisible = true;
   bool _autoHideTopBar = false;
+  User _currentUser = User.empty();
 
   SettingsRepository({
     required this.hiveProvider,
@@ -61,6 +63,10 @@ class SettingsRepository {
     return _autoHideTopBar;
   }
 
+  User get currentUser {
+    return _currentUser;
+  }
+
   Future<void> loadLocalSettings() async {
     _previewFontTextSize = await hiveProvider.getSettingsValue('previewFontTextSize') ?? 20;
     _previewFontChordSize = await hiveProvider.getSettingsValue('previewFontChordSize') ?? 20;
@@ -72,6 +78,12 @@ class SettingsRepository {
     _editColorChord = Color(await hiveProvider.getSettingsValue('editColorChord') ?? Colors.red.value);
     _isEditIconVisible = await hiveProvider.getSettingsValue('isEditIconVisible') ?? true;
     _autoHideTopBar = await hiveProvider.getSettingsValue('autoHideTopBar') ?? false;
+    _currentUser = await hiveProvider.getSettingsValue('currentUser') ?? User.empty();
+  }
+
+  void setCurrentUser(User user) {
+    _currentUser = user;
+    hiveProvider.setSettingsValue('currentUser', user);
   }
 
   void changeSettingsValue(String typeValue, dynamic value) {
@@ -136,6 +148,12 @@ class SettingsRepository {
         {
           _autoHideTopBar = value;
           hiveProvider.setSettingsValue('autoHideTopBar', value);
+          break;
+        }
+      case 'currentUser':
+        {
+          _currentUser = value;
+          hiveProvider.setSettingsValue('currentUser', value);
           break;
         }
     }

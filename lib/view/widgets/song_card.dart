@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:f_logs/f_logs.dart';
 import 'package:flutter/material.dart';
 
 import 'package:default_project/blocs/export_blocs.dart';
+import 'package:logger_pkg/logger_pkg.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../model/song/song.dart';
@@ -104,7 +104,7 @@ class _SongCardState extends State<SongCard> with TickerProviderStateMixin {
                                 color: AppColor.primaryDarkColor,
                               ),
                               onPressed: () {
-                                FLog.debug(text: 'openChords');
+                                logger.d('openChords');
                                 context.read<PreviewChordBloc>().add(ChangeCurrentSong(song: widget.song));
                                 Navigator.pushNamed(context, '/previewPage');
                               }),
@@ -114,7 +114,7 @@ class _SongCardState extends State<SongCard> with TickerProviderStateMixin {
                                 color: AppColor.primaryDarkestColor,
                               ),
                               onPressed: () {
-                                FLog.debug(text: 'openPresentation');
+                                logger.d('openPresentation');
                                 Navigator.pushNamed(context, '/presentationPage');
                               }),
                           Visibility(
@@ -125,7 +125,7 @@ class _SongCardState extends State<SongCard> with TickerProviderStateMixin {
                                   color: AppColor.primaryColor,
                                 ),
                                 onPressed: () {
-                                  FLog.debug(text: 'openSheets');
+                                  logger.d('openSheets');
 
                                   Navigator.pushNamed(context, '/sheetViewPage');
                                 }),
@@ -138,7 +138,7 @@ class _SongCardState extends State<SongCard> with TickerProviderStateMixin {
                                   color: AppColor.primaryLightColor,
                                 ),
                                 onPressed: () {
-                                  FLog.debug(text: 'openYoutube');
+                                  logger.d('openYoutube');
                                   Navigator.pushNamed(context, '/youtubeVideoPage');
                                 }),
                           ),
@@ -152,7 +152,7 @@ class _SongCardState extends State<SongCard> with TickerProviderStateMixin {
                                       color: AppColor.primaryLightestColor,
                                     ),
                                     onPressed: () {
-                                      FLog.debug(text: 'editSong');
+                                      logger.d('editSong');
                                       context.read<EditSongBloc>().add(ChangeEditSong(song: widget.song.copyWith()));
                                       Navigator.pushNamed(context, '/editPage');
                                     }),

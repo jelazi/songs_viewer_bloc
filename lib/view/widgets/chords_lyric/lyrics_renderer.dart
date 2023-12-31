@@ -1,8 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:default_project/blocs/export_blocs.dart';
 //import 'package:easy_localization/easy_localization.dart' hide TextDirection;
-import 'package:f_logs/f_logs.dart';
 import 'package:flutter/material.dart';
+import 'package:logger_pkg/logger_pkg.dart';
 import '../../../model/note.dart';
 
 import '../../../services/enums.dart';
@@ -185,7 +185,7 @@ class _LyricsRendererState extends State<LyricsRenderer> {
                     controller: _scrollControllerHorizontal,
                     child: GestureDetector(
                       onLongPress: () {
-                        FLog.debug(text: 'long press - ${widget.startIndex + index}');
+                        logger.d('long press - ${widget.startIndex + index}');
                         //TODO:
                         /*    if (Get.find<UserController>().currentUser.value?.typeUser != TypeUser.superuser || !settingsController.editNotes.value) {
                           return;
