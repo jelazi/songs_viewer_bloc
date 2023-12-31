@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
     return BlocBuilder<HomePageBloc, HomePageState>(
       builder: (context, state) {
         return Scaffold(
-          drawer: const HomeDrawer(),
+          drawer: HomeDrawer(),
           body: CustomScrollView(slivers: [
             SliverLayoutBuilder(builder: ((context, constraints) {
               return SliverAppBar(

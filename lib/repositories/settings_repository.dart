@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:default_project/model/user.dart';
+import 'package:default_project/services/enums.dart';
 import 'package:flutter/material.dart';
 
 import '../providers/hive_provider.dart';
@@ -18,6 +19,7 @@ class SettingsRepository {
   bool _isEditIconVisible = true;
   bool _autoHideTopBar = false;
   User _currentUser = User.empty();
+  TypeClickCard _typeClickCard = TypeClickCard.none;
 
   SettingsRepository({
     required this.hiveProvider,
@@ -67,6 +69,10 @@ class SettingsRepository {
     return _currentUser;
   }
 
+  TypeClickCard get typeClickCard {
+    return _typeClickCard;
+  }
+
   Future<void> loadLocalSettings() async {
     _previewFontTextSize = await hiveProvider.getSettingsValue('previewFontTextSize') ?? 20;
     _previewFontChordSize = await hiveProvider.getSettingsValue('previewFontChordSize') ?? 20;
@@ -79,11 +85,17 @@ class SettingsRepository {
     _isEditIconVisible = await hiveProvider.getSettingsValue('isEditIconVisible') ?? true;
     _autoHideTopBar = await hiveProvider.getSettingsValue('autoHideTopBar') ?? false;
     _currentUser = await hiveProvider.getSettingsValue('currentUser') ?? User.empty();
+    _typeClickCard = await hiveProvider.getSettingsValue('typeClickCard') ?? TypeClickCard.none;
   }
 
   void setCurrentUser(User user) {
     _currentUser = user;
     hiveProvider.setSettingsValue('currentUser', user);
+  }
+
+  void changeTypeClickCard(TypeClickCard typeClickCard) {
+    _typeClickCard = typeClickCard;
+    hiveProvider.setSettingsValue('typeClickCard', typeClickCard);
   }
 
   void changeSettingsValue(String typeValue, dynamic value) {
@@ -154,6 +166,12 @@ class SettingsRepository {
         {
           _currentUser = value;
           hiveProvider.setSettingsValue('currentUser', value);
+          break;
+        }
+      case 'typeClickCard':
+        {
+          _typeClickCard = value;
+          hiveProvider.setSettingsValue('typeClickCard', value);
           break;
         }
     }

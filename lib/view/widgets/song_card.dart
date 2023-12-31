@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:default_project/main.dart';
+import 'package:default_project/services/enums.dart';
 import 'package:flutter/material.dart';
 
 import 'package:default_project/blocs/export_blocs.dart';
@@ -48,7 +50,27 @@ class _SongCardState extends State<SongCard> with TickerProviderStateMixin {
     }
     return GestureDetector(
       onTap: () {
-        context.read<HomePageBloc>().add(ChangeExpandedCard(songId: widget.song.id));
+        TypeClickCard typeClickCard = settingsRepository.typeClickCard;
+        switch (typeClickCard) {
+          case TypeClickCard.none:
+            context.read<HomePageBloc>().add(ChangeExpandedCard(songId: widget.song.id));
+            break;
+          case TypeClickCard.preview:
+            logger.d('openChords');
+            context.read<PreviewChordBloc>().add(ChangeCurrentSong(song: widget.song));
+            Navigator.pushNamed(context, '/previewPage');
+            break;
+
+          case TypeClickCard.presentation:
+            // TODO: Handle this case.
+            break;
+          case TypeClickCard.sheet:
+            // TODO: Handle this case.
+            break;
+          case TypeClickCard.youtube:
+            // TODO: Handle this case.
+            break;
+        }
       },
       child: Container(
           decoration: BoxDecoration(

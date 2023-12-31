@@ -1,18 +1,34 @@
 import 'package:default_project/blocs/export_blocs.dart';
 import 'package:default_project/services/constants.dart';
+import 'package:default_project/services/enums.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/song/song.dart';
 import '../../model/user.dart';
 
-class HomeDrawer extends StatelessWidget {
-  const HomeDrawer({
+class HomeDrawer extends StatefulWidget {
+  HomeDrawer({
     super.key,
   });
 
   @override
+  State<HomeDrawer> createState() => _HomeDrawerState();
+}
+
+class _HomeDrawerState extends State<HomeDrawer> {
+  final List<String> items = [
+    TypeClickCard.none.name,
+    TypeClickCard.preview.name,
+    TypeClickCard.presentation.name,
+    TypeClickCard.sheet.name,
+    TypeClickCard.youtube.name,
+  ];
+  String selectedItem = TypeClickCard.none.name;
+
+  @override
   Widget build(BuildContext context) {
+    selectedItem = context.read<HomePageBloc>().settingsRepository.typeClickCard.name;
     return SizedBox(
       height: MediaQuery.of(context).size.height,
       child: Drawer(
@@ -66,6 +82,21 @@ class HomeDrawer extends StatelessWidget {
                 Navigator.pushNamed(context, '/settingsPage');
               },
             ),
+            ExpansionTile(
+                title: Text('typeClickCard'.tr()),
+                children: items.map((String item) {
+                  return ListTile(
+                    selected: selectedItem == item,
+                    selectedColor: Colors.blue,
+                    title: Text(item),
+                    onTap: () {
+                      setState(() {
+                        context.read<HomePageBloc>().settingsRepository.changeTypeClickCard(TypeClickCard.values[items.indexOf(item)]);
+                        selectedItem = item;
+                      });
+                    },
+                  );
+                }).toList())
           ],
         ),
       ),

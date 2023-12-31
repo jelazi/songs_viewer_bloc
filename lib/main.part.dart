@@ -50,4 +50,5 @@ Future<void> initHiveFunction() async {
   //Hive.initFlutter(directory.path);
   Hive.registerAdapter(UserAdapter());
   Hive.registerAdapter(TypeUserAdapter());
+  Hive.registerAdapter(TypeClickCardAdapter());
 }
