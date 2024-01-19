@@ -22,6 +22,16 @@ dart run build_runner build --delete-conflicting-outputs
 
 ## Work in progress
 
+## Flutter launcher icons 
+
+run this command to generate icons
+```bash
+dart pub get
+dart run flutter_launcher_icons -f flutter_launcher_icons.yaml
+dart pub get
+dart run flutter_launcher_icons
+```
+
 
 
 ## Screenshots

@@ -3,13 +3,14 @@ import 'package:flutter/services.dart';
 
 import 'edit_dialog.dart';
 
+// ignore: must_be_immutable
 class EditNumberDialog extends StatefulWidget {
-  String title;
-  num value;
-  int? maxValue;
-  int? minValue;
+  final String title;
+  final num value;
+  final int? maxValue;
+  final int? minValue;
   bool okBack = true;
-  Function okClick;
+  final Function okClick;
   late TextEditingController textEditingController;
   EditNumberDialog({
     Key? key,
@@ -35,9 +36,7 @@ class _EditNumberDialogState extends State<EditNumberDialog> {
         title: widget.title,
         okClick: () {},
         widgetContent: TextField(
-          keyboardType: (widget.value is double)
-              ? const TextInputType.numberWithOptions(decimal: true)
-              : TextInputType.number,
+          keyboardType: (widget.value is double) ? const TextInputType.numberWithOptions(decimal: true) : TextInputType.number,
           inputFormatters: (widget.value is double)
               ? [
                   FilteringTextInputFormatter.allow(RegExp('[0-9.,]')),

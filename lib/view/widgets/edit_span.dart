@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 
 import '../../model/song/song_item.dart';
 
+// ignore: must_be_immutable
 class EditSpan extends StatelessWidget {
-  String char;
-  TextStyle style;
-  int index;
-  Function openChords;
-  Function pasteChords;
-  Function copyChords;
-  TypeSongItem typeSongItem;
+  final String char;
+  final TextStyle style;
+  final int index;
+  final Function openChords;
+  final Function pasteChords;
+  final Function copyChords;
+  final TypeSongItem typeSongItem;
   Offset? lastPosition;
   EditSpan(this.index, this.char, this.typeSongItem, this.openChords, this.copyChords, this.pasteChords, this.style, {Key? key}) : super(key: key);
 

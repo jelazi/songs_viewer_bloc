@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
-import 'dart:math';
 
 import 'package:default_project/repositories/settings_repository.dart';
 import 'package:default_project/services/constants.dart';

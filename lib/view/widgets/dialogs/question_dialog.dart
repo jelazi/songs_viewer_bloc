@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 
 import '../../../services/constants.dart';
 
+// ignore: must_be_immutable
 class QuestionDialog extends StatelessWidget {
-  String title;
+  final String title;
 
-  Function okClick;
-  Function? cancelClick;
-  String question;
+  final Function okClick;
+  final Function? cancelClick;
+  final String question;
   double height = 200;
   double width = 400;
   bool okBack = true;
