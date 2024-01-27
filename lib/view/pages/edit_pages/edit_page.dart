@@ -340,7 +340,7 @@ class EditRow extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.7,
+                          width: MediaQuery.of(context).size.width - 150,
                           child: Text(
                             title ?? '',
                             style: titleTextStyle,
@@ -356,20 +356,20 @@ class EditRow extends StatelessWidget {
                             child: Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4),
-                                  color: AppColor.primaryColor,
                                 ),
-                                child: const Icon(Icons.edit)),
+                                child: const Icon(
+                                  Icons.edit,
+                                )),
                             onPressed: () => editFunction(),
                           ),
                         ),
                         if (chordEditFunction != null)
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.only(top: 8.0),
                             child: ElevatedButton(
                               child: Container(
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(4),
-                                    color: AppColor.primaryColor,
                                   ),
                                   child: Icon(MdiIcons.guitarAcoustic)),
                               onPressed: () => chordEditFunction!(),

@@ -42,7 +42,7 @@ class UsersRepository {
   }
 
   Future<void> loadCurrentUser() async {
-    User? user = await _hiveProvider.getCurrentUser();
+    User? user = _hiveProvider.getCurrentUser();
     if (user == null) {
       return;
     }

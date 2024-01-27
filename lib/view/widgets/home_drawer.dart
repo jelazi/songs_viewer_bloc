@@ -8,7 +8,7 @@ import '../../model/song/song.dart';
 import '../../model/user.dart';
 
 class HomeDrawer extends StatefulWidget {
-  HomeDrawer({
+  const HomeDrawer({
     super.key,
   });
 

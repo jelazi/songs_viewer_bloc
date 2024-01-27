@@ -56,6 +56,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
       listSong: List<Song>.from(songsRepository.songs),
       selectedSongId: songsRepository.selectedSongId,
       listExpandedSongs: [],
+      typeUser: usersRepository.currentTypeUser,
     ));
   }
 

@@ -64,7 +64,7 @@ class EditDialog extends StatelessWidget {
                 ElevatedButton(
                     style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColor.primaryColor)),
                     onPressed: () => Navigator.of(context).pop(),
-                    child: Text(('cancel'.tr()))),
+                    child: Text('cancel'.tr(), style: const TextStyle(color: Colors.white))),
                 ElevatedButton(
                     style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(AppColor.primaryColor)),
                     onPressed: () {
@@ -73,7 +73,7 @@ class EditDialog extends StatelessWidget {
                         Navigator.of(context).pop();
                       }
                     },
-                    child: Text(('ok'.tr()))),
+                    child: Text('ok'.tr(), style: const TextStyle(color: Colors.white))),
               ],
             ),
           )

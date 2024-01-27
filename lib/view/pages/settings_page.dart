@@ -176,7 +176,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           context.read<SettingsBloc>().add(ChangeSettingsValue('autoHideTopBar', value));
                         },
                         iconData: Icons.hide_source,
-                        switchValue: state.autoHideTopBar)
+                        switchValue: state.autoHideTopBar),
                   ],
                 ),
               ],
