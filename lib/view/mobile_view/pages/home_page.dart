@@ -1,11 +1,11 @@
 import 'package:default_project/repositories/settings_repository.dart';
-import 'package:default_project/view/widgets/song_card.dart';
+import 'package:default_project/view/mobile_view/widgets/song_card.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../blocs/export_blocs.dart';
-import '../../services/constants.dart';
+import '../../../blocs/export_blocs.dart';
+import '../../../services/constants.dart';
 import '../widgets/home_drawer.dart';
 
 class HomePage extends StatefulWidget {

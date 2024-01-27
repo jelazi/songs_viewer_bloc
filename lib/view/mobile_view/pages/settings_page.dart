@@ -1,10 +1,10 @@
-import 'package:default_project/view/widgets/settings_ui/settings_list.dart';
+import 'package:default_project/view/mobile_view/widgets/settings_ui/settings_list.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:numberpicker/numberpicker.dart';
 
-import '../../blocs/export_blocs.dart';
+import '../../../blocs/export_blocs.dart';
 import '../widgets/dialogs/edit_dialog.dart';
 import '../widgets/settings_ui/settings_section.dart';
 import '../widgets/settings_ui/settings_tile.dart';

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import '../../../services/enums.dart';
+import '../../../../services/enums.dart';
 
 import 'chord_parser_pdf.dart';
 

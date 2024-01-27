@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../services/constants.dart';
+import '../../../../services/constants.dart';
 
 // ignore: must_be_immutable
 class SettingsTile extends StatefulWidget {

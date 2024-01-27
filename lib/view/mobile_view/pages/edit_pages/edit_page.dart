@@ -2,15 +2,15 @@
 import 'dart:io';
 
 import 'package:default_project/services/enums.dart';
-import 'package:default_project/view/widgets/dialogs/dialogs_export.dart';
-import 'package:default_project/view/widgets/dialogs/question_dialog.dart';
+import 'package:default_project/view/mobile_view/widgets/dialogs/dialogs_export.dart';
+import 'package:default_project/view/mobile_view/widgets/dialogs/question_dialog.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'package:default_project/services/constants.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../../../blocs/export_blocs.dart';
+import '../../../../blocs/export_blocs.dart';
 
 class EditPage extends StatefulWidget {
   const EditPage({

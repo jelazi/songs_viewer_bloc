@@ -1,17 +1,20 @@
+import 'package:default_project/view/desktop_view/pages/desktop_home_page.dart';
+import 'package:default_project/view/responsive_view/pages/responsive_home_page.dart';
 import 'package:flutter/material.dart';
 
 import '../../blocs/export_blocs.dart';
 import '../../repositories/settings_repository.dart';
-import '../pages/edit_pages/edit_chords.dart';
-import '../pages/edit_pages/edit_lyrics.dart';
-import '../pages/edit_pages/edit_page.dart';
-import '../pages/home_page.dart';
-import '../pages/login_page.dart';
-import '../pages/presentation_page.dart';
-import '../pages/preview_page.dart';
-import '../pages/settings_page.dart';
-import '../pages/sheet_view_page.dart';
-import '../pages/youtube_video_page.dart';
+import '../mobile_view/pages/edit_pages/edit_chords.dart';
+import '../mobile_view/pages/edit_pages/edit_lyrics.dart';
+import '../mobile_view/pages/edit_pages/edit_page.dart';
+import '../mobile_view/pages/home_page.dart';
+import '../mobile_view/pages/login_page.dart';
+import '../mobile_view/pages/presentation_page.dart';
+import '../mobile_view/pages/preview_page.dart';
+import '../mobile_view/pages/settings_page.dart';
+import '../mobile_view/pages/sheet_view_page.dart';
+import '../mobile_view/pages/youtube_video_page.dart';
+import '../tablet_view/pages/tablet_home_page.dart';
 
 class AppRouter {
   SettingsRepository settingsRepository;
@@ -30,9 +33,8 @@ class AppRouter {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message.last)));
               }
             },
-            child: HomePage(
-              settingsRepository: settingsRepository,
-            ),
+            child: ResponsiveHomePage(
+                desktopHomePage: const DesktopHomePage(), mobileHomePage: HomePage(settingsRepository: settingsRepository), tabletHomePage: const TabletHomePage()),
           ),
         );
       case '/settingsPage':
@@ -66,9 +68,8 @@ class AppRouter {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message.last)));
                 }
               },
-              child: HomePage(
-                settingsRepository: settingsRepository,
-              ),
+              child: ResponsiveHomePage(
+                  desktopHomePage: const DesktopHomePage(), mobileHomePage: HomePage(settingsRepository: settingsRepository), tabletHomePage: const TabletHomePage()),
             ),
           );
         }

@@ -3,9 +3,9 @@ import 'package:default_project/blocs/export_blocs.dart';
 //import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:flutter/material.dart';
 import 'package:logger_pkg/logger_pkg.dart';
-import '../../../model/note.dart';
+import '../../../../model/note.dart';
 
-import '../../../services/enums.dart';
+import '../../../../services/enums.dart';
 import './flutter_chord.dart';
 
 // ignore: must_be_immutable

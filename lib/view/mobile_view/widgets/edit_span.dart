@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../model/song/song_item.dart';
+import '../../../model/song/song_item.dart';
 
 // ignore: must_be_immutable
 class EditSpan extends StatelessWidget {

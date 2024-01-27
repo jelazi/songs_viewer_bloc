@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../model/song/song.dart';
 import '../../../services/enums.dart';
-import '../../../view/widgets/chords_lyric/chord_parser.dart' as chordParser;
+import '../../../view/mobile_view/widgets/chords_lyric/chord_parser.dart' as chordParser;
 
 part 'edit_song_event.dart';
 part 'edit_song_state.dart';

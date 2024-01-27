@@ -7,9 +7,9 @@ import 'package:default_project/blocs/export_blocs.dart';
 import 'package:logger_pkg/logger_pkg.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../../model/song/song.dart';
-import '../../model/user.dart';
-import '../../services/constants.dart';
+import '../../../model/song/song.dart';
+import '../../../model/user.dart';
+import '../../../services/constants.dart';
 
 class SongCard extends StatefulWidget {
   final Song song;

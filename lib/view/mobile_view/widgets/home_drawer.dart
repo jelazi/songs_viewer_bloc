@@ -4,8 +4,8 @@ import 'package:default_project/services/enums.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../model/song/song.dart';
-import '../../model/user.dart';
+import '../../../model/song/song.dart';
+import '../../../model/user.dart';
 
 class HomeDrawer extends StatefulWidget {
   const HomeDrawer({

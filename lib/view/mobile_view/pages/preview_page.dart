@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../../blocs/export_blocs.dart';
-import '../../model/chord/chords_positions.dart';
-import '../../services/enums.dart';
+import '../../../blocs/export_blocs.dart';
+import '../../../model/chord/chords_positions.dart';
+import '../../../services/enums.dart';
 import '../widgets/chords_lyric/flutter_chord.dart';
 import '../widgets/chords_lyric/guitar_tabs.dart';
 import '../widgets/my_floating_button.dart';

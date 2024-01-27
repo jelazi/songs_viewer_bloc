@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../blocs/export_blocs.dart';
+import '../../../blocs/export_blocs.dart';
 
 class LoginPage extends StatelessWidget {
   TextEditingController usernameController = TextEditingController();
