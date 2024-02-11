@@ -6,16 +6,16 @@ import 'package:split_view/split_view.dart';
 
 import '../../../../services/constants.dart';
 
-class EditLyricPageMobile extends StatefulWidget {
+class EditLyricPageTablet extends StatefulWidget {
   final bool isOriginalLyrics;
 
-  const EditLyricPageMobile({super.key, required this.isOriginalLyrics});
+  const EditLyricPageTablet({super.key, required this.isOriginalLyrics});
 
   @override
-  State<EditLyricPageMobile> createState() => _EditLyricPageMobileState();
+  State<EditLyricPageTablet> createState() => _EditLyricPageTabletState();
 }
 
-class _EditLyricPageMobileState extends State<EditLyricPageMobile> {
+class _EditLyricPageTabletState extends State<EditLyricPageTablet> {
   final TextEditingController editingController = TextEditingController();
 
   final ScrollController scrollController = ScrollController();

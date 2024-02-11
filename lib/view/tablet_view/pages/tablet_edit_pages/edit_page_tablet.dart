@@ -12,16 +12,16 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 import '../../../../blocs/export_blocs.dart';
 
-class EditPageMobile extends StatefulWidget {
-  const EditPageMobile({
+class EditPageTablet extends StatefulWidget {
+  const EditPageTablet({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<EditPageMobile> createState() => _EditPageMobileState();
+  State<EditPageTablet> createState() => _EditPageTabletState();
 }
 
-class _EditPageMobileState extends State<EditPageMobile> {
+class _EditPageTabletState extends State<EditPageTablet> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EditSongBloc, EditSongState>(

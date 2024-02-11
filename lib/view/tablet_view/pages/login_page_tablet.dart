@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 import '../../../blocs/export_blocs.dart';
 
-class LoginPageMobile extends StatelessWidget {
+class LoginPageTablet extends StatelessWidget {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  LoginPageMobile({super.key});
+  LoginPageTablet({super.key});
 
 //login page
   @override

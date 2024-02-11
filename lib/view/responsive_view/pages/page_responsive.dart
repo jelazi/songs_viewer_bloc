@@ -2,22 +2,22 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-class ResponsiveHomePage extends StatelessWidget {
-  final Widget mobileHomePage;
-  final Widget tabletHomePage;
-  final Widget desktopHomePage;
-  const ResponsiveHomePage({super.key, required this.mobileHomePage, required this.tabletHomePage, required this.desktopHomePage});
+class PageResponsive extends StatelessWidget {
+  final Widget pageMobile;
+  final Widget pageTablet;
+  final Widget pageDesktop;
+  const PageResponsive({super.key, required this.pageMobile, required this.pageTablet, required this.pageDesktop});
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return LayoutBuilder(builder: (context, constraints) {
       if ((Platform.isAndroid || Platform.isIOS) && width < 600) {
-        return mobileHomePage;
+        return pageMobile;
       } else if (Platform.isAndroid || Platform.isIOS) {
-        return tabletHomePage;
+        return pageTablet;
       } else {
-        return desktopHomePage;
+        return pageDesktop;
       }
     });
   }

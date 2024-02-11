@@ -1,25 +1,25 @@
+import 'package:flutter/material.dart';
 import 'package:default_project/repositories/settings_repository.dart';
 import 'package:default_project/view/mobile_view/widgets/song_card.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 
 import '../../../blocs/export_blocs.dart';
 import '../../../services/constants.dart';
-import '../widgets/home_drawer.dart';
+import '../../mobile_view/widgets/home_drawer.dart';
 
-class HomePageMobile extends StatefulWidget {
+class HomePageTablet extends StatefulWidget {
   final SettingsRepository settingsRepository;
-  const HomePageMobile({
+  const HomePageTablet({
     super.key,
     required this.settingsRepository,
   });
 
   @override
-  State<HomePageMobile> createState() => _HomePageMobileState();
+  State<HomePageTablet> createState() => _HomePageTabletState();
 }
 
-class _HomePageMobileState extends State<HomePageMobile> {
+class _HomePageTabletState extends State<HomePageTablet> {
   final TextEditingController _filter = TextEditingController();
 
   bool selectLargeScreen(Size size) {

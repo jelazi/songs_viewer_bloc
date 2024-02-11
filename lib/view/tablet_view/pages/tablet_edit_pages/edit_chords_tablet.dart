@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import '../../../../blocs/export_blocs.dart';
 import '../../../../model/chord/guitar_chord.dart';
 import '../../../../model/song/song_item.dart';
-import '../../widgets/chord_radio_list_tile.dart';
-import '../../widgets/edit_span.dart';
+import '../../../mobile_view/widgets/chord_radio_list_tile.dart';
+import '../../../mobile_view/widgets/edit_span.dart';
 
-class EditChordsPageMobile extends StatefulWidget {
+class EditChordsPageTablet extends StatefulWidget {
   final bool isOriginalLyrics;
-  const EditChordsPageMobile({
+  const EditChordsPageTablet({
     Key? key,
     required this.isOriginalLyrics,
   }) : super(key: key);
 
   @override
-  State<EditChordsPageMobile> createState() => _EditChordsPageMobileState();
+  State<EditChordsPageTablet> createState() => _EditChordsPageTabletState();
 }
 
-class _EditChordsPageMobileState extends State<EditChordsPageMobile> {
+class _EditChordsPageTabletState extends State<EditChordsPageTablet> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EditSongBloc, EditSongState>(

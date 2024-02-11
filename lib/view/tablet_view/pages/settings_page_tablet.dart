@@ -5,18 +5,18 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 import '../../../blocs/export_blocs.dart';
-import '../widgets/dialogs/edit_dialog.dart';
-import '../widgets/settings_ui/settings_section.dart';
-import '../widgets/settings_ui/settings_tile.dart';
+import '../../mobile_view/widgets/dialogs/edit_dialog.dart';
+import '../../mobile_view/widgets/settings_ui/settings_section.dart';
+import '../../mobile_view/widgets/settings_ui/settings_tile.dart';
 
-class SettingsPageMobile extends StatefulWidget {
-  const SettingsPageMobile({super.key});
+class SettingsPageTablet extends StatefulWidget {
+  const SettingsPageTablet({super.key});
 
   @override
-  State<SettingsPageMobile> createState() => _SettingsPageMobileState();
+  State<SettingsPageTablet> createState() => _SettingsPageTabletState();
 }
 
-class _SettingsPageMobileState extends State<SettingsPageMobile> {
+class _SettingsPageTabletState extends State<SettingsPageTablet> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
