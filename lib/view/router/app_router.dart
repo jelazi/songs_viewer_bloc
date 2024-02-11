@@ -50,7 +50,7 @@ class AppRouter {
       case '/settingsPage':
         return MaterialPageRoute(builder: (_) => PageResponsive(pageMobile: const SettingsPageMobile(), pageTablet: const SettingsPageTablet(), pageDesktop: Container()));
       case '/editPage':
-        return MaterialPageRoute(builder: (_) => PageResponsive(pageMobile: EditPageMobile(), pageTablet: const EditPageTablet(), pageDesktop: Container()));
+        return MaterialPageRoute(builder: (_) => PageResponsive(pageMobile: const EditPageMobile(), pageTablet: const EditPageTablet(), pageDesktop: Container()));
       case '/previewPage':
         return MaterialPageRoute(builder: (_) => PageResponsive(pageMobile: const PreviewPageMobile(), pageTablet: const PreviewPageTablet(), pageDesktop: Container()));
       case '/presentationPage':

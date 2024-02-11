@@ -11,6 +11,6 @@ class DesktopHomePage extends StatefulWidget {
 class _DesktopHomePageState extends State<DesktopHomePage> {
   @override
   Widget build(BuildContext context) {
-    return RibbonMenu();
+    return const RibbonMenu();
   }
 }

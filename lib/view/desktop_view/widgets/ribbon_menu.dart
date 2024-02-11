@@ -45,11 +45,11 @@ class _RibbonMenuState extends State<RibbonMenu> with SingleTickerProviderStateM
                 ],
               ),
             ),
-            Container(
+            SizedBox(
               height: 60,
               child: TabBarView(
                 controller: _tabController,
-                children: [
+                children: const [
                   Icon(Icons.home),
                   Icon(Icons.business),
                   Icon(Icons.school),
