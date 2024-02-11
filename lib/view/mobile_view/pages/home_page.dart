@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
 
   bool selectLargeScreen(Size size) {
     bool isLargeScreen = false;
-    if (defaultTargetPlatform == TargetPlatform.macOS || defaultTargetPlatform == TargetPlatform.windows || defaultTargetPlatform == TargetPlatform.linux || size.width > 1023) {
+    if (defaultTargetPlatform == TargetPlatform.macOS || defaultTargetPlatform == TargetPlatform.windows || defaultTargetPlatform == TargetPlatform.linux) {
       widget.settingsRepository.isLargeScreen = true;
       isLargeScreen = true;
       Size screenSize = PlatformDispatcher.instance.views.first.physicalSize;

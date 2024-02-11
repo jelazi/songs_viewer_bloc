@@ -1,16 +1,16 @@
+import 'package:default_project/view/desktop_view/widgets/ribbon_menu.dart';
 import 'package:flutter/material.dart';
 
-class DesktopHomePage extends StatelessWidget {
+class DesktopHomePage extends StatefulWidget {
   const DesktopHomePage({super.key});
 
   @override
+  State<DesktopHomePage> createState() => _DesktopHomePageState();
+}
+
+class _DesktopHomePageState extends State<DesktopHomePage> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Desktop Home Page'),
-        ),
-        body: const Center(
-          child: Text('Desktop Home Page'),
-        ));
+    return RibbonMenu();
   }
 }

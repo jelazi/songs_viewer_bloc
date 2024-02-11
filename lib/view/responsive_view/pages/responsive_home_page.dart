@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class ResponsiveHomePage extends StatelessWidget {
@@ -10,9 +12,9 @@ class ResponsiveHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return LayoutBuilder(builder: (context, constraints) {
-      if (width < 600) {
+      if ((Platform.isAndroid || Platform.isIOS) && width < 600) {
         return mobileHomePage;
-      } else if (width < 1024) {
+      } else if (Platform.isAndroid || Platform.isIOS) {
         return tabletHomePage;
       } else {
         return desktopHomePage;
