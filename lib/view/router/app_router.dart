@@ -1,4 +1,4 @@
-import 'package:default_project/view/desktop_view/pages/desktop_home_page.dart';
+import 'package:default_project/view/desktop_view/pages/desktop_home_page/desktop_home_page.dart';
 import 'package:default_project/view/responsive_view/pages/page_responsive.dart';
 import 'package:default_project/view/tablet_view/pages/presentation_page_tablet.dart';
 import 'package:default_project/view/tablet_view/pages/preview_page_tablet.dart';

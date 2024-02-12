@@ -88,6 +88,9 @@ class MyApp extends StatelessWidget {
             create: (context) => LoginBloc(
               usersRepository: usersRepository,
             ),
+          ),
+          BlocProvider(
+            create: (context) => DesktopRibbonMenuBloc(),
           )
         ],
         child: MaterialApp(

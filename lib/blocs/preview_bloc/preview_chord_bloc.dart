@@ -54,6 +54,10 @@ class PreviewChordBloc extends Bloc<PreviewChordEvent, PreviewChordState> {
 
   void _changeCurrentSong(ChangeCurrentSong event, Emitter<PreviewChordState> emit) {
     final state = this.state;
+    if (event.song == null) {
+      emit(state.copyWith(data: state.data.copyWith(song: null), transposeIncrement: 0, cap: 0));
+      return;
+    }
     final transposeIncrement = songsRepository.getTransposeForSong(event.song);
 
     if (state.textStyle.color != settingsRepository.previewColorText ||

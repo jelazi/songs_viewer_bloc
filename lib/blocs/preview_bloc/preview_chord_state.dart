@@ -132,7 +132,7 @@ class CurrentData {
     Song? song,
   }) {
     return CurrentData(
-      song: song ?? this.song,
+      song: song,
     );
   }
 }
