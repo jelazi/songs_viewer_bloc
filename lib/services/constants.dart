@@ -14,7 +14,7 @@ class AppColor {
   static const primaryDarkColor = Color(0xff392485);
   static const primaryColor = Color(0xff5D3BD9);
   static const primaryLightColor = Color(0xff7D59FF);
-  static const primaryLightestColor = Color(0xff9B80FF);
+  static const primaryLightestColor = Color.fromARGB(255, 202, 188, 255);
 
   static const grey1Color = Color(0xff313033);
   static const grey2Color = Color(0xff626166);

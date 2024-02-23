@@ -28,112 +28,311 @@ class _RibbonMenuState extends State<RibbonMenu> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 92,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black),
-      ),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 30,
-            child: TabBar(
-              isScrollable: true,
-              tabAlignment: TabAlignment.start,
-              controller: _tabController,
-              tabs: const [
-                Tab(text: "Home"),
-                Tab(text: "Edit"),
-                Tab(text: "Settings"),
-              ],
-            ),
+    return BlocBuilder<DesktopRibbonMenuBloc, DesktopRibbonMenuState>(
+      builder: (context, state) {
+        return Container(
+          height: 92,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black),
           ),
-          SizedBox(
-            height: 60,
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Row(children: [
-                    BlocBuilder<PreviewChordBloc, PreviewChordState>(
-                      builder: (context, state) {
-                        return RibbonButton(
-                            text: 'zoomIn'.tr(),
-                            icon: Icon(Icons.zoom_in),
-                            isEnabled: state.data.song != null,
-                            onPressed: () {
-                              context.read<PreviewChordBloc>().add(const ChangeFontSize(isIncrease: true));
-                            });
-                      },
-                    ),
-                    BlocBuilder<PreviewChordBloc, PreviewChordState>(
-                      builder: (context, state) {
-                        return RibbonButton(
-                            text: 'zoomOut'.tr(),
-                            isEnabled: state.data.song != null,
-                            icon: Icon(Icons.zoom_out),
-                            onPressed: () {
-                              context.read<PreviewChordBloc>().add(const ChangeFontSize(isIncrease: false));
-                            });
-                      },
-                    ),
-                    BlocBuilder<PreviewChordBloc, PreviewChordState>(
-                      builder: (context, state) {
-                        return RibbonButton(
-                            text: 'transpose'.tr(),
-                            isEnabled: state.data.song != null,
-                            icon: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.add,
-                                  size: 18,
-                                ),
-                                Icon(
-                                  Icons.music_note,
-                                  size: 18,
-                                ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 30,
+                      child: state.bodyHomeName == 'preview'
+                          ? TabBar(
+                              isScrollable: true,
+                              tabAlignment: TabAlignment.start,
+                              controller: _tabController,
+                              tabs: [
+                                Tab(text: 'home'.tr()),
+                                Tab(text: 'preview'.tr()),
+                                Tab(text: 'settings'.tr()),
+                              ],
+                            )
+                          : TabBar(
+                              isScrollable: true,
+                              tabAlignment: TabAlignment.start,
+                              controller: _tabController,
+                              tabs: [
+                                Tab(text: 'home'.tr()),
+                                Tab(text: 'edit'.tr()),
+                                Tab(text: 'settings'.tr()),
                               ],
                             ),
-                            onPressed: () {
-                              context.read<PreviewChordBloc>().add(const TransposeChord(increment: 1));
-                            });
-                      },
                     ),
-                    BlocBuilder<PreviewChordBloc, PreviewChordState>(
-                      builder: (context, state) {
-                        return RibbonButton(
-                            text: 'transpose'.tr(),
-                            isEnabled: state.data.song != null,
-                            icon: const Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.remove,
-                                  size: 18,
-                                ),
-                                Icon(
-                                  Icons.music_note,
-                                  size: 18,
-                                ),
+                    SizedBox(
+                      height: 60,
+                      child: state.bodyHomeName == 'preview'
+                          ? TabBarView(
+                              controller: _tabController,
+                              children: const [
+                                HomeTabbar(),
+                                PreviewTabbar(),
+                                SettingsTabbar(),
+                              ],
+                            )
+                          : TabBarView(
+                              controller: _tabController,
+                              children: const [
+                                HomeTabbar(),
+                                EditTabbar(),
+                                SettingsTabbar(),
                               ],
                             ),
-                            onPressed: () {
-                              context.read<PreviewChordBloc>().add(const TransposeChord(increment: -1));
-                            });
-                      },
                     ),
-                  ]),
+                  ],
                 ),
-                Icon(Icons.business),
-                Icon(Icons.school),
-              ],
-            ),
+              ),
+              BlocBuilder<PreviewChordBloc, PreviewChordState>(
+                builder: (context, state) {
+                  return Visibility(
+                    visible: state.data.song != null,
+                    child: GestureDetector(
+                      onTap: () {
+                        context.read<DesktopRibbonMenuBloc>().add(const ChangeHomeBody(bodyName: 'preview'));
+                      },
+                      child: BlocBuilder<DesktopRibbonMenuBloc, DesktopRibbonMenuState>(
+                        builder: (context, state) {
+                          return Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                color: state.bodyHomeName == 'preview' ? AppColor.primaryLightestColor : null,
+                                border: const Border(
+                                    left: BorderSide(
+                                      color: AppColor.grey3Color,
+                                    ),
+                                    bottom: BorderSide(
+                                      color: AppColor.grey3Color,
+                                    )),
+                              ),
+                              child: Text('preview'.tr()));
+                        },
+                      ),
+                    ),
+                  );
+                },
+              ),
+              BlocBuilder<PreviewChordBloc, PreviewChordState>(
+                builder: (context, state) {
+                  return Visibility(
+                    visible: state.data.song != null,
+                    child: GestureDetector(
+                      onTap: () {
+                        context.read<DesktopRibbonMenuBloc>().add(const ChangeHomeBody(bodyName: 'edit'));
+                      },
+                      child: BlocBuilder<DesktopRibbonMenuBloc, DesktopRibbonMenuState>(
+                        builder: (context, state) {
+                          return Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                color: state.bodyHomeName == 'edit' ? AppColor.primaryLightestColor : null,
+                                border: const Border(
+                                    left: BorderSide(
+                                      color: AppColor.grey3Color,
+                                    ),
+                                    bottom: BorderSide(
+                                      color: AppColor.grey3Color,
+                                    )),
+                              ),
+                              child: Text('edit'.tr()));
+                        },
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
+  }
+}
+
+class EditTabbar extends StatelessWidget {
+  const EditTabbar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<DesktopRibbonMenuBloc, DesktopRibbonMenuState>(
+      builder: (context, state) {
+        return SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: Row(
+              children: [
+                RibbonButton(
+                    text: 'lyrics'.tr(),
+                    icon: const Icon(Icons.edit),
+                    onPressed: () {
+                      context.read<DesktopRibbonMenuBloc>().add(const ChangeEditBody(bodyName: 'lyrics'));
+                    },
+                    isEnabled: true,
+                    isSelected: state.bodyEditName == 'lyrics'),
+                RibbonButton(
+                    text: 'chord'.tr(),
+                    icon: const Icon(Icons.music_note),
+                    onPressed: () {
+                      context.read<DesktopRibbonMenuBloc>().add(const ChangeEditBody(bodyName: 'chord'));
+                    },
+                    isEnabled: true,
+                    isSelected: state.bodyEditName == 'chord'),
+                RibbonButton(
+                    text: 'note'.tr(),
+                    icon: const Icon(Icons.music_note),
+                    onPressed: () {
+                      context.read<DesktopRibbonMenuBloc>().add(const ChangeEditBody(bodyName: 'note'));
+                    },
+                    isEnabled: true,
+                    isSelected: state.bodyEditName == 'note'),
+              ],
+            ));
+      },
+    );
+  }
+}
+
+class SettingsTabbar extends StatelessWidget {
+  const SettingsTabbar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: const Row(
+          children: [
+            Icon(Icons.settings),
+          ],
+        ));
+  }
+}
+
+class PreviewTabbar extends StatelessWidget {
+  const PreviewTabbar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Row(children: [
+        BlocBuilder<PreviewChordBloc, PreviewChordState>(
+          builder: (context, state) {
+            return RibbonButton(
+                text: 'zoomIn'.tr(),
+                icon: const Icon(Icons.zoom_in),
+                isEnabled: state.data.song != null,
+                onPressed: () {
+                  context.read<PreviewChordBloc>().add(const ChangeFontSize(isIncrease: true));
+                });
+          },
+        ),
+        BlocBuilder<PreviewChordBloc, PreviewChordState>(
+          builder: (context, state) {
+            return RibbonButton(
+                text: 'zoomOut'.tr(),
+                isEnabled: state.data.song != null,
+                icon: const Icon(Icons.zoom_out),
+                onPressed: () {
+                  context.read<PreviewChordBloc>().add(const ChangeFontSize(isIncrease: false));
+                });
+          },
+        ),
+        BlocBuilder<PreviewChordBloc, PreviewChordState>(
+          builder: (context, state) {
+            return RibbonButton(
+                text: 'transpose'.tr(),
+                isEnabled: state.data.song != null,
+                icon: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.add,
+                      size: 18,
+                    ),
+                    Icon(
+                      Icons.music_note,
+                      size: 18,
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  context.read<PreviewChordBloc>().add(const TransposeChord(increment: 1));
+                });
+          },
+        ),
+        BlocBuilder<PreviewChordBloc, PreviewChordState>(
+          builder: (context, state) {
+            return RibbonButton(
+                text: 'transpose'.tr(),
+                isEnabled: state.data.song != null,
+                icon: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.remove,
+                      size: 18,
+                    ),
+                    Icon(
+                      Icons.music_note,
+                      size: 18,
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  context.read<PreviewChordBloc>().add(const TransposeChord(increment: -1));
+                });
+          },
+        ),
+      ]),
+    );
+  }
+}
+
+class HomeTabbar extends StatelessWidget {
+  const HomeTabbar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: BlocBuilder<DesktopRibbonMenuBloc, DesktopRibbonMenuState>(
+          builder: (context, state) {
+            return Row(
+              children: [
+                RibbonButton(
+                  text: 'preview'.tr(),
+                  icon: const Icon(Icons.preview),
+                  onPressed: () {
+                    context.read<DesktopRibbonMenuBloc>().add(const ChangeHomeBody(bodyName: 'preview'));
+                  },
+                  isEnabled: true,
+                  isSelected: state.bodyHomeName == 'preview',
+                ),
+                RibbonButton(
+                  text: 'edit'.tr(),
+                  icon: const Icon(Icons.edit),
+                  onPressed: () {
+                    context.read<DesktopRibbonMenuBloc>().add(const ChangeHomeBody(bodyName: 'edit'));
+                  },
+                  isEnabled: true,
+                  isSelected: state.bodyHomeName == 'edit',
+                ),
+              ],
+            );
+          },
+        ));
   }
 }

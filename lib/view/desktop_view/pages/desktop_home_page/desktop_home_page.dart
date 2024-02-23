@@ -1,4 +1,4 @@
-import 'package:default_project/view/desktop_view/pages/desktop_home_page/home_bodies/edit_body.dart';
+import 'package:default_project/view/desktop_view/pages/desktop_home_page/home_bodies/edit_parts_body/edit_body.dart';
 import 'package:default_project/view/desktop_view/widgets/ribbon_menu.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +29,6 @@ class _DesktopHomePageState extends State<DesktopHomePage> {
             default:
               return const PreviewBody();
           }
-          ;
           return Column(
             children: [
               const RibbonMenu(),

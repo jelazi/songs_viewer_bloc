@@ -13,3 +13,10 @@ class ChangeHomeBody extends DesktopRibbonMenuEvent {
   @override
   List<Object> get props => [bodyName];
 }
+
+class ChangeEditBody extends DesktopRibbonMenuEvent {
+  final String bodyName;
+  const ChangeEditBody({required this.bodyName});
+  @override
+  List<Object> get props => [bodyName];
+}
