@@ -1,4 +1,5 @@
-import 'package:default_project/view/desktop_view/pages/desktop_home_page/home_bodies/edit_parts_body/edit_lyrics.dart';
+import 'package:default_project/view/desktop_view/pages/desktop_home_page/home_bodies/edit_parts_body/edit_chords_body.dart';
+import 'package:default_project/view/desktop_view/pages/desktop_home_page/home_bodies/edit_parts_body/edit_lyrics_body.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../blocs/export_blocs.dart';
@@ -12,7 +13,6 @@ class EditBody extends StatefulWidget {
 }
 
 class _EditBodyState extends State<EditBody> {
-  final TextEditingController _filter = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomePageBloc, HomePageState>(
@@ -22,7 +22,14 @@ class _EditBodyState extends State<EditBody> {
             const ListSong(),
             BlocBuilder<DesktopRibbonMenuBloc, DesktopRibbonMenuState>(
               builder: (context, state) {
-                return Expanded(child: state.bodyEditName == 'lyrics' ? const EditLyricsBody() : Container());
+                switch (state.bodyEditName) {
+                  case 'lyrics':
+                    return const EditLyricsBody();
+                  case 'chords':
+                    return const EditChordsBody();
+                  default:
+                    return Container();
+                }
               },
             )
           ],

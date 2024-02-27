@@ -75,3 +75,12 @@ class UpdateListUniqueChords extends EditSongEvent {
   @override
   List<Object> get props => [typeLyric];
 }
+
+class ChangePositionChord extends EditSongEvent {
+  final int index;
+  final bool increase;
+  const ChangePositionChord({required this.index, required this.increase});
+
+  @override
+  List<Object> get props => [index, increase];
+}

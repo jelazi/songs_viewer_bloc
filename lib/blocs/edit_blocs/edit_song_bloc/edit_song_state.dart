@@ -10,19 +10,25 @@ class EditSongState extends Equatable {
   final List<String> listUniqueChords;
   final int transposeIncrement;
   final bool listUniqueChordsIsVisible;
+  final String currentText;
+  final List<int> listSelectedChords;
 
-  const EditSongState(
-      {required this.currentEditSong,
-      required this.textStyle,
-      required this.chordStyle,
-      required this.selectChord,
-      required this.selectChordIndex,
-      required this.listUniqueChords,
-      required this.transposeIncrement,
-      required this.listUniqueChordsIsVisible});
+  const EditSongState({
+    required this.currentEditSong,
+    required this.textStyle,
+    required this.chordStyle,
+    required this.selectChord,
+    required this.selectChordIndex,
+    required this.listUniqueChords,
+    required this.transposeIncrement,
+    required this.listUniqueChordsIsVisible,
+    required this.currentText,
+    required this.listSelectedChords,
+  });
 
   @override
-  List<Object> get props => [currentEditSong, textStyle, chordStyle, selectChord, selectChordIndex, listUniqueChords, transposeIncrement, listUniqueChordsIsVisible];
+  List<Object> get props =>
+      [currentEditSong, textStyle, chordStyle, selectChord, selectChordIndex, listUniqueChords, transposeIncrement, listUniqueChordsIsVisible, currentText, listSelectedChords];
 
   EditSongState copyWith({
     Song? currentEditSong,
@@ -33,6 +39,8 @@ class EditSongState extends Equatable {
     List<String>? listUniqueChords,
     int? transposeIncrement,
     bool? listUniqueChordsIsVisible,
+    String? currentText,
+    List<int>? listSelectedChords,
   }) {
     return EditSongState(
       currentEditSong: currentEditSong ?? this.currentEditSong,
@@ -43,6 +51,8 @@ class EditSongState extends Equatable {
       listUniqueChords: listUniqueChords ?? this.listUniqueChords,
       transposeIncrement: transposeIncrement ?? this.transposeIncrement,
       listUniqueChordsIsVisible: listUniqueChordsIsVisible ?? this.listUniqueChordsIsVisible,
+      currentText: currentText ?? this.currentText,
+      listSelectedChords: listSelectedChords ?? this.listSelectedChords,
     );
   }
 }
@@ -56,5 +66,7 @@ class EditSongInitial extends EditSongState {
       required super.listUniqueChords,
       required super.transposeIncrement,
       required super.selectChordIndex,
-      required super.listUniqueChordsIsVisible});
+      required super.listUniqueChordsIsVisible,
+      required super.currentText,
+      required super.listSelectedChords});
 }

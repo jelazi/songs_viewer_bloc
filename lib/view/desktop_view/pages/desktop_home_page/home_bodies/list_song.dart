@@ -67,9 +67,11 @@ class _ListSongState extends State<ListSong> {
                                       )),
                                   onTap: () {
                                     if (state.data.song?.id != song.id) {
+                                      context.read<DesktopRibbonMenuBloc>().add(ChangeIsSelectedSong(song: song));
                                       context.read<PreviewChordBloc>().add(ChangeCurrentSong(song: song));
                                       context.read<EditSongBloc>().add(ChangeEditSong(song: song));
                                     } else {
+                                      context.read<DesktopRibbonMenuBloc>().add(const ChangeIsSelectedSong(song: null));
                                       context.read<PreviewChordBloc>().add(const ChangeCurrentSong(song: null));
                                       context.read<EditSongBloc>().add(ChangeEditSong(song: Song.empty()));
                                     }

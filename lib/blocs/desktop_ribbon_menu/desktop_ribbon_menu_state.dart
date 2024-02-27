@@ -2,24 +2,31 @@
 part of 'desktop_ribbon_menu_bloc.dart';
 
 class DesktopRibbonMenuState extends Equatable {
-  final String bodyHomeName;
+  final String bodyName;
   final String bodyEditName;
-  const DesktopRibbonMenuState({required this.bodyHomeName, required this.bodyEditName});
+  final bool isSelectedSong;
+  const DesktopRibbonMenuState({
+    required this.bodyName,
+    required this.bodyEditName,
+    required this.isSelectedSong,
+  });
 
   @override
-  List<Object> get props => [bodyHomeName, bodyEditName];
+  List<Object> get props => [bodyName, bodyEditName, isSelectedSong];
 
   DesktopRibbonMenuState copyWith({
-    String? bodyHomeName,
+    String? bodyName,
     String? bodyEditName,
+    bool? isSelectedSong,
   }) {
     return DesktopRibbonMenuState(
-      bodyHomeName: bodyHomeName ?? this.bodyHomeName,
+      bodyName: bodyName ?? this.bodyName,
       bodyEditName: bodyEditName ?? this.bodyEditName,
+      isSelectedSong: isSelectedSong ?? this.isSelectedSong,
     );
   }
 }
 
 class DesktopRibbonMenuInitial extends DesktopRibbonMenuState {
-  const DesktopRibbonMenuInitial({required super.bodyHomeName, required super.bodyEditName});
+  const DesktopRibbonMenuInitial({required super.bodyName, required super.bodyEditName, required super.isSelectedSong});
 }

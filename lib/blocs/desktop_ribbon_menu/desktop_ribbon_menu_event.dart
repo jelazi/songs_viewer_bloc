@@ -20,3 +20,10 @@ class ChangeEditBody extends DesktopRibbonMenuEvent {
   @override
   List<Object> get props => [bodyName];
 }
+
+class ChangeIsSelectedSong extends DesktopRibbonMenuEvent {
+  final Song? song;
+  const ChangeIsSelectedSong({required this.song});
+  @override
+  List<Object> get props => [song ?? ''];
+}

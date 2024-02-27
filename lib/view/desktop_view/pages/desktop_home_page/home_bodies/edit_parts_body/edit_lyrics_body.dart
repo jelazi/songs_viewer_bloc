@@ -30,7 +30,7 @@ class _EditLyricsBodyState extends State<EditLyricsBody> {
       builder: (context, state) {
         return Column(
           children: [
-            Container(
+            SizedBox(
                 height: 50,
                 child: Row(
                   children: [
@@ -42,6 +42,7 @@ class _EditLyricsBodyState extends State<EditLyricsBody> {
                   child: Container(
                 padding: const EdgeInsets.only(left: 8),
                 color: AppColor.defaultBackgroundColor,
+                width: MediaQuery.of(context).size.width - 300,
                 child: TextFormField(
                   controller: editingController,
                   style: TextStyle(fontSize: 13, color: state.textStyle.color),

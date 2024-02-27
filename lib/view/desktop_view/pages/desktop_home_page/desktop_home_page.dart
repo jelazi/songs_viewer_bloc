@@ -19,7 +19,7 @@ class _DesktopHomePageState extends State<DesktopHomePage> {
       body: BlocBuilder<DesktopRibbonMenuBloc, DesktopRibbonMenuState>(
         builder: (context, state) {
           Widget homeBody = Container();
-          switch (state.bodyHomeName) {
+          switch (state.bodyName) {
             case 'preview':
               homeBody = const PreviewBody();
               break;
