@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../../../blocs/export_blocs.dart';
 import '../../../../../../model/chord/guitar_chord.dart';
 import '../../../../../../model/song/song_item.dart';
-import '../../../../../mobile_view/widgets/chord_radio_list_tile.dart';
+
 import '../../../../widgets/edit_span_desktop.dart';
 
 class EditChordsBody extends StatefulWidget {
@@ -15,54 +15,37 @@ class EditChordsBody extends StatefulWidget {
 
 class _EditChordsBodyState extends State<EditChordsBody> {
   bool isOriginalLyrics = false;
+  OverlayEntry overlayEntry = OverlayEntry(
+    builder: (context) => Container(),
+  );
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EditSongBloc, EditSongState>(
       builder: (context, state) {
-        return Stack(
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  const Divider(),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: RichText(softWrap: true, text: TextSpan(children: _getCLickableText(state.currentText, state.chordStyle, state.textStyle))),
-                  ),
-                ],
-              ),
+        return Align(
+          alignment: Alignment.topLeft,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: RichText(softWrap: true, text: TextSpan(children: _getCLickableText(state.currentText, state.chordStyle, state.textStyle))),
+                ),
+              ],
             ),
-            Visibility(
-              visible: state.listUniqueChordsIsVisible,
-              child: Align(
-                  alignment: Alignment.topRight,
-                  child: Container(
-                    width: 250,
-                    padding: const EdgeInsets.all(8),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: state.listUniqueChords
-                          .map((e) => ChordRadioListTile(
-                              index: state.listUniqueChords.indexOf(e),
-                              groupIndex: state.selectChordIndex,
-                              onChanged: (value) {
-                                context.read<EditSongBloc>().add(SelectChord(index: state.selectChordIndex == value ? -1 : value));
-                              },
-                              leading: e))
-                          .toList(),
-                    ),
-                  )),
-            ),
-          ],
+          ),
         );
       },
     );
+  }
+
+  void closeOverlay() {
+    if (overlayEntry != null) {
+      overlayEntry?.remove();
+    }
+    Navigator.pop(context, 'changeChord');
   }
 
   List<TextSpan> _getCLickableText(String text, TextStyle chordStyle, TextStyle textStyle) {
@@ -81,7 +64,7 @@ class _EditChordsBodyState extends State<EditChordsBody> {
       }
       if (chara == ']') {
         isChord = false;
-        line.add((WidgetSpan(child: EditSpanDesktop(index, chord, TypeSongItem.chord, openChordsDialog, copyChords, pasteChord, chordStyle))));
+        line.add((WidgetSpan(child: EditSpanDesktop(index, chord, TypeSongItem.chord, openChordsDialog, copyChords, pasteChord, chordStyle, overlayEntry))));
         chord = '';
         index++;
         continue;
@@ -100,7 +83,7 @@ class _EditChordsBodyState extends State<EditChordsBody> {
       }
 
       line.add(WidgetSpan(
-        child: EditSpanDesktop(index, chara, TypeSongItem.lyric, openChordsDialog, copyChords, pasteChord, textStyle),
+        child: EditSpanDesktop(index, chara, TypeSongItem.lyric, openChordsDialog, copyChords, pasteChord, textStyle, overlayEntry),
       ));
       index++;
     }

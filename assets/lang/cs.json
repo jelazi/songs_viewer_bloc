@@ -203,5 +203,8 @@
     "note": "Noty",
     "chord": "Akordy",
     "selectSong": "Nejdříve vyber píseň",
+    "changeChord": "Změň akord",
+    "createChord": "Vytvoř akord",
+    "deleteChord": "Vymaž akord",
     "test": "Test"
 }

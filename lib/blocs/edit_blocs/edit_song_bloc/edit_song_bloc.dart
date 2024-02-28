@@ -39,6 +39,9 @@ class EditSongBloc extends Bloc<EditSongEvent, EditSongState> {
     on<ChangeListUniqueChordsIsVisible>(_changeListUniqueChordsIsVisible);
     on<UpdateListUniqueChords>(_updateListUniqueChords);
     on<ChangePositionChord>(_changePositionChord);
+    on<ChangeChord>(_changeChord);
+    on<CreateChord>(_createChord);
+    on<DeleteChord>(_deleteChord);
     add(const _Init());
   }
 
@@ -57,7 +60,7 @@ class EditSongBloc extends Bloc<EditSongEvent, EditSongState> {
         state.chordStyle.fontSize != settingsRepository.previewFontChordSize) {
       emit(state.copyWith(
           currentEditSong: event.song,
-          listUniqueChords: event.song.getAllUniqueChordsFromSong(TypeLyric.original),
+          listUniqueChords: event.song.getAllUniqueChordsFromSong(TypeLyric.translate),
           textStyle: TextStyle(fontSize: settingsRepository.previewFontTextSize, color: settingsRepository.previewColorText),
           currentText: event.song.lyrics,
           chordStyle: TextStyle(
@@ -65,7 +68,7 @@ class EditSongBloc extends Bloc<EditSongEvent, EditSongState> {
             color: settingsRepository.previewColorChord,
           )));
     } else {
-      emit(state.copyWith(currentText: event.song.lyrics, currentEditSong: event.song, listUniqueChords: event.song.getAllUniqueChordsFromSong(TypeLyric.original)));
+      emit(state.copyWith(currentText: event.song.lyrics, currentEditSong: event.song, listUniqueChords: event.song.getAllUniqueChordsFromSong(TypeLyric.translate)));
     }
   }
 
@@ -280,5 +283,50 @@ class EditSongBloc extends Bloc<EditSongEvent, EditSongState> {
     list.add(newLastIndex);
 
     emit(state.copyWith(currentText: text, listSelectedChords: list));
+  }
+
+  void _changeChord(ChangeChord event, Emitter<EditSongState> emit) {
+    final state = this.state;
+    var text = state.currentText;
+    final lastIndex = event.index;
+    var firstIndex = event.index;
+    for (int i = lastIndex; i >= 0; i--) {
+      if (text[i] == '[') {
+        firstIndex = i;
+        break;
+      }
+    }
+    text = text.replaceRange(firstIndex, lastIndex + 1, '[${event.chord}]');
+    Song currentSong = Song(id: '0', title: '', lyrics: text);
+    emit(state.copyWith(
+      currentText: text,
+      listUniqueChords: currentSong.getAllUniqueChordsFromSong(TypeLyric.translate),
+    ));
+  }
+
+  void _createChord(CreateChord event, Emitter<EditSongState> emit) {
+    final state = this.state;
+    var text = state.currentText;
+    // insert chord on index
+    text = text.replaceRange(event.index, event.index, '[${event.chord}]');
+    Song currentSong = Song(id: '0', title: '', lyrics: text);
+    emit(state.copyWith(currentText: text, listUniqueChords: currentSong.getAllUniqueChordsFromSong(TypeLyric.translate)));
+  }
+
+  void _deleteChord(DeleteChord event, Emitter<EditSongState> emit) {
+    final state = this.state;
+    var text = state.currentText;
+    final lastIndex = event.index;
+    var firstIndex = event.index;
+    for (int i = lastIndex; i >= 0; i--) {
+      if (text[i] == '[') {
+        firstIndex = i;
+        break;
+      }
+    }
+
+    text = text.replaceRange(firstIndex, lastIndex + 1, '');
+    Song currentSong = Song(id: '0', title: '', lyrics: text);
+    emit(state.copyWith(currentText: text, listUniqueChords: currentSong.getAllUniqueChordsFromSong(TypeLyric.translate)));
   }
 }

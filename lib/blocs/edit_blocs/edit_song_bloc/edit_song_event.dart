@@ -84,3 +84,29 @@ class ChangePositionChord extends EditSongEvent {
   @override
   List<Object> get props => [index, increase];
 }
+
+class ChangeChord extends EditSongEvent {
+  final int index;
+  final String chord;
+  const ChangeChord({required this.index, required this.chord});
+
+  @override
+  List<Object> get props => [index, chord];
+}
+
+class CreateChord extends EditSongEvent {
+  final int index;
+  final String chord;
+  const CreateChord({required this.index, required this.chord});
+
+  @override
+  List<Object> get props => [index, chord];
+}
+
+class DeleteChord extends EditSongEvent {
+  final int index;
+  const DeleteChord({required this.index});
+
+  @override
+  List<Object> get props => [index];
+}
