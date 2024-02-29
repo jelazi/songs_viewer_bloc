@@ -206,5 +206,14 @@
     "changeChord": "Změň akord",
     "createChord": "Vytvoř akord",
     "deleteChord": "Vymaž akord",
+    "newChord": "Nový akord",
+    "noSongSelected": "Není vybrána píseň",
+    "changeToOriginal": "Jdi na originál",
+    "changeToTranslate": "Jdi na překlad",
+    "newSong": "Nová píseň",
+    "songName": "Jméno písně",
+    "artist": "Autor",
+    "error": "Chyba: ",
+    "nameSongIsEmpty": "Jméno písně musí být vyplněno.",
     "test": "Test"
 }

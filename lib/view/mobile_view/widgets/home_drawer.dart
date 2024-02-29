@@ -62,7 +62,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                     ]),
                     onTap: () {
                       Navigator.pop(context);
-                      context.read<EditSongBloc>().add(ChangeEditSong(song: Song.empty()));
+                      context.read<EditSongBloc>().add(ChangeEditSong(song: Song.empty(), isOriginalLyrics: false));
                       Navigator.pushNamed(context, '/editPage');
                     },
                   ),

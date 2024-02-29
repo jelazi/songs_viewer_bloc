@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:default_project/repositories/settings_repository.dart';
 import 'package:default_project/services/constants.dart';
 import 'package:default_project/services/enums.dart';
@@ -15,6 +16,7 @@ import 'package:path_provider/path_provider.dart' as pathProvider;
 import 'package:default_project/repositories/playlist_repository.dart';
 import 'package:default_project/repositories/songs_repository.dart';
 import 'package:default_project/repositories/user_repository.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'blocs/export_blocs.dart';
 import 'firebase_options.dart';
@@ -40,6 +42,12 @@ void main() async {
   await EasyLocalization.ensureInitialized();
   await initHiveFunction();
   await initProvidersRepositories();
+  if (Platform.isLinux || Platform.isWindows || Platform.isMacOS) {
+    await windowManager.ensureInitialized();
+    WindowManager.instance.setMinimumSize(const Size(1024, 800));
+    WindowManager.instance.setMaximumSize(const Size(2048, 1600));
+    WindowManager.instance.setSize(const Size(1024, 800));
+  } else if (Platform.isAndroid || Platform.isIOS) {}
 
   runApp(EasyLocalization(
     startLocale: const Locale('cs'),
@@ -98,6 +106,8 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: getMaterialColor(AppColor.primaryColor),
           ),
+          builder: BotToastInit(),
+          navigatorObservers: [BotToastNavigatorObserver()],
           debugShowCheckedModeBanner: false,
           supportedLocales: context.supportedLocales,
           localizationsDelegates: context.localizationDelegates,

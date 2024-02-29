@@ -174,8 +174,7 @@ class _SongCardState extends State<SongCard> with TickerProviderStateMixin {
                                       color: AppColor.primaryLightestColor,
                                     ),
                                     onPressed: () {
-                                      logger.d('editSong');
-                                      context.read<EditSongBloc>().add(ChangeEditSong(song: widget.song.copyWith()));
+                                      context.read<EditSongBloc>().add(ChangeEditSong(song: widget.song.copyWith(), isOriginalLyrics: false));
                                       Navigator.pushNamed(context, '/editPage');
                                     }),
                               );

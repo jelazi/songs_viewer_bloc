@@ -1,8 +1,11 @@
 import 'package:default_project/services/constants.dart';
+import 'package:default_project/view/mobile_view/widgets/dialogs/dialogs_export.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../blocs/export_blocs.dart';
+import '../../../model/song/song.dart';
+import 'my_toast.dart';
 import 'ribbon_button.dart';
 
 class RibbonMenu extends StatefulWidget {
@@ -89,10 +92,10 @@ class _RibbonMenuState extends State<RibbonMenu> with SingleTickerProviderStateM
                   ],
                 ),
               ),
-              BlocBuilder<PreviewChordBloc, PreviewChordState>(
+              BlocBuilder<DesktopRibbonMenuBloc, DesktopRibbonMenuState>(
                 builder: (context, state) {
                   return Visibility(
-                    visible: state.data.song != null,
+                    visible: state.isSelectedSong,
                     child: GestureDetector(
                       onTap: () {
                         context.read<DesktopRibbonMenuBloc>().add(const ChangeHomeBody(bodyName: 'preview'));
@@ -118,10 +121,10 @@ class _RibbonMenuState extends State<RibbonMenu> with SingleTickerProviderStateM
                   );
                 },
               ),
-              BlocBuilder<PreviewChordBloc, PreviewChordState>(
+              BlocBuilder<DesktopRibbonMenuBloc, DesktopRibbonMenuState>(
                 builder: (context, state) {
                   return Visibility(
-                    visible: state.data.song != null,
+                    visible: state.isSelectedSong,
                     child: GestureDetector(
                       onTap: () {
                         context.read<DesktopRibbonMenuBloc>().add(const ChangeHomeBody(bodyName: 'edit'));
@@ -361,6 +364,7 @@ class HomeTabbar extends StatelessWidget {
                       )
                     : Row(
                         children: [
+                          getNewSongButton(context),
                           RibbonButton(
                               text: 'lyrics'.tr(),
                               icon: const Icon(Icons.edit),
@@ -385,14 +389,78 @@ class HomeTabbar extends StatelessWidget {
                               },
                               isEnabled: true,
                               isSelected: state.bodyEditName == 'note'),
+                          RibbonButton(
+                              text: 'otherSettings'.tr(),
+                              icon: const Icon(Icons.settings),
+                              onPressed: () {
+                                context.read<DesktopRibbonMenuBloc>().add(const ChangeEditBody(bodyName: 'settings'));
+                              },
+                              isEnabled: true,
+                              isSelected: state.bodyEditName == 'settings'),
                         ],
                       )
                 : Row(
                     children: [
-                      Container(padding: const EdgeInsets.only(left: 10), child: Text('selectSong'.tr(), style: h4TextStyle)),
+                      getNewSongButton(context),
+                      // Container(padding: const EdgeInsets.only(left: 10), child: Text('selectSong'.tr(), style: h4TextStyle)),
                     ],
                   );
           },
         ));
+  }
+
+  RibbonButton getNewSongButton(BuildContext context) {
+    return RibbonButton(
+      text: 'newSong'.tr(),
+      icon: const Icon(Icons.new_label),
+      onPressed: () {
+        TextEditingController _nameController = TextEditingController();
+        TextEditingController _artistController = TextEditingController();
+        showDialog(
+            context: context,
+            builder: (context) {
+              return EditDialog(
+                  width: 300,
+                  height: 300,
+                  title: 'newSong'.tr(),
+                  okBack: false,
+                  okClick: () {
+                    if (_nameController.text.isEmpty) {
+                      MyToast.showText(text: 'nameSongIsEmpty'.tr(), typeNotification: TypeNotification.error);
+                      return;
+                    }
+                    Song song = Song.empty()
+                      ..title = _nameController.text
+                      ..interpret = _artistController.text;
+                    context.read<EditSongBloc>().add(CreateNewSong(song: song));
+                    Navigator.pop(context);
+                    context.read<DesktopRibbonMenuBloc>().add(ChangeIsSelectedSong(song: song));
+                    context.read<DesktopRibbonMenuBloc>().add(const ChangeHomeBody(bodyName: 'edit'));
+                  },
+                  widgetContent: Column(
+                    children: [
+                      TextField(
+                        controller: _nameController,
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          labelText: 'songName'.tr(),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextField(
+                        controller: _artistController,
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          labelText: 'artist'.tr(),
+                        ),
+                      ),
+                    ],
+                  ));
+            });
+      },
+      isEnabled: true,
+    );
   }
 }

@@ -12,6 +12,9 @@ class EditSongState extends Equatable {
   final bool listUniqueChordsIsVisible;
   final String currentText;
   final List<int> listSelectedChords;
+  final bool isOriginalLyrics;
+  final List<String> listAllGroups;
+  final List<String> currentGroups;
 
   const EditSongState({
     required this.currentEditSong,
@@ -24,11 +27,27 @@ class EditSongState extends Equatable {
     required this.listUniqueChordsIsVisible,
     required this.currentText,
     required this.listSelectedChords,
+    required this.isOriginalLyrics,
+    required this.listAllGroups,
+    required this.currentGroups,
   });
 
   @override
-  List<Object> get props =>
-      [currentEditSong, textStyle, chordStyle, selectChord, selectChordIndex, listUniqueChords, transposeIncrement, listUniqueChordsIsVisible, currentText, listSelectedChords];
+  List<Object> get props => [
+        currentEditSong,
+        textStyle,
+        chordStyle,
+        selectChord,
+        selectChordIndex,
+        listUniqueChords,
+        transposeIncrement,
+        listUniqueChordsIsVisible,
+        currentText,
+        listSelectedChords,
+        isOriginalLyrics,
+        listAllGroups,
+        currentGroups,
+      ];
 
   EditSongState copyWith({
     Song? currentEditSong,
@@ -41,6 +60,9 @@ class EditSongState extends Equatable {
     bool? listUniqueChordsIsVisible,
     String? currentText,
     List<int>? listSelectedChords,
+    bool? isOriginalLyrics,
+    List<String>? listAllGroups,
+    List<String>? currentGroups,
   }) {
     return EditSongState(
       currentEditSong: currentEditSong ?? this.currentEditSong,
@@ -53,6 +75,9 @@ class EditSongState extends Equatable {
       listUniqueChordsIsVisible: listUniqueChordsIsVisible ?? this.listUniqueChordsIsVisible,
       currentText: currentText ?? this.currentText,
       listSelectedChords: listSelectedChords ?? this.listSelectedChords,
+      isOriginalLyrics: isOriginalLyrics ?? this.isOriginalLyrics,
+      listAllGroups: listAllGroups ?? this.listAllGroups,
+      currentGroups: currentGroups ?? this.currentGroups,
     );
   }
 }
@@ -68,5 +93,8 @@ class EditSongInitial extends EditSongState {
       required super.selectChordIndex,
       required super.listUniqueChordsIsVisible,
       required super.currentText,
-      required super.listSelectedChords});
+      required super.listSelectedChords,
+      required super.isOriginalLyrics,
+      required super.listAllGroups,
+      required super.currentGroups});
 }

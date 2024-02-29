@@ -2,6 +2,7 @@
 import 'package:default_project/model/youtube_video.dart';
 import 'package:default_project/services/enums.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:uuid/uuid.dart';
 
 import '../note.dart';
 import 'song_item.dart';
@@ -195,5 +196,11 @@ class Song {
       }
     }
     return listChords;
+  }
+
+  void generateId() {
+    if (id.isNotEmpty) return;
+    var uuidGener = const Uuid();
+    id = uuidGener.v1();
   }
 }

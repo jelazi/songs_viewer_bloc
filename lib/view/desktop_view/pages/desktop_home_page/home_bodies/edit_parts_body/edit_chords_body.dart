@@ -1,9 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../blocs/export_blocs.dart';
-import '../../../../../../model/chord/guitar_chord.dart';
 import '../../../../../../model/song/song_item.dart';
 
+import '../../../../../../services/constants.dart';
 import '../../../../widgets/edit_span_desktop.dart';
 
 class EditChordsBody extends StatefulWidget {
@@ -22,20 +23,76 @@ class _EditChordsBodyState extends State<EditChordsBody> {
   Widget build(BuildContext context) {
     return BlocBuilder<EditSongBloc, EditSongState>(
       builder: (context, state) {
-        return Align(
-          alignment: Alignment.topLeft,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: RichText(softWrap: true, text: TextSpan(children: _getCLickableText(state.currentText, state.chordStyle, state.textStyle))),
-                ),
-              ],
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+                width: MediaQuery.of(context).size.width - 300,
+                height: 40,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(state.currentEditSong.title, style: const TextStyle(fontSize: 15)),
+                    SizedBox(
+                      width: 320,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                                onTap: () {
+                                  context.read<EditSongBloc>().add(ChangeEditSong(song: state.currentEditSong, isOriginalLyrics: !state.isOriginalLyrics));
+                                },
+                                child: Container(
+                                    height: 30,
+                                    width: 150,
+                                    margin: const EdgeInsets.only(left: 5, right: 5),
+                                    decoration: BoxDecoration(
+                                      color: AppColor.defaultBackgroundColor,
+                                      border: Border.all(color: AppColor.grey1Color),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Center(child: Text(state.isOriginalLyrics ? 'changeToTranslate'.tr() : 'changeToOriginal'.tr())))),
+                          ),
+                          MouseRegion(
+                            cursor: SystemMouseCursors.click,
+                            child: GestureDetector(
+                                onTap: () {
+                                  context.read<EditSongBloc>().add(const SaveSong());
+                                },
+                                child: Container(
+                                    height: 30,
+                                    width: 150,
+                                    margin: const EdgeInsets.only(left: 5, right: 5),
+                                    decoration: BoxDecoration(
+                                      color: state.isOriginalLyrics
+                                          ? state.currentText == state.currentEditSong.originalLyrics
+                                              ? AppColor.defaultBackgroundColor
+                                              : AppColor.primaryColor
+                                          : state.currentText == state.currentEditSong.lyrics
+                                              ? AppColor.defaultBackgroundColor
+                                              : AppColor.primaryColor,
+                                      border: Border.all(color: AppColor.grey1Color),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Center(child: Text('save'.tr())))),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                )),
+            Container(
+              height: MediaQuery.of(context).size.height - 150,
+              alignment: Alignment.topLeft,
+              padding: const EdgeInsets.only(left: 15),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: RichText(softWrap: true, text: TextSpan(children: _getCLickableText(state.currentText, state.chordStyle, state.textStyle))),
+              ),
             ),
-          ),
+          ],
         );
       },
     );
@@ -64,7 +121,7 @@ class _EditChordsBodyState extends State<EditChordsBody> {
       }
       if (chara == ']') {
         isChord = false;
-        line.add((WidgetSpan(child: EditSpanDesktop(index, chord, TypeSongItem.chord, openChordsDialog, copyChords, pasteChord, chordStyle, overlayEntry))));
+        line.add((WidgetSpan(child: EditSpanDesktop(index, chord, TypeSongItem.chord, chordStyle, overlayEntry))));
         chord = '';
         index++;
         continue;
@@ -83,202 +140,15 @@ class _EditChordsBodyState extends State<EditChordsBody> {
       }
 
       line.add(WidgetSpan(
-        child: EditSpanDesktop(index, chara, TypeSongItem.lyric, openChordsDialog, copyChords, pasteChord, textStyle, overlayEntry),
+        child: EditSpanDesktop(index, chara, TypeSongItem.lyric, textStyle, overlayEntry),
       ));
       index++;
     }
     return list;
   }
 
-  void copyChords(int positionIndex, String char, Offset position, TypeSongItem typeSongItem) {
-    ('copyChord: $char');
-  }
-
-  void pasteChord(int positionIndex, String char, Offset position, TypeSongItem typeSongItem) {
-    /*  if (selectChord.isNotEmpty) {
-      String selChord = selectChord.value;
-      int index = selectChordIndex.value;
-      ChordData chord = ChordData(2, typeSongItem == TypeSongItem.chord ? char : lastChord, 0);
-      changeChord(chord, selectChord.value, typeSongItem, positionIndex);
-
-      selectChord.value = selChord;
-      selectChordIndex.value = index;*/
-  }
-}
-
-void openChordsDialog(int positionIndex, String char, Offset position, TypeSongItem typeSongItem, bool isDelete) {
-  /*   if (isDelete) {
-      deleteChords(positionIndex, char, position, typeSongItem);
-    } else {
-      openPicker(
-        ChordData(2, typeSongItem == TypeSongItem.chord ? char : lastChord, 0),
-        typeSongItem,
-        positionIndex,
-      );
-    }*/
-}
-
-void deleteChords(int positionIndex, String char, Offset position, TypeSongItem typeSongItem, BuildContext context) {
-  /*   showMenu(color: Colors.transparent, context: context, position: RelativeRect.fromLTRB(position.dx, position.dy, position.dx, position.dy), items: [
-      PopupMenuItem(
-        child: Column(
-          children: [
-            SizedBox(
-              width: 250,
-              child: ElevatedButton(
-                child: Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.edit),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text('Edit chords: $char'),
-                    ],
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  openPicker(GuitarChord(2, typeSongItem == TypeSongItem.chord ? char : 'C', 0), typeSongItem, positionIndex);
-                },
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              width: 250,
-              child: ElevatedButton(
-                child: Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.delete),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text('Delete chords: $char'),
-                    ],
-                  ),
-                ),
-                onPressed: () {
-                  songData?.deleteChord(positionIndex, char, isOriginal);
-                  lyrics.value = isOriginal ? songData?.originalLyrics.value ?? lyrics.value : songData?.lyrics.value ?? lyrics.value;
-
-                  Navigator.of(context).pop();
-                },
-              ),
-            ),
-          ],
-        ),
-      )
-    ]);*/
-}
-
-void openPicker(GuitarChord chord, TypeSongItem typeSongItem, int positionIndex) {
-  /*   List<dynamic> listAdapter = [];
-    listAdapter.add(firstChar);
-    listAdapter.add(midleChar);
-    listAdapter.add(lastChar);
-    List<String> listChord = chordParser.ChordProcessor.getListFromChord(chord.chordText);
-    List<int> selectedList = [0, 0, 0];
-    selectedList[0] = firstChar.indexOf(listChord[0]);
-    selectedList[1] = midleChar.indexOf(listChord[1]);
-    selectedList[2] = lastChar.indexOf(listChord[2]);
-
-    Picker picker = Picker(
-        adapter: PickerDataAdapter<dynamic>(pickerData: listAdapter, isArray: true),
-        headerColor: Colors.blue,
-        title: Text('selectChord'.tr),
-        // textAlign: TextAlign.left,
-        selecteds: selectedList,
-        columnPadding: const EdgeInsets.all(8.0),
-        onConfirm: (Picker picker, List value) {
-
-
-          List values = picker.getSelectedValues();
-          String newValue = values.join();
-          newValue = newValue.replaceAll(' ', '');
-          changeChord(chord, newValue, typeSongItem, positionIndex);
-        });
-    Get.dialog(AlertDialog(
-        content: SizedBox(
-      height: 350,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            width: 400,
-            height: 300,
-            child: picker.makePicker(),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ElevatedButton(onPressed: () => picker.doConfirm(Get.overlayContext!), child: Text('ok'.tr)),
-              ElevatedButton(onPressed: () => picker.doCancel(Get.overlayContext!), child: Text('cancel'.tr)),
-              ElevatedButton(
-                  onPressed: () {
-                    Get.back();
-                    openWriteChordDialog(chord, typeSongItem, positionIndex);
-                  },
-                  child: Text('writeChord'.tr)),
-            ],
-          ),
-        ],
-      ),
-    )));*/
-}
-
-void changeChord(GuitarChord chord, String newValue, TypeSongItem typeSongItem, int positionIndex) {
-  /*  chord.chordText = newValue;
-    var lastChord = newValue;
-    if (typeSongItem == TypeSongItem.lyric) {
-      songData?.addChord(chord, positionIndex, isOriginal);
-    } else {
-      songData?.editChord(positionIndex, newValue, isOriginal);
-    }
-    lyrics.value = isOriginal ? songData?.originalLyrics.value ?? lyrics.value : songData?.lyrics.value ?? lyrics.value;
-    if (songData != null) {
-      listUniqueChords.value = songController.getAllUniqueChordsFromSong(songData!, isOriginal ? TypeLyric.original : TypeLyric.translate);
-    }
-
-    selectChordIndex.value = -1;
-    selectChord.value = '';
-  }
-
-  void openWriteChordDialog(ChordData chord, TypeSongItem typeSongItem, int positionIndex) {
-    TextEditingController textEditingController = TextEditingController(text: chord.chordText);
-    Get.dialog(CustomDialogView(
-      titleString: 'writeChord'.tr,
-      contentWidget: TextField(controller: textEditingController),
-      actionsWidget: [
-        ElevatedButton(
-          onPressed: () {
-            String newValue = textEditingController.text;
-            lastChord = newValue;
-            chord.chordText = newValue;
-            changeChord(chord, newValue, typeSongItem, positionIndex);
-
-            Get.back();
-          },
-          child: Text('ok'.tr),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            Get.back();
-          },
-          child: Text('cancel'.tr),
-        ),
-      ],
-    ));*/
-}
-
-void transposeChords(int increment) {
-  /*   if (songData != null) {
+  void transposeChords(int increment) {
+    /*   if (songData != null) {
       try {
         RegExp exp = RegExp(r'\[.?.?.?.?.?\]');
         if (isOriginal) {
@@ -314,4 +184,5 @@ void transposeChords(int increment) {
       selectChord.value = '';
     }
   }*/
+  }
 }

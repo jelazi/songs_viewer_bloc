@@ -1,5 +1,6 @@
 import 'package:default_project/view/desktop_view/pages/desktop_home_page/home_bodies/edit_parts_body/edit_chords_body.dart';
 import 'package:default_project/view/desktop_view/pages/desktop_home_page/home_bodies/edit_parts_body/edit_lyrics_body.dart';
+import 'package:default_project/view/desktop_view/pages/desktop_home_page/home_bodies/edit_parts_body/edit_settings_body.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../blocs/export_blocs.dart';
@@ -27,6 +28,8 @@ class _EditBodyState extends State<EditBody> {
                     return const EditLyricsBody();
                   case 'chords':
                     return const EditChordsBody();
+                  case 'settings':
+                    return const EditSettingsBody();
                   default:
                     return Container();
                 }

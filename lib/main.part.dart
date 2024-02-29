@@ -31,6 +31,7 @@ Future<void> initProvidersRepositories() async {
     hiveProvider: hiveProvider,
   );
   await songsRepository.loadSongsFromFirebase();
+  await songsRepository.loadAllGroups();
   playlistRepository = PlaylistRepository(
     hiveProvider: hiveProvider,
     firebaseProvider: firebaseProvider,

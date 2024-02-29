@@ -13,13 +13,10 @@ class EditSpanDesktop extends StatefulWidget {
   final String char;
   final TextStyle style;
   final int index;
-  final Function openChords;
-  final Function pasteChords;
-  final Function copyChords;
   final TypeSongItem typeSongItem;
   OverlayEntry overlayEntry;
 
-  EditSpanDesktop(this.index, this.char, this.typeSongItem, this.openChords, this.copyChords, this.pasteChords, this.style, this.overlayEntry, {Key? key}) : super(key: key);
+  EditSpanDesktop(this.index, this.char, this.typeSongItem, this.style, this.overlayEntry, {Key? key}) : super(key: key);
 
   @override
   State<EditSpanDesktop> createState() => _EditSpanDesktopState();

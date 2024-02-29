@@ -16,7 +16,8 @@ class _Init extends EditSongEvent {
 
 class ChangeEditSong extends EditSongEvent {
   final Song song;
-  const ChangeEditSong({required this.song});
+  final bool isOriginalLyrics;
+  const ChangeEditSong({required this.song, required this.isOriginalLyrics});
 }
 
 class ChangeSongValue extends EditSongEvent {
@@ -109,4 +110,24 @@ class DeleteChord extends EditSongEvent {
 
   @override
   List<Object> get props => [index];
+}
+
+class SaveSong extends EditSongEvent {
+  const SaveSong();
+}
+
+class CreateNewSong extends EditSongEvent {
+  final Song song;
+  const CreateNewSong({required this.song});
+
+  @override
+  List<Object> get props => [song];
+}
+
+class ChangeGroupForCurrentSong extends EditSongEvent {
+  final String group;
+  const ChangeGroupForCurrentSong({required this.group});
+
+  @override
+  List<Object> get props => [group];
 }

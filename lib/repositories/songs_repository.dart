@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
 
+import 'package:uuid/uuid.dart';
+
 import '../model/song/song.dart';
 import '../providers/firebase_provider.dart';
 import '../providers/hive_provider.dart';
@@ -17,6 +19,7 @@ class SongsRepository {
 
   final _songs = <Song>[];
   String selectedSongId = '';
+  List<String> listAllGroups = [];
 
   List<Song> get songs {
     var songs = List<Song>.from(_songs);
@@ -54,6 +57,10 @@ class SongsRepository {
         //TODO: update song from firebase;
       }
     }
+  }
+
+  Future<void> loadAllGroups() async {
+    listAllGroups = await _firebaseProvider.getListSongGroupFromFirestore();
   }
 
   void selectSong(String songId) {
@@ -111,7 +118,7 @@ class SongsRepository {
   }
 
   Future<void> updateSong(Song song) async {
-    await _firebaseProvider.updateSong(song);
+    await _firebaseProvider.addSongToFirebase(song);
     _songs.removeWhere((element) => element.id == song.id);
     _songs.add(song.copyWith());
   }
